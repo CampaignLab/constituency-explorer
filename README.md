@@ -2,6 +2,13 @@
 
 An app for people to explore the new UK constituency boundaries.
 
+Data can be mapped to the new constituencies via a few different methods:
+
+- [Mapped by Common Knowledge](https://mapped.commonknowledge.coop/)
+- [MySociety Postcode Converter](https://pages.mysociety.org/2025-constituencies/postcode-converter)
+- [MySociety postcodes](https://pages.mysociety.org/2025-constituencies/datasets/uk_parliament_2025_postcode_lookup/latest)
+- [ONS postcodes](https://geoportal.statistics.gov.uk/datasets/a8a2d8d31db84ceea45b261bb7756771/about)
+
 ## Data sets
 
 - [New constituencies](https://geoportal.statistics.gov.uk/datasets/9a876e4777bc47e392e670a7b8bc3f5c_0/explore)
@@ -9,6 +16,15 @@ An app for people to explore the new UK constituency boundaries.
 - [Local Authority Districts](https://geoportal.statistics.gov.uk/datasets/e8b361ba9e98418ba8ff2f892d00c352_0/explore)
 - [Overlaps](https://pages.mysociety.org/2025-constituencies/datasets/geographic_overlaps/latest)
 - [Charities](https://search.charitybase.uk/chc?download=f)
+
+TODO:
+
+```
+- Hospitals (Scotland): https://github.com/CampaignLab/New-Constituency-Almanac/blob/main/data/hospitals%20in%20scotland%20by%20constituency.csv
+- Hospitals (England): https://github.com/CampaignLab/New-Constituency-Almanac/blob/main/data/english%20hospitals%20by%20constituency.csv
+- Dentists (England): https://raw.githubusercontent.com/CampaignLab/New-Constituency-Almanac/main/data/dentists%20england%20mapped.csv?token=GHSAT0AAAAAACML3AZO3A7GSRXGNL7VEXBIZU6AQPA
+```
+
 
 DRAFT:
 
