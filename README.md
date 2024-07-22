@@ -8,6 +8,7 @@ Data can be mapped to the new constituencies via a few different methods:
 - [MySociety Postcode Converter](https://pages.mysociety.org/2025-constituencies/postcode-converter)
 - [MySociety postcodes](https://pages.mysociety.org/2025-constituencies/datasets/uk_parliament_2025_postcode_lookup/latest)
 - [ONS postcodes](https://geoportal.statistics.gov.uk/datasets/a8a2d8d31db84ceea45b261bb7756771/about)
+- [ONS Postcode to Westminster Parliamentary Constituencies](https://geoportal.statistics.gov.uk/search?q=postcode%20to%20constituency)
 
 ## Data sets
 
