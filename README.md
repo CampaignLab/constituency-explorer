@@ -1,6 +1,6 @@
 # Constituency Explorer
 
-sss
+An app for people to explore the new UK constituency boundaries.
 
 ## Installation
 
