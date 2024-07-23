@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Constituency extends Model
 {
@@ -42,11 +43,28 @@ class Constituency extends Model
     {
         return $this->belongsToMany(LocalAuthority::class)
             ->withPivot('overlap_area', 'original_area', 'percentage_overlap_area', 'percentage_overlap_pop', 'overlap_pop', 'original_pop', '__index_level_0__')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->withCasts([
+                'percentage_overlap_area' => 'float',
+            ]);
     }
 
     public function charities()
     {
         return $this->hasMany(Charity::class);
+    }
+
+    public function towns(): BelongsToMany
+    {
+        return $this->belongsToMany(Town::class);
+    }
+
+    public function oldConstituencies(): BelongsToMany
+    {
+        return $this->belongsToMany(OldConstituency::class)
+            ->withPivot('overlap_area', 'original_area', 'percentage_overlap_area', 'percentage_overlap_pop', 'overlap_pop', 'original_pop', '__index_level_0__')
+            ->withCasts([
+                'percentage_overlap_area' => 'float',
+            ]);
     }
 }

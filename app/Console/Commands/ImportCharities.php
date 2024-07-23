@@ -11,21 +11,17 @@ use Illuminate\Support\Facades\Log;
 
 class ImportCharities extends Command
 {
-    protected $signature = 'import:charities {file}';
-    protected $description = 'Import charities from a CSV file';
+    protected $signature = 'import:charities';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Import charities.';
 
     public function handle()
     {
         ini_set('memory_limit', '512M'); // Increase memory limit
 
-        $file = storage_path('app/imports/' . $this->argument('file'));
+        $file = database_path('fixtures/CharityBase_6a177e34883233ee698fa2b9a69a34d4.csv');
 
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             $this->error("File not found: {$file}");
             return 1;
         }

@@ -8,40 +8,15 @@ use App\Imports\ConstituenciesImport;
 
 class ImportConstituencies extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'import:constituencies {file}';
+    protected $signature = 'import:constituencies';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Import constituencies from a CSV file';
+    protected $description = 'Import constituencies.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle()
     {
-        $file = storage_path('app/imports/' . $this->argument('file'));
+        $file = database_path('fixtures/parliament_con_2025.csv');
 
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             $this->error("File not found: {$file}");
             return 1;
         }

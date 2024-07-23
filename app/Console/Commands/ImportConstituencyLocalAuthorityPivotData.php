@@ -8,17 +8,13 @@ use App\Imports\ConstituencyLocalAuthorityImport;
 
 class ImportConstituencyLocalAuthorityPivotData extends Command
 {
-    protected $signature = 'import:pivot {file}';
-    protected $description = 'Import pivot data from a CSV file';
+    protected $signature = 'import:constituency-local-authority-pivot-data';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Import Constituency -> Local Authority pivot data.';
 
     public function handle()
     {
-        $file = storage_path('app/imports/' . $this->argument('file'));
+        $file = database_path('fixtures/overlap_local_authorities_cons_2025.csv');
 
         if (!file_exists($file)) {
             $this->error("File not found: {$file}");

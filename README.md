@@ -68,11 +68,8 @@ php artisan migrate
 
 ```sh
 php artisan import:constituencies parliament_con_2025.csv
-
-php artisan import:localauthorities  local_authority_districts.csv
-
+php artisan import:local-authorities  local_authority_districts.csv
 php artisan import:pivot overlap_local_authorities_cons_2025.csv
-
 php artisan import:charities CharityBase_6a177e34883233ee698fa2b9a69a34d4.csv
 ```
 
