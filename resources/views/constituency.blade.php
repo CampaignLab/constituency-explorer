@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div x-data="{ tab: 0 }">
+    <div x-data="{ tab: -1 }">
         <div class="bg-white pt-12 px-24 constituency-tabs">
             <h1 class="text-4xl font-bold tracking-tight">
                 {{ $constituency->name }}
@@ -9,68 +9,75 @@
                 Westminster Parliamentary Constituency
             </p>
 
-            <div class="mt-12 flex items-center gap-x-2.5">
-                <button type="button" class="constituency-tab constituency-tab-active" x-bind:class="{
-                    'constituency-tab-active': tab === 0,
-                    'constituency-tab-inactive': tab !== 0
-                }" x-on:click="tab = 0">
+            <x-tabs.host class="mt-12">
+                <x-tabs.tab :i="-1" active>
                     Overview
-                </button>
+                </x-tabs.tab>
 
-                <button type="button" class="constituency-tab" x-bind:class="{
-                    'constituency-tab-active': tab === 1,
-                    'constituency-tab-inactive': tab !== 1
-                }" x-on:click="tab = 1">
+                <x-tabs.tab :i="0">
+                    General
+                </x-tabs.tab>
+
+                <x-tabs.tab :i="1">
                     Local Authorities
-                </button>
+                </x-tabs.tab>
 
-                <button type="button" class="constituency-tab" x-bind:class="{
-                    'constituency-tab-active': tab === 2,
-                    'constituency-tab-inactive': tab !== 2
-                }" x-on:click="tab = 2">
+                <x-tabs.tab :i="2">
                     Towns
-                </button>
+                </x-tabs.tab>
 
-                <button type="button" class="constituency-tab" x-bind:class="{
-                    'constituency-tab-active': tab === 3,
-                    'constituency-tab-inactive': tab !== 3
-                }" x-on:click="tab = 3">
+                <x-tabs.tab :i="3">
                     Charities
-                </button>
+                </x-tabs.tab>
 
                 @if($constituency->dentists->isNotEmpty())
-                    <button type="button" class="constituency-tab" x-bind:class="{
-                        'constituency-tab-active': tab === 4,
-                        'constituency-tab-inactive': tab !== 4
-                    }" x-on:click="tab = 4">
+                    <x-tabs.tab :i="4">
                         Dentists
-                    </button>
+                    </x-tabs.tab>
                 @endif
 
                 @if($constituency->hospitals->isNotEmpty())
-                    <button type="button" class="constituency-tab" x-bind:class="{
-                        'constituency-tab-active': tab === 5,
-                        'constituency-tab-inactive': tab !== 5
-                    }" x-on:click="tab = 5">
+                    <x-tabs.tab :i="5">
                         Hospitals
-                    </button>
+                    </x-tabs.tab>
                 @endif
 
                 @if($constituency->schools->isNotEmpty())
-                    <button type="button" class="constituency-tab" x-bind:class="{
-                        'constituency-tab-active': tab === 6,
-                        'constituency-tab-inactive': tab !== 6
-                    }" x-on:click="tab = 6">
+                    <x-tabs.tab :i="6">
                         Schools
-                    </button>
+                    </x-tabs.tab>
                 @endif
-            </div>
+            </x-tabs.host>
         </div>
 
         <div class="flex flex-col py-12 px-24 [&_div]:prose [&_div]:max-w-none">
-            <div x-show="tab === 0">
-                <section class="bg-white p-4 border">
-                    <ul>
+            <div x-show="tab === -1" class="not-prose">
+                <x-stats.wrapper>
+                    <x-stats.simple label="No. Local Authorities">
+                        {{ $constituency->localAuthorities->count() }}
+                    </x-stats.simple>
+
+                    <x-stats.simple label="No. Towns">
+                        {{ $constituency->towns->count() }}
+                    </x-stats.simple>
+
+                    <x-stats.simple label="No. Charities">
+                        {{ $constituency->charities->count() }}
+                    </x-stats.simple>
+
+                    <x-stats.simple label="No. Dentists">
+                        {{ $constituency->dentists->count() }}
+                    </x-stats.simple>
+
+                    <x-stats.simple label="No. Schools">
+                        {{ $constituency->schools->count() }}
+                    </x-stats.simple>
+                </x-stats.wrapper>
+            </div>
+
+            <div x-show="tab === 0" x-cloak>
+                <section class="bg-white p-4 border rounded-md border-neutral-300">
+                    <ul class="!mt-0">
                         @foreach ($constituency->getAttributes() as $key => $value)
                             <li><strong>{{ $key }}:</strong> {{ $value }}</li>
                         @endforeach
@@ -99,7 +106,7 @@
 
             <div x-show="tab === 1" x-cloak>
                 @foreach ($constituency->localAuthorities as $localAuthority)
-                    <section class="bg-white p-4 mb-4 border">
+                    <section class="bg-white p-4 mb-4 border border-neutral-300 rounded-md">
                         <h3 class="!mt-0">{{$localAuthority->name}}</h3>
                         @foreach ($localAuthority->getAttributes() as $key => $value)
                             <li><strong>{{ $key }}:</strong> {{ $value }}</li>
@@ -114,7 +121,7 @@
 
             <div x-show="tab === 2" x-cloak>
                 @foreach ($constituency->towns->sortBy('name', SORT_NATURAL) as $town)
-                    <section class="bg-white p-4 mb-4 border">
+                    <section class="bg-white p-4 mb-4 border border-neutral-300 rounded-md">
                         <h3 class="!my-0">{{ $town->name }}</h3>
                     </section>
                 @endforeach

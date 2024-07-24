@@ -1,4 +1,4 @@
-<div x-disclosure {{ $attributes->class('mb-2 border') }}>
+<div x-disclosure {{ $attributes->class('mb-2 border border-neutral-300 rounded-md') }}>
     <button
         x-disclosure:button
         class="flex w-full items-center justify-between px-6 py-4 text-xl font-semibold"
