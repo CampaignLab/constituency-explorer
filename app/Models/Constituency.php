@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Constituency extends Model
 {
@@ -66,5 +67,15 @@ class Constituency extends Model
             ->withCasts([
                 'percentage_overlap_area' => 'float',
             ]);
+    }
+
+    public function dentists(): HasMany
+    {
+        return $this->hasMany(Dentist::class);
+    }
+
+    public function hospitals(): HasMany
+    {
+        return $this->hasMany(Hospital::class);
     }
 }

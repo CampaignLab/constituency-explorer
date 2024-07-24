@@ -24,5 +24,7 @@ class ImportDataCommand extends Command
         $this->call(ImportConstituencyTownMappingsCommand::class);
         $this->call(ImportOldConstituenciesCommand::class);
         $this->call(ImportOldConstituencyOverlapsCommand::class);
+        $this->call(ImportDentistsCommand::class);
+        $this->call(ImportEnglishHospitalsCommand::class);
     }
 }

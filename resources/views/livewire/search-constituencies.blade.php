@@ -7,8 +7,12 @@
                 Export with LA & PCON23
             </a>
 
-            <a href="{{ route('exports.constituency-with-all-overlaps') }}" target="_blank" class="rounded-lg bg-white px-4 py-1.5 font-semibold text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 inline-flex items-center">
-                Export all
+            <a href="{{ route('exports.all-la') }}" target="_blank" class="rounded-lg bg-white px-4 py-1.5 font-semibold text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 inline-flex items-center">
+                Export all LAs
+            </a>
+
+            <a href="{{ route('exports.all-pcon23') }}" target="_blank" class="rounded-lg bg-white px-4 py-1.5 font-semibold text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 inline-flex items-center">
+                Export all PCON23s
             </a>
         </div>
     </div>

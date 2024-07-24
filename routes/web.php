@@ -1,5 +1,7 @@
 <?php
 
+use App\Exports\AllLaExport;
+use App\Exports\AllPcon23Export;
 use App\Exports\ConstituencyWithAllOverlapsExport;
 use App\Exports\ConstituencyWithHighestOverlapExport;
 use App\Models\Constituency;
@@ -26,6 +28,16 @@ Route::get('/exports/constituency-with-highest-overlaps', function () {
     return Excel::download(new ConstituencyWithHighestOverlapExport, 'constituencies+la-pcon23.csv');
 })
     ->name('exports.constituency-with-highest-overlaps');
+
+Route::get('/exports/all-la', function () {
+    return Excel::download(new AllLaExport, 'constituencies+la.csv');
+})
+    ->name('exports.all-la');
+
+Route::get('/exports/all-pcon23', function () {
+    return Excel::download(new AllPcon23Export, 'constituencies+pcon23.csv');
+})
+    ->name('exports.all-pcon23');
 
 Route::get('/exports/constituency-with-all-overlaps', function () {
     return Excel::download(new ConstituencyWithAllOverlapsExport, 'constituencies+all-overlaps.csv');

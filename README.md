@@ -17,15 +17,14 @@ Data can be mapped to the new constituencies via a few different methods:
 - [Local Authority Districts](https://geoportal.statistics.gov.uk/datasets/e8b361ba9e98418ba8ff2f892d00c352_0/explore)
 - [Overlaps](https://pages.mysociety.org/2025-constituencies/datasets/geographic_overlaps/latest)
 - [Charities](https://search.charitybase.uk/chc?download=f)
+- [UK towns](https://drive.google.com/file/d/1AeRnZSxRrVxPBSLeF3QQScrdRZ8GJhkl/view)
+- [Dentists (England)](https://raw.githubusercontent.com/CampaignLab/New-Constituency-Almanac/main/data/dentists%20england%20mapped.csv?token=GHSAT0AAAAAACML3AZO3A7GSRXGNL7VEXBIZU6AQPA)
 
 TODO:
 
 ```
-- UK towns: https://drive.google.com/file/d/1AeRnZSxRrVxPBSLeF3QQScrdRZ8GJhkl/view
 - Hospitals (Scotland): https://github.com/CampaignLab/New-Constituency-Almanac/blob/main/data/hospitals%20in%20scotland%20by%20constituency.csv
 - Hospitals (England): https://github.com/CampaignLab/New-Constituency-Almanac/blob/main/data/english%20hospitals%20by%20constituency.csv
-- Dentists (England): https://raw.githubusercontent.com/CampaignLab/New-Constituency-Almanac/main/data/dentists%20england%20mapped.csv?token=GHSAT0AAAAAACML3AZO3A7GSRXGNL7VEXBIZU6AQPA
-- Old constituencies (and overlap)
 ```
 
 

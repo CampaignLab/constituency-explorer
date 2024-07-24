@@ -37,6 +37,24 @@
                 }" x-on:click="tab = 3">
                     Charities
                 </button>
+
+                @if($constituency->dentists->isNotEmpty())
+                    <button type="button" class="constituency-tab" x-bind:class="{
+                        'constituency-tab-active': tab === 4,
+                        'constituency-tab-inactive': tab !== 4
+                    }" x-on:click="tab = 4">
+                        Dentists
+                    </button>
+                @endif
+
+                @if($constituency->hospitals->isNotEmpty())
+                    <button type="button" class="constituency-tab" x-bind:class="{
+                        'constituency-tab-active': tab === 5,
+                        'constituency-tab-inactive': tab !== 5
+                    }" x-on:click="tab = 5">
+                        Hospitals
+                    </button>
+                @endif
             </div>
         </div>
 
@@ -86,7 +104,7 @@
             </div>
 
             <div x-show="tab === 2" x-cloak>
-                @foreach ($constituency->towns as $town)
+                @foreach ($constituency->towns->sortBy('name', SORT_NATURAL) as $town)
                     <section class="bg-white p-4 mb-4 border">
                         <h3 class="!my-0">{{ $town->name }}</h3>
                     </section>
@@ -94,12 +112,32 @@
             </div>
 
             <div x-show="tab === 3" x-cloak>
-                @foreach ($constituency->charities as $charity)
+                @foreach ($constituency->charities->sortBy('name', SORT_NATURAL) as $charity)
                     <x-disclosure-accordion title="{{$charity->name}}" class="bg-white">
                         <ul>
                             @foreach ($charity->getAttributes() as $key => $value)
                                 <li><strong>{{ $key }}:</strong> {{ $value }}</li>
                             @endforeach
+                        </ul>
+                    </x-disclosure-accordion>
+                @endforeach
+            </div>
+
+            <div x-show="tab === 4" x-cloak>
+                @foreach ($constituency->dentists->sortBy('name', SORT_NATURAL) as $dentist)
+                    <x-disclosure-accordion title="{{ $dentist->name }}" class="bg-white">
+                        <ul>
+                            <li><strong>Address:</strong> {{ implode(', ', array_filter($dentist->address)) }}</li>
+                        </ul>
+                    </x-disclosure-accordion>
+                @endforeach
+            </div>
+
+            <div x-show="tab === 5" x-cloak>
+                @foreach ($constituency->hospitals->sortBy('name', SORT_NATURAL) as $hospital)
+                    <x-disclosure-accordion title="{{ $hospital->name }}" class="bg-white">
+                        <ul>
+                            <li><strong>Address:</strong> {{ implode(', ', array_filter($hospital->address)) }}</li>
                         </ul>
                     </x-disclosure-accordion>
                 @endforeach
