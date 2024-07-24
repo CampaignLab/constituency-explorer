@@ -59,11 +59,26 @@ php artisan migrate
 
 ### Import data
 
+On a fresh installation, you can use the following command to import all datasets at once.
+
 ```sh
-php artisan import:constituencies parliament_con_2025.csv
-php artisan import:local-authorities  local_authority_districts.csv
-php artisan import:pivot overlap_local_authorities_cons_2025.csv
-php artisan import:charities CharityBase_6a177e34883233ee698fa2b9a69a34d4.csv
+php artisan import:data
+```
+
+If you wish to import datasets separately, e.g. after pulling, use the following commands:
+
+```sh
+php artisan import:constituencies
+php artisan import:local-authorities
+php artisan import:pivot
+php artisan import:charities
+php artisan import:towns
+php artisan import:constituency-town-mappins
+php artisan import:old-constituencies
+php artisan import:old-constituency-overlaps
+php artisan import:dentists
+php artisan import:english-hospitals
+php artisan import:scottish-hospitals
 ```
 
 ### Assets
