@@ -21,13 +21,8 @@ Data can be mapped to the new constituencies via a few different methods:
 - [Dentists (England)](https://raw.githubusercontent.com/CampaignLab/New-Constituency-Almanac/main/data/dentists%20england%20mapped.csv?token=GHSAT0AAAAAACML3AZO3A7GSRXGNL7VEXBIZU6AQPA)
 - [Hospitals (Scotland)](https://github.com/CampaignLab/New-Constituency-Almanac/blob/main/data/hospitals%20in%20scotland%20by%20constituency.csv)
 - [Hospitals (England)](https://github.com/CampaignLab/New-Constituency-Almanac/blob/main/data/english%20hospitals%20by%20constituency.csv)
-
-DRAFT:
-
-```
-Schools in England: https://www.gov.uk/government/publications/schools-in-england
-Schools in Scotland: https://www.data.gov.uk/dataset/9a6f9d86-9698-4a5d-a2c8-89f3b212c52c/scottish-school-roll-and-locations
-```
+- [Schools in England](https://www.gov.uk/government/publications/schools-in-england)
+- [Schools in Scotland](https://www.data.gov.uk/dataset/9a6f9d86-9698-4a5d-a2c8-89f3b212c52c/scottish-school-roll-and-locations)
 
 ## Installation
 
