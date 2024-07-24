@@ -26,5 +26,6 @@ class ImportDataCommand extends Command
         $this->call(ImportOldConstituencyOverlapsCommand::class);
         $this->call(ImportDentistsCommand::class);
         $this->call(ImportEnglishHospitalsCommand::class);
+        $this->call(ImportEnglishSchoolsCommand::class);
     }
 }

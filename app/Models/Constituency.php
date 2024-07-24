@@ -78,4 +78,9 @@ class Constituency extends Model
     {
         return $this->hasMany(Hospital::class);
     }
+
+    public function schools(): HasMany
+    {
+        return $this->hasMany(School::class);
+    }
 }

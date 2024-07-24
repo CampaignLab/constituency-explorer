@@ -55,6 +55,15 @@
                         Hospitals
                     </button>
                 @endif
+
+                @if($constituency->schools->isNotEmpty())
+                    <button type="button" class="constituency-tab" x-bind:class="{
+                        'constituency-tab-active': tab === 6,
+                        'constituency-tab-inactive': tab !== 6
+                    }" x-on:click="tab = 6">
+                        Schools
+                    </button>
+                @endif
             </div>
         </div>
 
@@ -138,6 +147,18 @@
                     <x-disclosure-accordion title="{{ $hospital->name }}" class="bg-white">
                         <ul>
                             <li><strong>Address:</strong> {{ implode(', ', array_filter($hospital->address)) }}</li>
+                        </ul>
+                    </x-disclosure-accordion>
+                @endforeach
+            </div>
+
+            <div x-show="tab === 6" x-cloak>
+                @foreach ($constituency->schools->sortBy('name', SORT_NATURAL) as $school)
+                    <x-disclosure-accordion title="{{ $school->name }}" class="bg-white">
+                        <ul>
+                            @foreach($school->getAttributes() as $key => $value)
+                                <li><strong>{{ $key }}:</strong> {{ $value }}</li>
+                            @endforeach
                         </ul>
                     </x-disclosure-accordion>
                 @endforeach

@@ -79,6 +79,8 @@ php artisan import:old-constituency-overlaps
 php artisan import:dentists
 php artisan import:english-hospitals
 php artisan import:scottish-hospitals
+php artisan import:english-schools
+php artisan import:scottish-schools
 ```
 
 ### Assets
