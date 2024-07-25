@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div x-data="{ tab: -1 }">
+    <div x-data="{ tab: 3 }">
         <div class="bg-white pt-12 px-24 constituency-tabs">
             <h1 class="text-4xl font-bold tracking-tight">
                 {{ $constituency->name }}
@@ -128,15 +128,94 @@
             </div>
 
             <div x-show="tab === 3" x-cloak>
-                @foreach ($constituency->charities->sortBy('name', SORT_NATURAL) as $charity)
-                    <x-disclosure-accordion title="{{$charity->name}}" class="bg-white">
-                        <ul>
-                            @foreach ($charity->getAttributes() as $key => $value)
-                                <li><strong>{{ $key }}:</strong> {{ $value }}</li>
+                <div class="rounded-lg border border-neutral-300 overflow-hidden">
+                    <table class="bg-white">
+                        <thead>
+                            <tr class="[&_th]:text-left [&_th]:px-4 [&_th]:whitespace-nowrap [&_th]:py-2.5">
+                                <th>Name</th>
+                                <th>No. volunteers</th>
+                                <th>Income (£)</th>
+                                <th>Spending (£)</th>
+                                <th>Address</th>
+                                <th class="w-[40px]"></th>
+                            </tr>
+                        </thead>
+                        <tbody x-data="{
+                            state: {},
+                            toggle(i) {
+                                this.state[i] = !this.state[i];
+                            }
+                        }" class="[&_td]:px-4">
+                            @foreach($constituency->charities->sortBy('name', SORT_NATURAL) as $i => $charity)
+                                <tr class="cursor-pointer hover:bg-neutral-50/50 [&_td]:align-middle" x-on:click="toggle(@js($i))" title="{{ $charity->name }}">
+                                    <td class="font-medium">{{ $charity->name }}</td>
+                                    <td>{{ $charity->volunteers ? number_format($charity->volunteers) : App\mdash() }}</td>
+                                    <td>{{ number_format($charity->income) }}</td>
+                                    <td>{{ number_format($charity->spending) }}</td>
+                                    <td>{{ $charity->formattedAddress() }}</td>
+                                    <td>
+                                        <button type="button" class="h-full flex items-center" x-on:click.stop="toggle(@js($i))">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr x-show="!!state[@js($i)]" class="bg-neutral-50/75" x-cloak>
+                                    <td colspan="6">
+                                        <div class="grid grid-cols-5 gap-x-2.5 gap-y-5 [&_p]:not-prose py-2.5">
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Ward</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->ward }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Registered Date</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->registered?->format('d/m/Y') ?? App\mdash() }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Funders</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->funders ? number_format($charity->funders) : App\mdash() }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Email</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->email ?? App\mdash() }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Phone</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->phone ?? App\mdash() }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Website</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->website ?? App\mdash() }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Facebook</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->facebook ?? App\mdash() }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Instagram</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->instagram ?? App\mdash() }}</p>
+                                            </div>
+
+                                            <div>
+                                                <p class="font-medium text-sm !my-0">Twitter / X</p>
+                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->twitter ?? App\mdash() }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
-                        </ul>
-                    </x-disclosure-accordion>
-                @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div x-show="tab === 4" x-cloak>

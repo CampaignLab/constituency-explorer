@@ -53,4 +53,9 @@ class Charity extends Model
     {
         return $this->belongsTo(Constituency::class);
     }
+
+    public function formattedAddress(): string
+    {
+        return implode(', ', array_filter(array_merge($this->address, [$this->postcode])));
+    }
 }
