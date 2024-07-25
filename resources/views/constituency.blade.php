@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div x-data="{ tab: 3 }">
+    <div x-data="{ tab: -1 }">
         <div class="bg-white pt-12 px-24 constituency-tabs">
             <h1 class="text-4xl font-bold tracking-tight">
                 {{ $constituency->name }}
@@ -9,17 +9,49 @@
                 Westminster Parliamentary Constituency
             </p>
 
+            <div class="grid grid-cols-6 gap-x-2.5 gap-y-5 [&_p]:not-prose mt-8 bg-neutral-50/50 rounded border border-neutral-300 divide-x divide-neutral-300">
+                <div class="py-4 px-6">
+                    <p class="font-medium text-sm !my-0">GSS Code</p>
+                    <p class="text-sm !mb-0 !mt-2">{{ $constituency->gss_code }}</p>
+                </div>
+
+                <div class="py-4 px-6">
+                    <p class="font-medium text-sm !my-0">Nation</p>
+                    <p class="text-sm !mb-0 !mt-2">{{ $constituency->nation }}</p>
+                </div>
+
+                <div class="py-4 px-6">
+                    <p class="font-medium text-sm !my-0">Region</p>
+                    <p class="text-sm !mb-0 !mt-2">{{ $constituency->region }}</p>
+                </div>
+
+                <div class="py-4 px-6">
+                    <p class="font-medium text-sm !my-0">Electorate</p>
+                    <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->electorate) }}</p>
+                </div>
+
+                <div class="py-4 px-6">
+                    <p class="font-medium text-sm !my-0">Area</p>
+                    <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->area, 2) }}</p>
+                </div>
+
+                <div class="py-4 px-6">
+                    <p class="font-medium text-sm !my-0">Density</p>
+                    <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->density, 2) }}</p>
+                </div>
+            </div>
+
             <x-tabs.host class="mt-12">
                 <x-tabs.tab :i="-1" active>
                     Overview
                 </x-tabs.tab>
 
-                <x-tabs.tab :i="0">
-                    General
-                </x-tabs.tab>
-
                 <x-tabs.tab :i="1">
                     Local Authorities
+                </x-tabs.tab>
+
+                <x-tabs.tab :i="7">
+                    Old Constituencies
                 </x-tabs.tab>
 
                 <x-tabs.tab :i="2">
@@ -75,47 +107,67 @@
                 </x-stats.wrapper>
             </div>
 
-            <div x-show="tab === 0" x-cloak>
-                <section class="bg-white p-4 border rounded-md border-neutral-300">
-                    <ul class="!mt-0">
-                        @foreach ($constituency->getAttributes() as $key => $value)
-                            <li><strong>{{ $key }}:</strong> {{ $value }}</li>
-                        @endforeach
-                    </ul>
-                </section>
+            <div x-show="tab === 1" class="not-prose space-y-8" x-cloak>
+                @foreach ($constituency->localAuthorities as $localAuthority)
+                    <div>
+                        <h2 class="text-3xl font-semibold tracking-tight">
+                            {{ $localAuthority->name }}
+                        </h2>
 
-                @if($constituency->oldConstituencies->isNotEmpty())
-                    <h2>
-                        Old Constituency Overlaps
-                    </h2>
+                        <x-stats.wrapper>
+                            <x-stats.simple label="GSS Code">
+                                {{ $localAuthority->gss_code }}
+                            </x-stats.simple>
 
-                    @foreach($constituency->oldConstituencies as $oldConstituency)
-                        <x-disclosure-accordion :title="$oldConstituency->name" class="bg-white">
-                            <dl class="space-y-1">
-                                @foreach($oldConstituency->pivot->getAttributes() as $key => $value)
-                                    <div class="space-y-0">
-                                        <dt>{{ $key }}</dt>
-                                        <dd>{{ $value }}</dd>
-                                    </div>
-                                @endforeach
-                            </dl>
-                        </x-disclosure-accordion>
-                    @endforeach
-                @endif
+                            <x-stats.simple label="Population Overlap (%)">
+                                {{ $localAuthority->pivot->percentage_overlap_pop * 100 }}%
+                            </x-stats.simple>
+
+                            <x-stats.simple label="Area Overlap (%)">
+                                {{ $localAuthority->pivot->percentage_overlap_area * 100 }}%
+                            </x-stats.simple>
+
+                            <x-stats.simple label="Population Overlap">
+                                {{ number_format($localAuthority->pivot->overlap_pop) }}
+                            </x-stats.simple>
+
+                            <x-stats.simple label="Area Overlap">
+                                {{ number_format($localAuthority->pivot->overlap_area) }}
+                            </x-stats.simple>
+                        </x-stats.wrapper>
+                    </div>
+                @endforeach
             </div>
 
-            <div x-show="tab === 1" x-cloak>
-                @foreach ($constituency->localAuthorities as $localAuthority)
-                    <section class="bg-white p-4 mb-4 border border-neutral-300 rounded-md">
-                        <h3 class="!mt-0">{{$localAuthority->name}}</h3>
-                        @foreach ($localAuthority->getAttributes() as $key => $value)
-                            <li><strong>{{ $key }}:</strong> {{ $value }}</li>
-                        @endforeach
-                        <h4>Relationship data:</h4>
-                        @foreach ($localAuthority->pivot->getAttributes() as $key => $value)
-                            <li><strong>{{ $key }}:</strong> {{ $value }}</li>
-                        @endforeach
-                    </section>
+            <div x-show="tab === 7" class="not-prose space-y-8" x-cloak>
+                @foreach ($constituency->oldConstituencies as $oldConstituency)
+                    <div>
+                        <h2 class="text-3xl font-semibold tracking-tight">
+                            {{ $oldConstituency->name }}
+                        </h2>
+
+                        <x-stats.wrapper>
+                            <x-stats.simple label="GSS Code">
+                                {{ $oldConstituency->gss_code }}
+                            </x-stats.simple>
+
+                            <x-stats.simple label="Population Overlap (%)">
+                                {{ $oldConstituency->pivot->percentage_overlap_pop * 100 }}%
+                            </x-stats.simple>
+
+                            <x-stats.simple label="Area Overlap (%)">
+                                {{ $oldConstituency->pivot->percentage_overlap_area * 100 }}%
+                            </x-stats.simple>
+
+                            <x-stats.simple label="Population Overlap">
+                                {{ number_format($oldConstituency->pivot->overlap_pop) }}
+                            </x-stats.simple>
+
+                            <x-stats.simple label="Area Overlap">
+                                {{ number_format($oldConstituency->pivot->overlap_area) }}
+                            </x-stats.simple>
+                        </x-stats.wrapper>
+                    </div>
                 @endforeach
             </div>
 
