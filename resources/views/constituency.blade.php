@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div x-data="{ tab: -1 }">
+    <div x-data="{ tab: 6 }">
         <div class="bg-white pt-12 px-24 constituency-tabs">
             <h1 class="text-4xl font-bold tracking-tight">
                 {{ $constituency->name }}
@@ -270,14 +270,34 @@
                 </div>
             </div>
 
-            <div x-show="tab === 4" x-cloak>
-                @foreach ($constituency->dentists->sortBy('name', SORT_NATURAL) as $dentist)
-                    <x-disclosure-accordion title="{{ $dentist->name }}" class="bg-white">
-                        <ul>
-                            <li><strong>Address:</strong> {{ implode(', ', array_filter($dentist->address)) }}</li>
-                        </ul>
-                    </x-disclosure-accordion>
-                @endforeach
+            <div x-show="tab === 4" class="border border-neutral-300 rounded-lg" x-cloak>
+                <div
+                    x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->dentists->map(fn ($dentist) => [
+                            'id' => $dentist->id,
+                            'name' => $dentist->name,
+                            'longitude' => $dentist->longitude,
+                            'latitude' => $dentist->latitude,
+                            'address' => implode(', ', array_filter($dentist->address)),
+                        ])->all()),
+                    })"
+                    class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
+                >
+                    <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                        @foreach($constituency->dentists->sortBy('name', SORT_NATURAL) as $dentist)
+                            <button type="button" x-on:click="focusMarker(@js($dentist->id))" class="text-left px-4 py-2.5 w-full leading-tight font-medium cursor-pointer">
+                                {{ $dentist->name }}
+                            </button>
+                        @endforeach
+                    </div>
+
+                    <div class="w-full h-full relative">
+                        <div x-ref="map"></div>
+                    </div>
+                </div>
             </div>
 
             <div x-show="tab === 5" x-cloak>
@@ -290,16 +310,33 @@
                 @endforeach
             </div>
 
-            <div x-show="tab === 6" x-cloak>
-                @foreach ($constituency->schools->sortBy('name', SORT_NATURAL) as $school)
-                    <x-disclosure-accordion title="{{ $school->name }}" class="bg-white">
-                        <ul>
-                            @foreach($school->getAttributes() as $key => $value)
-                                <li><strong>{{ $key }}:</strong> {{ $value }}</li>
-                            @endforeach
-                        </ul>
-                    </x-disclosure-accordion>
-                @endforeach
+            <div x-show="tab === 6" class="border border-neutral-300 rounded-lg" x-cloak>
+                <div
+                    x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->schools->map(fn ($school) => [
+                            'id' => $school->id,
+                            'name' => $school->name,
+                            'longitude' => $school->longitude,
+                            'latitude' => $school->latitude,
+                        ])->all()),
+                    })"
+                    class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
+                >
+                    <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                        @foreach($constituency->schools->sortBy('name', SORT_NATURAL) as $school)
+                            <button type="button" x-on:click="focusMarker(@js($school->id))" class="text-left px-4 py-2.5 w-full leading-tight font-medium cursor-pointer">
+                                {{ $school->name }}
+                            </button>
+                        @endforeach
+                    </div>
+
+                    <div class="w-full h-full relative">
+                        <div x-ref="map"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -30,6 +30,8 @@ class DentistsImport implements ToModel, WithHeadingRow
                 $row['hampshire'],
                 $row['postcode'],
             ],
+            'latitude' => $row['mapped_latitude'],
+            'longitude' => $row['mapped_longitude'],
         ]);
     }
 }

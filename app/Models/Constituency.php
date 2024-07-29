@@ -38,6 +38,11 @@ class Constituency extends Model
         'density',
         'center_lat',
         'center_lon',
+        'geojson',
+    ];
+
+    protected $casts = [
+        'geojson' => 'array',
     ];
 
     public function localAuthorities()

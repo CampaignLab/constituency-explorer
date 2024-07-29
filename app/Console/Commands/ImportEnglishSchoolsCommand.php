@@ -9,6 +9,9 @@ use App\Models\Constituency;
 use App\Models\School;
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
+use proj4php\Point;
+use proj4php\Proj;
+use proj4php\Proj4php;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
 class ImportEnglishSchoolsCommand extends Command
@@ -29,13 +32,19 @@ class ImportEnglishSchoolsCommand extends Command
         }
 
         $reader = SimpleExcelReader::create($file);
+        $proj4 = new Proj4php();
+        $osgb = new Proj('EPSG:27700', $proj4);
+        $wgs84 = new Proj('EPSG:4326', $proj4);
 
-        $reader->getRows()->each(function (array $row) {
+        $reader->getRows()->each(function (array $row) use ($osgb, $wgs84, $proj4) {
             $constituency = Constituency::where('gss_code', $row['ParliamentaryConstituency (code)'])->value('id');
 
             if (! $constituency) {
                 return;
             }
+
+            $point = new Point($row['Easting'], $row['Northing'], $osgb);
+            $point = $proj4->transform($wgs84, $point);
 
             School::create([
                 'constituency_id' => $constituency,
@@ -54,6 +63,8 @@ class ImportEnglishSchoolsCommand extends Command
                     'Girls' => SchoolGender::Girls,
                     default => null,
                 },
+                'latitude' => $point->y,
+                'longitude' => $point->x,
             ]);
         });
 

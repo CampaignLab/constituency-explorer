@@ -1,6 +1,14 @@
+@import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[x-ref="map"] {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
 
 @layer components {
     .constituency-tabs {

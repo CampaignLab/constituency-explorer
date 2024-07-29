@@ -46,6 +46,8 @@ class ImportScottishSchoolsCommand extends Command
                     'Secondary' => PhaseOfEducation::Secondary,
                     default => null,
                 },
+                'latitude' => $row['Latitude'],
+                'longitude' => $row['Longitude'],
             ]);
         });
 
