@@ -8,10 +8,10 @@ use App\Models\Constituency;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/search', function () {
+    return view('search');
 })
-    ->name('index');
+    ->name('search');
 
 Route::get('/constituency/{gss_code}', function ($gss_code) {
     // Fetch the constituency by its GSS code

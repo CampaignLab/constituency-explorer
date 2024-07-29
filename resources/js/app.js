@@ -1,4 +1,8 @@
 import mapbox from 'mapbox-gl';
+import {
+    Livewire,
+    Alpine,
+} from "../../vendor/livewire/livewire/dist/livewire.esm";
 
 document.addEventListener('alpine:initializing', () => {
     Alpine.data('constituencyMap', ({ token, geometry, center, markers }) => ({
@@ -83,3 +87,5 @@ document.addEventListener('alpine:initializing', () => {
         }
     }))
 })
+
+Livewire.start();

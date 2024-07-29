@@ -6,7 +6,20 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ["Roboto", "sans-serif"],
+            },
+            colors: {
+                scale: {
+                    20: "#DBE9F6",
+                    40: "#A3C7E8",
+                    60: "#6497C4",
+                    80: "#326EA1",
+                    100: "#0B3D91",
+                },
+            },
+        },
     },
     plugins: [
         require("@tailwindcss/typography"),

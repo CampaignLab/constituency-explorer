@@ -1,44 +1,50 @@
 <x-layouts.app>
-    <div x-data="{ tab: 6 }">
+    <div x-data="{ tab: 1 }">
         <div class="bg-white pt-12 px-24 constituency-tabs">
-            <h1 class="text-4xl font-bold tracking-tight">
-                {{ $constituency->name }}
-            </h1>
+            <div class="flex items-start justify-between gap-x-12">
+                <div class="flex-1">
+                    <h1 class="text-4xl font-bold tracking-tight">
+                        {{ $constituency->name }}
+                    </h1>
 
-            <p class="uppercase text-black/50 text-sm mt-4 font-bold tracking-tight">
-                Westminster Parliamentary Constituency
-            </p>
+                    <p class="uppercase text-black/50 text-sm mt-4 font-bold tracking-tight">
+                        Westminster Parliamentary Constituency
+                    </p>
 
-            <div class="grid grid-cols-6 gap-x-2.5 gap-y-5 [&_p]:not-prose mt-8 bg-neutral-50/50 rounded border border-neutral-300 divide-x divide-neutral-300">
-                <div class="py-4 px-6">
-                    <p class="font-medium text-sm !my-0">GSS Code</p>
-                    <p class="text-sm !mb-0 !mt-2">{{ $constituency->gss_code }}</p>
+                    <div class="grid grid-cols-6 gap-x-2.5 gap-y-5 [&_p]:not-prose mt-8 bg-neutral-50/50 rounded border border-neutral-300 divide-x divide-neutral-300">
+                        <div class="py-4 px-6">
+                            <p class="font-semibold text-sm !my-0">GSS Code</p>
+                            <p class="text-sm !mb-0 !mt-2">{{ $constituency->gss_code }}</p>
+                        </div>
+
+                        <div class="py-4 px-6">
+                            <p class="font-semibold text-sm !my-0">Nation</p>
+                            <p class="text-sm !mb-0 !mt-2">{{ $constituency->nation }}</p>
+                        </div>
+
+                        <div class="py-4 px-6">
+                            <p class="font-semibold text-sm !my-0">Region</p>
+                            <p class="text-sm !mb-0 !mt-2">{{ $constituency->region }}</p>
+                        </div>
+
+                        <div class="py-4 px-6">
+                            <p class="font-semibold text-sm !my-0">Electorate</p>
+                            <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->electorate) }}</p>
+                        </div>
+
+                        <div class="py-4 px-6">
+                            <p class="font-semibold text-sm !my-0">Area</p>
+                            <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->area, 2) }}</p>
+                        </div>
+
+                        <div class="py-4 px-6">
+                            <p class="font-semibold text-sm !my-0">Density</p>
+                            <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->density, 2) }}</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="py-4 px-6">
-                    <p class="font-medium text-sm !my-0">Nation</p>
-                    <p class="text-sm !mb-0 !mt-2">{{ $constituency->nation }}</p>
-                </div>
-
-                <div class="py-4 px-6">
-                    <p class="font-medium text-sm !my-0">Region</p>
-                    <p class="text-sm !mb-0 !mt-2">{{ $constituency->region }}</p>
-                </div>
-
-                <div class="py-4 px-6">
-                    <p class="font-medium text-sm !my-0">Electorate</p>
-                    <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->electorate) }}</p>
-                </div>
-
-                <div class="py-4 px-6">
-                    <p class="font-medium text-sm !my-0">Area</p>
-                    <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->area, 2) }}</p>
-                </div>
-
-                <div class="py-4 px-6">
-                    <p class="font-medium text-sm !my-0">Density</p>
-                    <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->density, 2) }}</p>
-                </div>
+                <img src="{{ $constituency->getMapBoxImageUrl() }}" alt="" class="w-[500px] h-[300px] object-center object-cover rounded-lg border border-neutral-300">
             </div>
 
             <x-tabs.host class="mt-12">
@@ -107,76 +113,101 @@
                 </x-stats.wrapper>
             </div>
 
-            <div x-show="tab === 1" class="not-prose space-y-8" x-cloak>
+            <div x-show="tab === 1" class="not-prose gap-8 grid grid-cols-4" x-cloak>
                 @foreach ($constituency->localAuthorities as $localAuthority)
-                    <div>
-                        <h2 class="text-3xl font-semibold tracking-tight">
-                            {{ $localAuthority->name }}
-                        </h2>
+                    <x-description-list-card
+                        :title="$localAuthority->name"
+                        :subtitle="$localAuthority->gss_code"
+                    >
+                        <dl class="divide-y divide-neutral-200">
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Population Overlap</dt>
+                                <dd class="text-sm">{{ number_format($localAuthority->pivot->overlap_pop) }}</dd>
+                            </div>
 
-                        <x-stats.wrapper>
-                            <x-stats.simple label="GSS Code">
-                                {{ $localAuthority->gss_code }}
-                            </x-stats.simple>
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Area Overlap</dt>
+                                <dd class="text-sm">{{ number_format($localAuthority->pivot->overlap_area) }}</dd>
+                            </div>
 
-                            <x-stats.simple label="Population Overlap (%)">
-                                {{ $localAuthority->pivot->percentage_overlap_pop * 100 }}%
-                            </x-stats.simple>
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Population Overlap (%)</dt>
+                                <dd class="text-sm">
+                                    <x-pill :scalePercentage="$localAuthority->pivot->percentage_overlap_pop * 100">
+                                        {{ $localAuthority->pivot->percentage_overlap_pop * 100 }}%
+                                    </x-pill>
+                                </dd>
+                            </div>
 
-                            <x-stats.simple label="Area Overlap (%)">
-                                {{ $localAuthority->pivot->percentage_overlap_area * 100 }}%
-                            </x-stats.simple>
-
-                            <x-stats.simple label="Population Overlap">
-                                {{ number_format($localAuthority->pivot->overlap_pop) }}
-                            </x-stats.simple>
-
-                            <x-stats.simple label="Area Overlap">
-                                {{ number_format($localAuthority->pivot->overlap_area) }}
-                            </x-stats.simple>
-                        </x-stats.wrapper>
-                    </div>
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Area Overlap (%)</dt>
+                                <dd class="text-sm">
+                                    <x-pill :scalePercentage="$localAuthority->pivot->percentage_overlap_area * 100">
+                                        {{ $localAuthority->pivot->percentage_overlap_area * 100 }}%
+                                    </x-pill>
+                                </dd>
+                            </div>
+                        </dl>
+                    </x-description-list-card>
                 @endforeach
             </div>
 
-            <div x-show="tab === 7" class="not-prose space-y-8" x-cloak>
+            <div x-show="tab === 7" class="not-prose grid gap-8 grid-cols-4" x-cloak>
                 @foreach ($constituency->oldConstituencies as $oldConstituency)
-                    <div>
-                        <h2 class="text-3xl font-semibold tracking-tight">
-                            {{ $oldConstituency->name }}
-                        </h2>
+                    <x-description-list-card
+                        :title="$oldConstituency->name"
+                        :subtitle="$oldConstituency->gss_code"
+                    >
+                        <dl class="divide-y divide-neutral-200">
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Population Overlap</dt>
+                                <dd class="text-sm">{{ number_format($oldConstituency->pivot->overlap_pop) }}</dd>
+                            </div>
 
-                        <x-stats.wrapper>
-                            <x-stats.simple label="GSS Code">
-                                {{ $oldConstituency->gss_code }}
-                            </x-stats.simple>
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Area Overlap</dt>
+                                <dd class="text-sm">{{ number_format($oldConstituency->pivot->overlap_area) }}</dd>
+                            </div>
 
-                            <x-stats.simple label="Population Overlap (%)">
-                                {{ $oldConstituency->pivot->percentage_overlap_pop * 100 }}%
-                            </x-stats.simple>
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Population Overlap (%)</dt>
+                                <dd class="text-sm">
+                                    <x-pill :scalePercentage="$oldConstituency->pivot->percentage_overlap_pop * 100">
+                                        {{ $oldConstituency->pivot->percentage_overlap_pop * 100 }}%
+                                    </x-pill>
+                                </dd>
+                            </div>
 
-                            <x-stats.simple label="Area Overlap (%)">
-                                {{ $oldConstituency->pivot->percentage_overlap_area * 100 }}%
-                            </x-stats.simple>
-
-                            <x-stats.simple label="Population Overlap">
-                                {{ number_format($oldConstituency->pivot->overlap_pop) }}
-                            </x-stats.simple>
-
-                            <x-stats.simple label="Area Overlap">
-                                {{ number_format($oldConstituency->pivot->overlap_area) }}
-                            </x-stats.simple>
-                        </x-stats.wrapper>
-                    </div>
+                            <div class="flex items-center justify-between py-2.5">
+                                <dt class="text-sm font-medium">Area Overlap (%)</dt>
+                                <dd class="text-sm">
+                                    <x-pill :scalePercentage="$oldConstituency->pivot->percentage_overlap_area * 100">
+                                        {{ $oldConstituency->pivot->percentage_overlap_area * 100 }}%
+                                    </x-pill>
+                                </dd>
+                            </div>
+                        </dl>
+                    </x-description-list-card>
                 @endforeach
             </div>
 
             <div x-show="tab === 2" x-cloak>
-                @foreach ($constituency->towns->sortBy('name', SORT_NATURAL) as $town)
-                    <section class="bg-white p-4 mb-4 border border-neutral-300 rounded-md">
-                        <h3 class="!my-0">{{ $town->name }}</h3>
-                    </section>
-                @endforeach
+                <div class="rounded-lg border border-neutral-300 overflow-hidden">
+                    <table class="bg-white">
+                        <thead>
+                            <tr class="[&_th]:text-left [&_th]:px-4 [&_th]:whitespace-nowrap [&_th]:py-2.5">
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&_td]:px-4">
+                            @foreach($constituency->towns->sortBy('name', SORT_NATURAL) as $i => $town)
+                                <tr class="cursor-pointer hover:bg-neutral-50/50 [&_td]:align-middle">
+                                    <td class="font-medium">{{ $town->name }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div x-show="tab === 3" x-cloak>
@@ -206,7 +237,7 @@
                                     <td>{{ number_format($charity->spending) }}</td>
                                     <td>{{ $charity->formattedAddress() }}</td>
                                     <td>
-                                        <button type="button" class="h-full flex items-center" x-on:click.stop="toggle(@js($i))">
+                                        <button type="button" class="h-full flex items-center" x-on:click.stop="toggle(@js($i))" x-bind:class="{ '-rotate-90': !!state[@js($i)] }">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                                             </svg>
@@ -288,7 +319,7 @@
                 >
                     <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
                         @foreach($constituency->dentists->sortBy('name', SORT_NATURAL) as $dentist)
-                            <button type="button" x-on:click="focusMarker(@js($dentist->id))" class="text-left px-4 py-2.5 w-full leading-tight font-medium cursor-pointer">
+                            <button type="button" x-on:click="focusMarker(@js($dentist->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
                                 {{ $dentist->name }}
                             </button>
                         @endforeach
@@ -327,7 +358,7 @@
                 >
                     <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
                         @foreach($constituency->schools->sortBy('name', SORT_NATURAL) as $school)
-                            <button type="button" x-on:click="focusMarker(@js($school->id))" class="text-left px-4 py-2.5 w-full leading-tight font-medium cursor-pointer">
+                            <button type="button" x-on:click="focusMarker(@js($school->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
                                 {{ $school->name }}
                             </button>
                         @endforeach
