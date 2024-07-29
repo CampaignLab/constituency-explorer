@@ -39,7 +39,7 @@
                         About
                     </button>
 
-                    <button type="button" class="appearance-none text-white font-medium text-lg hover:bg-white/20 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200">
+                    <button type="button" class="appearance-none text-white font-medium text-lg hover:bg-white/20 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200" x-on:click="modal = 'download'">
                         Download
                     </button>
                 </div>
@@ -71,6 +71,18 @@
                     <x-modal id="about" class="max-w-lg">
                         <h3 class="font-semibold tracking-tight text-xl">
                             About
+                        </h3>
+
+                        <div class="mt-4 space-y-2.5 text-sm text-neutral-700">
+                            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Proin inceptos dignissim sagittis himenaeos ipsum pulvinar facilisi porttitor? Tempor nec ex nostra pretium aenean eget metus. Orci facilisis malesuada; lacus pulvinar lacinia venenatis. Leo placerat non lacus montes gravida sodales elit ultrices hac. Vehicula aptent hac aliquam, sagittis accumsan risus. Iaculis placerat vivamus convallis rhoncus cursus magnis eu. Maximus primis molestie consectetur orci pretium egestas.</p>
+
+                            <p>Magna lectus maecenas ac enim dignissim hendrerit hendrerit egestas duis. Per eget consectetur proin mus venenatis libero donec imperdiet. Curabitur rutrum tempus class pretium magnis cursus torquent. Eleifend sodales nam taciti netus pulvinar cras purus. Sociosqu quisque nisi laoreet purus elementum pellentesque. Molestie at class dignissim nullam duis odio fermentum. Rhoncus dui ullamcorper natoque ornare natoque diam.</p>
+                        </div>
+                    </x-modal>
+
+                    <x-modal id="download" class="max-w-lg">
+                        <h3 class="font-semibold tracking-tight text-xl">
+                            Download
                         </h3>
 
                         <div class="mt-4 space-y-2.5 text-sm text-neutral-700">
