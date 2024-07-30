@@ -4,9 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Constituency;
 use Illuminate\Console\Command;
-use proj4php\Point;
-use proj4php\Proj;
-use proj4php\Proj4php;
 
 class ImportConstituencyGeojsonCommand extends Command
 {
@@ -16,7 +13,7 @@ class ImportConstituencyGeojsonCommand extends Command
 
     public function handle()
     {
-        $file = database_path('fixtures/constituency-geojson.geojson');
+        $file = database_path('fixtures/pcon24.geojson');
 
         if (!file_exists($file)) {
             $this->error('GeoJSON file not found.');
@@ -33,16 +30,9 @@ class ImportConstituencyGeojsonCommand extends Command
                 continue;
             }
 
-            if ($constituency->geojson !== null) {
-                $this->warn('Constituency already has GeoJSON data: ' . $constituency->name);
-                continue;
-            }
-
             $this->info('Updating constituency: ' . $constituency->name);
 
             // Convert all coordinates to WGS84.
-            $geojson['geometry']['coordinates'] = $this->convertCoordinatesToWgs84($geojson['geometry']['coordinates']);
-
             $constituency->update([
                 'geojson' => $geojson,
             ]);

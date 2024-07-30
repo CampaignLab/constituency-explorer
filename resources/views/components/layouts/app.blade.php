@@ -24,7 +24,7 @@
             'overflow-hidden': modal !== null,
         }"
     >
-        <header class="bg-gradient-to-tr from-[#FE6F08] to-[#FF2E79] py-4">
+        <header class="bg-gradient-to-tr from-[#FE6F08] to-[#FF2E79] py-6">
             <nav class="w-full px-24 flex items-center justify-between">
                 <a href="{{ route('index') }}" class="font-medium text-white text-xl tracking-tight">
                     <x-logo class="h-10 w-auto" />

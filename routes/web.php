@@ -16,10 +16,7 @@ Route::get('/search', function () {
 })
     ->name('search');
 
-Route::get('/constituency/{gss_code}', function ($gss_code) {
-    // Fetch the constituency by its GSS code
-    $constituency = Constituency::where('gss_code', $gss_code)->firstOrFail();
-
+Route::get('/constituency/{constituency:gss_code}', function (Constituency $constituency) {
     // Return the view with the constituency data
     return view('constituency', [
         'constituency' => $constituency,
