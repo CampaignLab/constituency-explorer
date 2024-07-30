@@ -30,12 +30,8 @@
             <p class="text-white text-4xl font-medium mt-12">
                 A tool to help you run local<br>campaigns with local data.
             </p>
-            
-            <button type="button" x-on:click="$dispatch('search-palette')" class="bg-white w-max px-4 py-2.5 inline-block text-xl font-semibold tracking-tight mt-8 rounded-lg">
-                <div class="bg-gradient-to-tr from-[#FE6F08] to-[#FF2E79] bg-clip-text">
-                    <p class="text-transparent">Search for a constituency</p>
-                </div>
-            </button>
+
+            <livewire:search-palette />
         </div>
     </div>
 
@@ -108,6 +104,4 @@
             </div>
         </div>
     </div>
-
-    <livewire:search-palette />
 </x-layouts.base>
