@@ -38,30 +38,4 @@ class ImportConstituencyGeojsonCommand extends Command
             ]);
         }
     }
-
-    protected function convertCoordinatesToWgs84(array $coordinates): array
-    {
-        if (count($coordinates) === 2 && !is_array($coordinates[0])) {
-            return $this->convertOsgbToWgs84($coordinates);
-        }
-
-        foreach ($coordinates as $key => $coordinate) {
-            $coordinates[$key] = $this->convertCoordinatesToWgs84($coordinate);
-        }
-
-        return $coordinates;
-    }
-
-    protected function convertOsgbToWgs84(array $coordinates)
-    {
-        $proj4 = new Proj4php();
-
-        $osgb = new Proj('EPSG:27700', $proj4);
-        $wgs84 = new Proj('EPSG:4326', $proj4);
-
-        $point = new Point($coordinates[0], $coordinates[1], projection: $osgb);
-        $point = $proj4->transform($wgs84, $point);
-
-        return [$point->x, $point->y];
-    }
 }
