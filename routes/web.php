@@ -8,6 +8,9 @@ use App\Models\Constituency;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
+Route::view('/', 'index')
+    ->name('index');
+
 Route::get('/search', function () {
     return view('search');
 })

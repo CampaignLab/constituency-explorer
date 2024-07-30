@@ -17,6 +17,10 @@ document.addEventListener('alpine:initializing', () => {
                 zoom: 11,
             });
 
+            document.addEventListener('tab:changed', () => {
+                map.resize();
+            });
+
             this.map = map;
 
             map.on('render', () => {

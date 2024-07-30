@@ -26,6 +26,8 @@ class EnglishHospitalsImport implements ToModel, WithHeadingRow
                 array_map(trim(...), explode(',', $row['address'])),
                 [$row['postcode']],
             ),
+            'latitude' => $row['mapped_latitude'],
+            'longitude' => $row['mapped_longitude'],
         ]);
     }
 }

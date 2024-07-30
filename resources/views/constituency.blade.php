@@ -1,5 +1,12 @@
 <x-layouts.app>
-    <div x-data="{ tab: 1 }">
+    <div x-data="{
+        tab: -1,
+        init() {
+            this.$watch('tab', () => {
+                this.$dispatch('tab:changed');
+            })
+        }
+    }">
         <div class="bg-white pt-12 px-24 constituency-tabs">
             <div class="flex items-start justify-between gap-x-12">
                 <div class="flex-1">
@@ -332,13 +339,33 @@
             </div>
 
             <div x-show="tab === 5" x-cloak>
-                @foreach ($constituency->hospitals->sortBy('name', SORT_NATURAL) as $hospital)
-                    <x-disclosure-accordion title="{{ $hospital->name }}" class="bg-white">
-                        <ul>
-                            <li><strong>Address:</strong> {{ implode(', ', array_filter($hospital->address)) }}</li>
-                        </ul>
-                    </x-disclosure-accordion>
-                @endforeach
+                <div
+                    x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->hospitals->map(fn ($hospital) => [
+                            'id' => $hospital->id,
+                            'name' => $hospital->name,
+                            'longitude' => $hospital->longitude,
+                            'latitude' => $hospital->latitude,
+                            'address' => implode(', ', array_filter($hospital->address)),
+                        ])->all()),
+                    })"
+                    class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
+                >
+                    <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                        @foreach($constituency->hospitals->sortBy('name', SORT_NATURAL) as $hospital)
+                            <button type="button" x-on:click="focusMarker(@js($hospital->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
+                                {{ $hospital->name }}
+                            </button>
+                        @endforeach
+                    </div>
+
+                    <div class="w-full h-full relative">
+                        <div x-ref="map"></div>
+                    </div>
+                </div>
             </div>
 
             <div x-show="tab === 6" class="border border-neutral-300 rounded-lg" x-cloak>
