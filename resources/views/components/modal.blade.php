@@ -11,6 +11,7 @@
     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     x-on:click.outside="modal = null"
+    x-on:keydown.escape.window="modal = null"
     x-show="modal === @js($id)"
     x-cloak
 >
