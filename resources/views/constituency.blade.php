@@ -376,7 +376,7 @@
                         center: @js([$constituency->center_lon, $constituency->center_lat]),
                         markers: @js($constituency->schools->map(fn ($school) => [
                             'id' => $school->id,
-                            'name' => $school->name,
+                            'name' => mb_convert_encoding($school->name, 'UTF-8'),
                             'longitude' => $school->longitude,
                             'latitude' => $school->latitude,
                         ])->all()),
