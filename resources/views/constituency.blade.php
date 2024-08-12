@@ -199,7 +199,11 @@
             </div>
 
             <div x-show="tab === 2" x-cloak>
-                <div class="rounded-lg border border-neutral-300 overflow-hidden">
+                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'towns'])" target="_blank">
+                    Export
+                </x-button>
+
+                <div class="rounded-lg border border-neutral-300 overflow-hidden mt-6">
                     <table class="bg-white">
                         <thead>
                             <tr class="[&_th]:text-left [&_th]:px-4 [&_th]:whitespace-nowrap [&_th]:py-2.5">
@@ -218,7 +222,11 @@
             </div>
 
             <div x-show="tab === 3" x-cloak>
-                <div class="rounded-lg border border-neutral-300 overflow-hidden">
+                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'charities'])" target="_blank">
+                    Export
+                </x-button>
+
+                <div class="rounded-lg border border-neutral-300 overflow-hidden mt-6">
                     <table class="bg-white">
                         <thead>
                             <tr class="[&_th]:text-left [&_th]:px-4 [&_th]:whitespace-nowrap [&_th]:py-2.5">
@@ -308,91 +316,106 @@
                 </div>
             </div>
 
-            <div x-show="tab === 4" class="border border-neutral-300 rounded-lg" x-cloak>
-                <div
-                    x-data="constituencyMap({
-                        token: @js(config('services.mapbox.token')),
-                        geometry: @js($constituency->geojson),
-                        center: @js([$constituency->center_lon, $constituency->center_lat]),
-                        markers: @js($constituency->dentists->map(fn ($dentist) => [
-                            'id' => $dentist->id,
-                            'name' => $dentist->name,
-                            'longitude' => $dentist->longitude,
-                            'latitude' => $dentist->latitude,
-                            'address' => implode(', ', array_filter($dentist->address)),
-                        ])->all()),
-                    })"
-                    class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
-                >
-                    <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
-                        @foreach($constituency->dentists->sortBy('name', SORT_NATURAL) as $dentist)
-                            <button type="button" x-on:click="focusMarker(@js($dentist->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
-                                {{ $dentist->name }}
-                            </button>
-                        @endforeach
-                    </div>
+            <div x-show="tab === 4" x-cloak>
+                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'dentists'])" target="_blank">
+                    Export
+                </x-button>
 
-                    <div class="w-full h-full relative">
-                        <div x-ref="map"></div>
+                <div class="border border-neutral-300 rounded-lg mt-6">
+                    <div
+                        x-data="constituencyMap({
+                            token: @js(config('services.mapbox.token')),
+                            geometry: @js($constituency->geojson),
+                            center: @js([$constituency->center_lon, $constituency->center_lat]),
+                            markers: @js($constituency->dentists->map(fn ($dentist) => [
+                                'id' => $dentist->id,
+                                'name' => $dentist->name,
+                                'longitude' => $dentist->longitude,
+                                'latitude' => $dentist->latitude,
+                                'address' => implode(', ', array_filter($dentist->address)),
+                            ])->all()),
+                        })"
+                        class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
+                    >
+                        <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                            @foreach($constituency->dentists->sortBy('name', SORT_NATURAL) as $dentist)
+                                <button type="button" x-on:click="focusMarker(@js($dentist->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
+                                    {{ $dentist->name }}
+                                </button>
+                            @endforeach
+                        </div>
+                        <div class="w-full h-full relative">
+                            <div x-ref="map"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div x-show="tab === 5" x-cloak>
-                <div
-                    x-data="constituencyMap({
-                        token: @js(config('services.mapbox.token')),
-                        geometry: @js($constituency->geojson),
-                        center: @js([$constituency->center_lon, $constituency->center_lat]),
-                        markers: @js($constituency->hospitals->map(fn ($hospital) => [
-                            'id' => $hospital->id,
-                            'name' => $hospital->name,
-                            'longitude' => $hospital->longitude,
-                            'latitude' => $hospital->latitude,
-                            'address' => implode(', ', array_filter($hospital->address)),
-                        ])->all()),
-                    })"
-                    class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
-                >
-                    <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
-                        @foreach($constituency->hospitals->sortBy('name', SORT_NATURAL) as $hospital)
-                            <button type="button" x-on:click="focusMarker(@js($hospital->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
-                                {{ $hospital->name }}
-                            </button>
-                        @endforeach
-                    </div>
+                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'hospitals'])" target="_blank">
+                    Export
+                </x-button>
 
-                    <div class="w-full h-full relative">
-                        <div x-ref="map"></div>
+                <div class="border border-neutral-300 rounded-lg mt-6">
+                    <div
+                        x-data="constituencyMap({
+                            token: @js(config('services.mapbox.token')),
+                            geometry: @js($constituency->geojson),
+                            center: @js([$constituency->center_lon, $constituency->center_lat]),
+                            markers: @js($constituency->hospitals->map(fn ($hospital) => [
+                                'id' => $hospital->id,
+                                'name' => $hospital->name,
+                                'longitude' => $hospital->longitude,
+                                'latitude' => $hospital->latitude,
+                                'address' => implode(', ', array_filter($hospital->address)),
+                            ])->all()),
+                        })"
+                        class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
+                    >
+                        <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                            @foreach($constituency->hospitals->sortBy('name', SORT_NATURAL) as $hospital)
+                                <button type="button" x-on:click="focusMarker(@js($hospital->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
+                                    {{ $hospital->name }}
+                                </button>
+                            @endforeach
+                        </div>
+                        <div class="w-full h-full relative">
+                            <div x-ref="map"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div x-show="tab === 6" class="border border-neutral-300 rounded-lg" x-cloak>
-                <div
-                    x-data="constituencyMap({
-                        token: @js(config('services.mapbox.token')),
-                        geometry: @js($constituency->geojson),
-                        center: @js([$constituency->center_lon, $constituency->center_lat]),
-                        markers: @js($constituency->schools->map(fn ($school) => [
-                            'id' => $school->id,
-                            'name' => mb_convert_encoding($school->name, 'UTF-8'),
-                            'longitude' => $school->longitude,
-                            'latitude' => $school->latitude,
-                        ])->all()),
-                    })"
-                    class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
-                >
-                    <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
-                        @foreach($constituency->schools->sortBy('name', SORT_NATURAL) as $school)
-                            <button type="button" x-on:click="focusMarker(@js($school->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
-                                {{ $school->name }}
-                            </button>
-                        @endforeach
-                    </div>
+            <div x-show="tab === 6" x-cloak>
+                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" target="_blank">
+                    Export
+                </x-button>
 
-                    <div class="w-full h-full relative">
-                        <div x-ref="map"></div>
+                <div class="border border-neutral-300 rounded-lg mt-6">
+                    <div
+                        x-data="constituencyMap({
+                            token: @js(config('services.mapbox.token')),
+                            geometry: @js($constituency->geojson),
+                            center: @js([$constituency->center_lon, $constituency->center_lat]),
+                            markers: @js($constituency->schools->map(fn ($school) => [
+                                'id' => $school->id,
+                                'name' => mb_convert_encoding($school->name, 'UTF-8'),
+                                'longitude' => $school->longitude,
+                                'latitude' => $school->latitude,
+                            ])->all()),
+                        })"
+                        class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
+                    >
+                        <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                            @foreach($constituency->schools->sortBy('name', SORT_NATURAL) as $school)
+                                <button type="button" x-on:click="focusMarker(@js($school->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
+                                    {{ $school->name }}
+                                </button>
+                            @endforeach
+                        </div>
+                        <div class="w-full h-full relative">
+                            <div x-ref="map"></div>
+                        </div>
                     </div>
                 </div>
             </div>
