@@ -1,6 +1,6 @@
 <x-layouts.app>
     <div x-data="{
-        tab: 'schools',
+        tab: 'overview',
         init() {
             this.$watch('tab', () => {
                 this.$dispatch('tab:changed');
