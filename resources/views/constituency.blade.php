@@ -1,419 +1,571 @@
 <x-layouts.app>
     <div x-data="{
-        tab: -1,
+        tab: 'schools',
         init() {
             this.$watch('tab', () => {
                 this.$dispatch('tab:changed');
             })
         }
     }">
-        <div class="bg-white pt-12 px-24 constituency-tabs">
-            <div class="flex items-start justify-between gap-x-12">
-                <div class="flex-1">
-                    <h1 class="text-4xl font-bold tracking-tight">
-                        {{ $constituency->name }}
-                    </h1>
+        <div class="py-7 px-24">
+            <h1 class="text-4xl font-bold tracking-tight">
+                {{ $constituency->name }}
+            </h1>
 
-                    <p class="uppercase text-black/50 text-sm mt-4 font-bold tracking-tight">
-                        Westminster Parliamentary Constituency
-                    </p>
-
-                    <div class="grid grid-cols-6 gap-x-2.5 gap-y-5 [&_p]:not-prose mt-8 bg-neutral-50/50 rounded border border-neutral-300 divide-x divide-neutral-300">
-                        <div class="py-4 px-6">
-                            <p class="font-semibold text-sm !my-0">GSS Code</p>
-                            <p class="text-sm !mb-0 !mt-2">{{ $constituency->gss_code }}</p>
-                        </div>
-
-                        <div class="py-4 px-6">
-                            <p class="font-semibold text-sm !my-0">Nation</p>
-                            <p class="text-sm !mb-0 !mt-2">{{ $constituency->nation }}</p>
-                        </div>
-
-                        <div class="py-4 px-6">
-                            <p class="font-semibold text-sm !my-0">Region</p>
-                            <p class="text-sm !mb-0 !mt-2">{{ $constituency->region }}</p>
-                        </div>
-
-                        <div class="py-4 px-6">
-                            <p class="font-semibold text-sm !my-0">Electorate</p>
-                            <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->electorate) }}</p>
-                        </div>
-
-                        <div class="py-4 px-6">
-                            <p class="font-semibold text-sm !my-0">Area</p>
-                            <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->area, 2) }}</p>
-                        </div>
-
-                        <div class="py-4 px-6">
-                            <p class="font-semibold text-sm !my-0">Density</p>
-                            <p class="text-sm !mb-0 !mt-2">{{ number_format($constituency->density, 2) }}</p>
-                        </div>
-                    </div>
+            <div class="flex justify-between gap-x-3 bg-white mt-9 rounded-lg p-3 border border-primary-border">
+                <div class="grid grid-cols-3 gap-x-6 gap-y-6 w-1/2">
+                    <x-constituency.hero-stat-card label="GSS Code" :value="$constituency->gss_code" />
+                    <x-constituency.hero-stat-card label="Nation" :value="$constituency->nation" />
+                    <x-constituency.hero-stat-card label="Region" :value="$constituency->region" />
+                    <x-constituency.hero-stat-card label="Electorate" :value="number_format($constituency->electorate)" />
+                    <x-constituency.hero-stat-card label="Area" :value="number_format($constituency->area, 2)" />
+                    <x-constituency.hero-stat-card label="Density" :value="number_format($constituency->density, 2)" />
                 </div>
 
-                <img src="{{ $constituency->getMapBoxImageUrl() }}" alt="" class="w-[500px] h-[300px] object-center object-cover rounded-lg border border-neutral-300">
+                <img src="{{ $constituency->getMapBoxImageUrl() }}" alt="" class="w-1/2 h-[300px] object-center object-cover rounded-lg">
             </div>
+        </div>
 
-            <x-tabs.host class="mt-12">
-                <x-tabs.tab :i="-1" active>
+        <div class="bg-white py-7 px-24">
+            <x-tabs.host>
+                <x-tabs.tab i="overview" active>
                     Overview
                 </x-tabs.tab>
 
-                <x-tabs.tab :i="1">
-                    Local Authorities
-                </x-tabs.tab>
-
-                <x-tabs.tab :i="7">
-                    Old Constituencies
-                </x-tabs.tab>
-
-                <x-tabs.tab :i="2">
+                <x-tabs.tab i="towns">
                     Towns
                 </x-tabs.tab>
 
-                <x-tabs.tab :i="3">
+                <x-tabs.tab i="charities">
                     Charities
                 </x-tabs.tab>
 
                 @if($constituency->dentists->isNotEmpty())
-                    <x-tabs.tab :i="4">
+                    <x-tabs.tab i="dentists">
                         Dentists
                     </x-tabs.tab>
                 @endif
 
                 @if($constituency->hospitals->isNotEmpty())
-                    <x-tabs.tab :i="5">
+                    <x-tabs.tab i="hospitals">
                         Hospitals
                     </x-tabs.tab>
                 @endif
 
                 @if($constituency->schools->isNotEmpty())
-                    <x-tabs.tab :i="6">
+                    <x-tabs.tab i="schools">
                         Schools
                     </x-tabs.tab>
                 @endif
             </x-tabs.host>
-        </div>
 
-        <div class="flex flex-col py-12 px-24 [&_div]:prose [&_div]:max-w-none">
-            <div x-show="tab === -1" class="not-prose">
-                <x-stats.wrapper>
-                    <x-stats.simple label="No. Local Authorities">
-                        {{ $constituency->localAuthorities->count() }}
-                    </x-stats.simple>
+            <div class="flex flex-col mt-10">
+                <div x-show="tab === 'overview'">
+                    <div class="grid grid-cols-3 gap-6">
+                        <x-constituency.overview-stat-card label="Local Authorities" :value="number_format($constituency->localAuthorities->count())" />
+                        <x-constituency.overview-stat-card label="Towns" :value="number_format($constituency->towns->count())" />
+                        <x-constituency.overview-stat-card label="Charities" :value="number_format($constituency->charities->count())" />
+                        <x-constituency.overview-stat-card label="Dentists" :value="number_format($constituency->dentists->count())" />
+                        <x-constituency.overview-stat-card label="Hospitals" :value="number_format($constituency->hospitals->count())" />
+                        <x-constituency.overview-stat-card label="Schools" :value="number_format($constituency->schools->count())" />
+                    </div>
 
-                    <x-stats.simple label="No. Towns">
-                        {{ $constituency->towns->count() }}
-                    </x-stats.simple>
+                    <div class="mt-10">
+                        <div class="flex items-center gap-x-4">
+                            <x-constituency.subheading>
+                                Local Authorities
+                            </x-constituency.subheading>
 
-                    <x-stats.simple label="No. Charities">
-                        {{ $constituency->charities->count() }}
-                    </x-stats.simple>
+                            <x-constituency.counter>
+                                {{ $constituency->localAuthorities->count() }}
+                            </x-constituency.counter>
+                        </div>
 
-                    <x-stats.simple label="No. Dentists">
-                        {{ $constituency->dentists->count() }}
-                    </x-stats.simple>
+                        <x-constituency.download-data-link class="mt-6" />
 
-                    <x-stats.simple label="No. Schools">
-                        {{ $constituency->schools->count() }}
-                    </x-stats.simple>
-                </x-stats.wrapper>
-            </div>
-
-            <div x-show="tab === 1" class="not-prose gap-8 grid grid-cols-4" x-cloak>
-                @foreach ($constituency->localAuthorities as $localAuthority)
-                    <x-description-list-card
-                        :title="$localAuthority->name"
-                        :subtitle="$localAuthority->gss_code"
-                    >
-                        <dl class="divide-y divide-neutral-200">
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Population Overlap</dt>
-                                <dd class="text-sm">{{ number_format($localAuthority->pivot->overlap_pop) }}</dd>
-                            </div>
-
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Area Overlap</dt>
-                                <dd class="text-sm">{{ number_format($localAuthority->pivot->overlap_area) }}</dd>
-                            </div>
-
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Population Overlap (%)</dt>
-                                <dd class="text-sm">
-                                    <x-pill :scalePercentage="$localAuthority->pivot->percentage_overlap_pop * 100">
-                                        {{ $localAuthority->pivot->percentage_overlap_pop * 100 }}%
-                                    </x-pill>
-                                </dd>
-                            </div>
-
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Area Overlap (%)</dt>
-                                <dd class="text-sm">
-                                    <x-pill :scalePercentage="$localAuthority->pivot->percentage_overlap_area * 100">
-                                        {{ $localAuthority->pivot->percentage_overlap_area * 100 }}%
-                                    </x-pill>
-                                </dd>
-                            </div>
-                        </dl>
-                    </x-description-list-card>
-                @endforeach
-            </div>
-
-            <div x-show="tab === 7" class="not-prose grid gap-8 grid-cols-4" x-cloak>
-                @foreach ($constituency->oldConstituencies as $oldConstituency)
-                    <x-description-list-card
-                        :title="$oldConstituency->name"
-                        :subtitle="$oldConstituency->gss_code"
-                    >
-                        <dl class="divide-y divide-neutral-200">
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Population Overlap</dt>
-                                <dd class="text-sm">{{ number_format($oldConstituency->pivot->overlap_pop) }}</dd>
-                            </div>
-
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Area Overlap</dt>
-                                <dd class="text-sm">{{ number_format($oldConstituency->pivot->overlap_area) }}</dd>
-                            </div>
-
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Population Overlap (%)</dt>
-                                <dd class="text-sm">
-                                    <x-pill :scalePercentage="$oldConstituency->pivot->percentage_overlap_pop * 100">
-                                        {{ $oldConstituency->pivot->percentage_overlap_pop * 100 }}%
-                                    </x-pill>
-                                </dd>
-                            </div>
-
-                            <div class="flex items-center justify-between py-2.5">
-                                <dt class="text-sm font-medium">Area Overlap (%)</dt>
-                                <dd class="text-sm">
-                                    <x-pill :scalePercentage="$oldConstituency->pivot->percentage_overlap_area * 100">
-                                        {{ $oldConstituency->pivot->percentage_overlap_area * 100 }}%
-                                    </x-pill>
-                                </dd>
-                            </div>
-                        </dl>
-                    </x-description-list-card>
-                @endforeach
-            </div>
-
-            <div x-show="tab === 2" x-cloak>
-                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'towns'])" target="_blank">
-                    Export
-                </x-button>
-
-                <div class="rounded-lg border border-neutral-300 overflow-hidden mt-6">
-                    <table class="bg-white">
-                        <thead>
-                            <tr class="[&_th]:text-left [&_th]:px-4 [&_th]:whitespace-nowrap [&_th]:py-2.5">
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody class="[&_td]:px-4">
-                            @foreach($constituency->towns->sortBy('name', SORT_NATURAL) as $i => $town)
-                                <tr class="cursor-pointer hover:bg-neutral-50/50 [&_td]:align-middle">
-                                    <td class="font-medium">{{ $town->name }}</td>
-                                </tr>
+                        <div class="grid grid-cols-3 gap-6 mt-8">
+                            @foreach($constituency->localAuthorities->sortBy('name') as $authority)
+                                <x-constituency.overview-entity-card
+                                    :name="$authority->name"
+                                    :code="$authority->gss_code"
+                                    :populationOverlap="$authority->pivot->overlap_pop"
+                                    :areaOverlap="$authority->pivot->overlap_area"
+                                    :populationOverlapPercentage="$authority->pivot->percentage_overlap_pop * 100"
+                                    :areaOverlapPercentage="$authority->pivot->percentage_overlap_area * 100"
+                                />
                             @endforeach
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <div class="flex items-center gap-x-4">
+                            <x-constituency.subheading>
+                                Old Constituencies
+                            </x-constituency.subheading>
+
+                            <x-constituency.counter>
+                                {{ $constituency->oldConstituencies->count() }}
+                            </x-constituency.counter>
+                        </div>
+
+                        <x-constituency.download-data-link class="mt-6" />
+
+                        <div class="grid grid-cols-3 gap-6 mt-8">
+                            @foreach($constituency->oldConstituencies->sortBy('name') as $oldConstituency)
+                                <x-constituency.overview-entity-card
+                                    :name="$oldConstituency->name"
+                                    :code="$oldConstituency->gss_code"
+                                    :populationOverlap="$oldConstituency->pivot->overlap_pop"
+                                    :areaOverlap="$oldConstituency->pivot->overlap_area"
+                                    :populationOverlapPercentage="$oldConstituency->pivot->percentage_overlap_pop * 100"
+                                    :areaOverlapPercentage="$oldConstituency->pivot->percentage_overlap_area * 100"
+                                />
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div x-show="tab === 3" x-cloak>
-                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'charities'])" target="_blank">
-                    Export
-                </x-button>
+                <div x-show="tab === 'towns'" x-cloak>
+                    <div class="flex items-center gap-x-4">
+                        <x-constituency.subheading>
+                            Towns
+                        </x-constituency.subheading>
 
-                <div class="rounded-lg border border-neutral-300 overflow-hidden mt-6">
-                    <table class="bg-white">
-                        <thead>
-                            <tr class="[&_th]:text-left [&_th]:px-4 [&_th]:whitespace-nowrap [&_th]:py-2.5">
-                                <th>Name</th>
-                                <th>No. volunteers</th>
-                                <th>Income (£)</th>
-                                <th>Spending (£)</th>
-                                <th>Address</th>
-                                <th class="w-[40px]"></th>
-                            </tr>
-                        </thead>
-                        <tbody x-data="{
-                            state: {},
-                            toggle(i) {
-                                this.state[i] = !this.state[i];
-                            }
-                        }" class="[&_td]:px-4">
-                            @foreach($constituency->charities->sortBy('name', SORT_NATURAL) as $i => $charity)
-                                <tr class="cursor-pointer hover:bg-neutral-50/50 [&_td]:align-middle" x-on:click="toggle(@js($i))" title="{{ $charity->name }}">
-                                    <td class="font-medium">{{ $charity->name }}</td>
-                                    <td>{{ $charity->volunteers ? number_format($charity->volunteers) : App\mdash() }}</td>
-                                    <td>{{ number_format($charity->income) }}</td>
-                                    <td>{{ number_format($charity->spending) }}</td>
-                                    <td>{{ $charity->formattedAddress() }}</td>
-                                    <td>
-                                        <button type="button" class="h-full flex items-center" x-on:click.stop="toggle(@js($i))" x-bind:class="{ '-rotate-90': !!state[@js($i)] }">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                                            </svg>
-                                        </button>
-                                    </td>
-                                </tr>
+                        <x-constituency.counter>
+                            {{ $constituency->towns->count() }}
+                        </x-constituency.counter>
+                    </div>
 
-                                <tr x-show="!!state[@js($i)]" class="bg-neutral-50/75" x-cloak>
-                                    <td colspan="6">
-                                        <div class="grid grid-cols-5 gap-x-2.5 gap-y-5 [&_p]:not-prose py-2.5">
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Ward</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->ward }}</p>
+                    <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'towns'])" target="_blank" class="mt-6" />
+
+                    <div class="max-w-[50%] w-full rounded-lg border border-primary-border mt-6 divide-y divide-primary-border">
+                        @foreach($constituency->towns->sortBy('name', SORT_NATURAL) as $town)
+                            <div class="p-4">
+                                <p class="font-bold">
+                                    {{ $town->name }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div x-show="tab === 'charities'" x-cloak>
+                    <div class="flex items-center gap-x-4">
+                        <x-constituency.subheading>
+                            Charities
+                        </x-constituency.subheading>
+
+                        <x-constituency.counter>
+                            {{ $constituency->charities->count() }}
+                        </x-constituency.counter>
+                    </div>
+
+                    {{-- FIXME: Add in Charity search here. --}}
+
+                    <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'charities'])" target="_blank" class="mt-6" />
+
+                    <div class="mt-6 space-y-6">
+                        @foreach($constituency->charities->sortBy('name', SORT_NATURAL) as $charity)
+                            <button
+                                x-data="{ open: false }"
+                                type="button"
+                                class="border border-primary-border p-5 rounded-lg text-sm block w-full text-left transition-colors ease-in-out duration-150"
+                                x-on:click="open = !open"
+                                x-bind:class="{
+                                    'bg-primary-slate/50': open,
+                                }"
+                            >
+                                <div class="flex items-center justify-between">
+                                    <div class="w-1/2">
+                                        <p class="font-bold">
+                                            {{ $charity->name }}
+                                        </p>
+
+                                        <div class="flex items-start gap-x-1 mt-2.5">
+                                            <x-icons.location class="mt-px" />
+
+                                            <p>
+                                                {{ $charity->formattedAddress() }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-1 grid grid-cols-3 gap-x-6">
+                                        <div class="space-y-2.5">
+                                            <p>
+                                                Volunteers
+                                            </p>
+
+                                            <p class="font-bold">
+                                                {{ $charity->volunteers ? number_format($charity->volunteers) : App\mdash() }}
+                                            </p>
+                                        </div>
+
+                                        <div class="space-y-2.5">
+                                            <p>
+                                                Income (£)
+                                            </p>
+
+                                            <p class="font-bold">
+                                                {{ $charity->income ? number_format($charity->income) : App\mdash() }}
+                                            </p>
+                                        </div>
+
+                                        <div class="space-y-2.5">
+                                            <p>
+                                                Spending (£)
+                                            </p>
+
+                                            <p class="font-bold">
+                                                {{ $charity->spending ? number_format($charity->spending) : App\mdash() }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <x-icons.chevron-down class="transition-transform ease-in-out duration-150" x-bind:class="{ 'rotate-180': open }" />
+                                </div>
+
+                                <div class="mt-6" x-show="open" x-collapse x-cloak>
+                                    <div class="flex items-center justify-between">
+                                        <div class="w-1/2"></div>
+
+                                        <div class="flex-1 grid grid-cols-3 gap-x-6">
+                                            <div class="space-y-2.5">
+                                                <p>
+                                                    Ward
+                                                </p>
+
+                                                <p class="font-bold">
+                                                    {{ $charity->ward }}
+                                                </p>
                                             </div>
 
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Registered Date</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->registered?->format('d/m/Y') ?? App\mdash() }}</p>
+                                            <div class="space-y-2.5">
+                                                <p>
+                                                    Registered Date
+                                                </p>
+
+                                                <p class="font-bold">
+                                                    {{ $charity->registered->format('d/m/Y') }}
+                                                </p>
                                             </div>
 
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Funders</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->funders ? number_format($charity->funders) : App\mdash() }}</p>
-                                            </div>
+                                            <div class="space-y-2.5">
+                                                <p>
+                                                    Funders
+                                                </p>
 
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Email</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->email ?? App\mdash() }}</p>
-                                            </div>
-
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Phone</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->phone ?? App\mdash() }}</p>
-                                            </div>
-
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Website</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->website ?? App\mdash() }}</p>
-                                            </div>
-
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Facebook</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->facebook ?? App\mdash() }}</p>
-                                            </div>
-
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Instagram</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->instagram ?? App\mdash() }}</p>
-                                            </div>
-
-                                            <div>
-                                                <p class="font-medium text-sm !my-0">Twitter / X</p>
-                                                <p class="text-sm !mb-0 !mt-2">{{ $charity->twitter ?? App\mdash() }}</p>
+                                                <p class="font-bold">
+                                                    {{ $charity->funders ? number_format($charity->funders) : App\mdash() }}
+                                                </p>
                                             </div>
                                         </div>
-                                    </td>
+
+                                        <div class="w-2.5 h-1.5"></div>
+                                    </div>
+
+                                    <hr class="border-primary-border mt-8">
+
+                                    <div class="mt-8 grid grid-cols-3 gap-4">
+                                        @if($charity->website)
+                                            <div class="flex items-center gap-x-2.5">
+                                                <x-icons.earth />
+                                                <a href="{{ $charity->website }}" target="_blank" class="hover:underline">
+                                                    {{ $charity->website }}
+                                                </a>
+                                            </div>
+                                        @endif
+
+                                        @if($charity->twitter)
+                                            <div class="flex items-center gap-x-2.5">
+                                                <x-icons.x />
+                                                <a href="https://x.com/{{ $charity->twitter }}" target="_blank" class="hover:underline">
+                                                    {{ '@' . ltrim($charity->twitter, '@') }}
+                                                </a>
+                                            </div>
+                                        @endif
+
+                                        @if($charity->phone)
+                                            <div class="flex items-center gap-x-2.5">
+                                                <x-icons.phone />
+                                                <a href="tel:{{ $charity->phone }}" target="_blank" class="hover:underline">
+                                                    {{ $charity->phone }}
+                                                </a>
+                                            </div>
+                                        @endif
+
+                                        @if($charity->instagram)
+                                            <div class="flex items-center gap-x-2.5">
+                                                <x-icons.instagram />
+                                                <a href="https://instagram.com/{{ $charity->instagram }}" target="_blank" class="hover:underline">
+                                                    {{ $charity->instagram }}
+                                                </a>
+                                            </div>
+                                        @endif
+
+                                        @if($charity->facebook)
+                                            <div class="flex items-center gap-x-2.5">
+                                                <x-icons.facebook />
+                                                <a href="https://facebook.com/{{ $charity->facebook }}" target="_blank" class="hover:underline">
+                                                    {{ $charity->facebook }}
+                                                </a>
+                                            </div>
+                                        @endif
+
+                                        @if($charity->email)
+                                            <div class="flex items-center gap-x-2.5">
+                                                <x-icons.email />
+                                                <a href="mailto:{{ $charity->email }}" target="_blank" class="hover:underline">
+                                                    {{ $charity->email }}
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </button>
+                        @endforeach
+                    </div>
+                    {{-- <div class="rounded-lg border border-neutral-300 overflow-hidden mt-6">
+                        <table class="bg-white">
+                            <thead>
+                                <tr class="[&_th]:text-left [&_th]:px-4 [&_th]:whitespace-nowrap [&_th]:py-2.5">
+                                    <th>Name</th>
+                                    <th>No. volunteers</th>
+                                    <th>Income (£)</th>
+                                    <th>Spending (£)</th>
+                                    <th>Address</th>
+                                    <th class="w-[40px]"></th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody x-data="{
+                                state: {},
+                                toggle(i) {
+                                    this.state[i] = !this.state[i];
+                                }
+                            }" class="[&_td]:px-4">
+                                @foreach($constituency->charities->sortBy('name', SORT_NATURAL) as $i => $charity)
+                                    <tr class="cursor-pointer hover:bg-neutral-50/50 [&_td]:align-middle" x-on:click="toggle(@js($i))" title="{{ $charity->name }}">
+                                        <td class="font-medium">{{ $charity->name }}</td>
+                                        <td>{{ $charity->volunteers ? number_format($charity->volunteers) : App\mdash() }}</td>
+                                        <td>{{ number_format($charity->income) }}</td>
+                                        <td>{{ number_format($charity->spending) }}</td>
+                                        <td>{{ $charity->formattedAddress() }}</td>
+                                        <td>
+                                            <button type="button" class="h-full flex items-center" x-on:click.stop="toggle(@js($i))" x-bind:class="{ '-rotate-90': !!state[@js($i)] }">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr x-show="!!state[@js($i)]" class="bg-neutral-50/75" x-cloak>
+                                        <td colspan="6">
+                                            <div class="grid grid-cols-5 gap-x-2.5 gap-y-5 [&_p]:not-prose py-2.5">
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Ward</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->ward }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Registered Date</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->registered?->format('d/m/Y') ?? App\mdash() }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Funders</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->funders ? number_format($charity->funders) : App\mdash() }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Email</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->email ?? App\mdash() }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Phone</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->phone ?? App\mdash() }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Website</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->website ?? App\mdash() }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Facebook</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->facebook ?? App\mdash() }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Instagram</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->instagram ?? App\mdash() }}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-medium text-sm !my-0">Twitter / X</p>
+                                                    <p class="text-sm !mb-0 !mt-2">{{ $charity->twitter ?? App\mdash() }}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div> --}}
                 </div>
-            </div>
 
-            <div x-show="tab === 4" x-cloak>
-                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'dentists'])" target="_blank">
-                    Export
-                </x-button>
+                <div x-show="tab === 'dentists'" x-cloak>
+                    <div class="flex items-center gap-x-4">
+                        <x-constituency.subheading>
+                            Dentists
+                        </x-constituency.subheading>
 
-                <div class="border border-neutral-300 rounded-lg mt-6">
-                    <div
-                        x-data="constituencyMap({
-                            token: @js(config('services.mapbox.token')),
-                            geometry: @js($constituency->geojson),
-                            center: @js([$constituency->center_lon, $constituency->center_lat]),
-                            markers: @js($constituency->dentists->map(fn ($dentist) => [
-                                'id' => $dentist->id,
-                                'name' => $dentist->name,
-                                'longitude' => $dentist->longitude,
-                                'latitude' => $dentist->latitude,
-                                'address' => implode(', ', array_filter($dentist->address)),
-                            ])->all()),
-                        })"
-                        class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
-                    >
-                        <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                        <x-constituency.counter>
+                            {{ number_format($constituency->dentists->count()) }}
+                        </x-constituency.counter>
+                    </div>
+
+                    <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'dentists'])" target="_blank" class="mt-6" />
+
+                    <div x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->dentists->map(fn ($dentist) => [
+                            'id' => $dentist->id,
+                            'name' => $dentist->name,
+                            'longitude' => $dentist->longitude,
+                            'latitude' => $dentist->latitude,
+                            'address' => implode(', ', array_filter($dentist->address)),
+                        ])->all()),
+                    })" class="mt-6 grid grid-cols-2 gap-x-6">
+                        <div class="space-y-6 flex flex-col">
                             @foreach($constituency->dentists->sortBy('name', SORT_NATURAL) as $dentist)
-                                <button type="button" x-on:click="focusMarker(@js($dentist->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
-                                    {{ $dentist->name }}
+                                <button type="button" x-on:click="focusMarker(@js($dentist->id))" class="border border-primary-border bg-white text-left rounded-lg p-5 text-sm">
+                                    <p class="font-bold">
+                                        {{ $dentist->name }}
+                                    </p>
+
+                                    <div class="flex items-start gap-x-1.5 mt-2.5">
+                                        <x-icons.location class="mt-px" />
+                                        <p>{{ $dentist->formattedAddress() }}</p>
+                                    </div>
                                 </button>
                             @endforeach
                         </div>
-                        <div class="w-full h-full relative">
+
+                        <div class="w-full h-[500px] rounded-lg overflow-hidden border border-primary-border sticky top-10">
                             <div x-ref="map"></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div x-show="tab === 5" x-cloak>
-                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'hospitals'])" target="_blank">
-                    Export
-                </x-button>
+                <div x-show="tab === 'hospitals'" x-cloak>
+                    <div class="flex items-center gap-x-4">
+                        <x-constituency.subheading>
+                            Hospitals
+                        </x-constituency.subheading>
 
-                <div class="border border-neutral-300 rounded-lg mt-6">
-                    <div
-                        x-data="constituencyMap({
-                            token: @js(config('services.mapbox.token')),
-                            geometry: @js($constituency->geojson),
-                            center: @js([$constituency->center_lon, $constituency->center_lat]),
-                            markers: @js($constituency->hospitals->map(fn ($hospital) => [
-                                'id' => $hospital->id,
-                                'name' => $hospital->name,
-                                'longitude' => $hospital->longitude,
-                                'latitude' => $hospital->latitude,
-                                'address' => implode(', ', array_filter($hospital->address)),
-                            ])->all()),
-                        })"
-                        class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
-                    >
-                        <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                        <x-constituency.counter>
+                            {{ number_format($constituency->hospitals->count()) }}
+                        </x-constituency.counter>
+                    </div>
+
+                    <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'hospitals'])" target="_blank" class="mt-6" />
+
+                    <div x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->hospitals->map(fn ($hospital) => [
+                            'id' => $hospital->id,
+                            'name' => $hospital->name,
+                            'longitude' => $hospital->longitude,
+                            'latitude' => $hospital->latitude,
+                            'address' => implode(', ', array_filter($hospital->address)),
+                        ])->all()),
+                    })" class="mt-6 grid grid-cols-2 gap-x-6">
+                        <div class="space-y-6 flex flex-col">
                             @foreach($constituency->hospitals->sortBy('name', SORT_NATURAL) as $hospital)
-                                <button type="button" x-on:click="focusMarker(@js($hospital->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
-                                    {{ $hospital->name }}
+                                <button type="button" x-on:click="focusMarker(@js($hospital->id))" class="border border-primary-border bg-white text-left rounded-lg p-5 text-sm">
+                                    <p class="font-bold">
+                                        {{ $hospital->name }}
+                                    </p>
+
+                                    <div class="flex items-start gap-x-1.5 mt-2.5">
+                                        <x-icons.location class="mt-px" />
+                                        <p>{{ $hospital->formattedAddress() }}</p>
+                                    </div>
                                 </button>
                             @endforeach
                         </div>
-                        <div class="w-full h-full relative">
+
+                        <div class="w-full h-[500px] rounded-lg overflow-hidden border border-primary-border sticky top-10">
                             <div x-ref="map"></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div x-show="tab === 6" x-cloak>
-                <x-button :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" target="_blank">
-                    Export
-                </x-button>
+                <div x-show="tab === 'schools'" x-cloak>
+                    <div class="flex items-center gap-x-4">
+                        <x-constituency.subheading>
+                            Schools
+                        </x-constituency.subheading>
 
-                <div class="border border-neutral-300 rounded-lg mt-6">
-                    <div
-                        x-data="constituencyMap({
-                            token: @js(config('services.mapbox.token')),
-                            geometry: @js($constituency->geojson),
-                            center: @js([$constituency->center_lon, $constituency->center_lat]),
-                            markers: @js($constituency->schools->map(fn ($school) => [
-                                'id' => $school->id,
-                                'name' => mb_convert_encoding($school->name, 'UTF-8'),
-                                'longitude' => $school->longitude,
-                                'latitude' => $school->latitude,
-                            ])->all()),
-                        })"
-                        class="w-full h-[800px] flex rounded-lg overflow-hidden divide-x divide-neutral-300"
-                    >
-                        <div class="bg-white w-[450px] overflow-y-auto divide-y divide-neutral-200">
+                        <x-constituency.counter>
+                            {{ number_format($constituency->schools->count()) }}
+                        </x-constituency.counter>
+                    </div>
+
+                    <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" target="_blank" class="mt-6" />
+
+                    <div x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->schools->map(fn ($school) => [
+                            'id' => $school->id,
+                            'name' => $school->name,
+                            'longitude' => $school->longitude,
+                            'latitude' => $school->latitude,
+                        ])->all()),
+                    })" class="mt-6 grid grid-cols-2 gap-x-6">
+                        <div class="space-y-6 flex flex-col">
                             @foreach($constituency->schools->sortBy('name', SORT_NATURAL) as $school)
-                                <button type="button" x-on:click="focusMarker(@js($school->id))" class="text-left px-4 py-2.5 w-full leading-tight font-semibold cursor-pointer">
-                                    {{ $school->name }}
+                                <button type="button" x-on:click="focusMarker(@js($school->id))" class="border border-primary-border bg-white text-left rounded-lg p-5 text-sm">
+                                    <p class="font-bold">
+                                        {{ $school->name }}
+                                    </p>
+
+                                    <hr class="my-5 border-primary-border">
+
+                                    <div class="grid grid-cols-3">
+                                        <div class="space-y-2.5">
+                                            <p>
+                                                Phase of Education
+                                            </p>
+
+                                            <p class="font-semibold">
+                                                {{ $school->phase_of_education?->getLabel() ?? App\mdash() }}
+                                            </p>
+                                        </div>
+
+                                        <div class="space-y-2.5">
+                                            <p>
+                                                Gender
+                                            </p>
+
+                                            <p class="font-semibold">
+                                                {{ $school->gender?->getLabel() ?? App\mdash() }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </button>
                             @endforeach
                         </div>
-                        <div class="w-full h-full relative">
+
+                        <div class="w-full h-[500px] rounded-lg overflow-hidden border border-primary-border sticky top-10">
                             <div x-ref="map"></div>
                         </div>
                     </div>

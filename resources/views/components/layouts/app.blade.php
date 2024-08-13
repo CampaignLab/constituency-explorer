@@ -9,38 +9,39 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=ibm-plex-mono:500,600|roboto:400,500,600,700" rel="stylesheet" />
 
         <script defer src="https://unpkg.com/@alpinejs/ui@3.14.1-beta.0/dist/cdn.min.js"></script>
         {{-- <script defer src="https://unpkg.com/@alpinejs/collapse@3.14.1/dist/cdn.min.js"></script>
         <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script> --}}
 
+        <x-bunny-fonts />
         @livewireStyles()
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body
-        class="bg-gray-50 flex flex-col min-h-screen"
+        class="bg-primary-background flex flex-col min-h-screen"
         x-data="{ modal: null }"
         x-bind:class="{
             'overflow-hidden': modal !== null,
         }"
     >
-        <header class="bg-gradient-to-tr from-[#FE6F08] to-[#FF2E79] py-6">
+        <header class="bg-white py-6">
             <nav class="w-full px-24 flex items-center justify-between">
-                <a href="{{ route('index') }}" class="font-medium text-white text-xl tracking-tight">
-                    <x-logo class="h-10 w-auto" />
+                <a href="{{ route('index') }}" class="font-medium text-black text-xl flex items-center gap-x-6">
+                    <x-icon />
+                    <p class="font-bold text-sm">Constituency Explorer</p>
                 </a>
 
                 <div class="flex items-center gap-x-2.5">
                     <button
                         type="button"
-                        class="appearance-none text-white font-medium text-lg hover:bg-white/20 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200"
+                        class="appearance-none text-black font-medium hover:bg-black/5 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200"
                         x-on:click="modal = 'about'"
                     >
                         About
                     </button>
 
-                    <button type="button" class="appearance-none text-white font-medium text-lg hover:bg-white/20 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200" x-on:click="modal = 'download'">
+                    <button type="button" class="appearance-none text-black font-medium hover:bg-black/5 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200" x-on:click="modal = 'download'">
                         Download
                     </button>
                 </div>
@@ -51,8 +52,8 @@
             {{ $slot }}
         </main>
 
-        <footer class="bg-neutral-100 py-6 px-24">
-            <p class="text-sm tracking-tight text-neutral-700">Constituency Explorer is a collaborative project between Campaign Lab and C6 Digital.</p>
+        <footer class="bg-white py-6 px-24">
+            <p class="text-sm text-neutral-700">Constituency Explorer is a collaborative project between Campaign Lab and C6 Digital.</p>
         </footer>
 
         <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" x-show="modal !== null" x-cloak>

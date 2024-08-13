@@ -15,4 +15,9 @@ class Hospital extends Model
     protected $casts = [
         'address' => 'array',
     ];
+
+    public function formattedAddress()
+    {
+        return implode(', ', array_filter($this->address));
+    }
 }

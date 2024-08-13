@@ -8,9 +8,15 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Roboto", "sans-serif"],
+                sans: ["Inter", "sans-serif"],
             },
             colors: {
+                'primary-background': '#F8FAFC',
+                'primary-border': '#E2E8F0',
+                'primary-blue': '#0973DC',
+                'primary-blue-background': '#D3E0FD',
+                'muted-foreground': '#64748B',
+                'primary-slate': '#E2E8F0',
                 scale: {
                     20: "#DBE9F6",
                     40: "#A3C7E8",

@@ -1,6 +1,17 @@
-<button type="button" {{ $attributes->class(['constituency-tab', 'constituency-tab-active' => $active]) }} x-bind:class="{
-    'constituency-tab-active': tab === @js($i),
-    'constituency-tab-inactive': tab !== @js($i)
-}" x-on:click="tab = @js($i)">
+@props([
+    'i',
+    'active' => false,
+])
+
+@php
+    $activeClasses = 'bg-white rounded shadow';
+@endphp
+
+<button type="button" x-on:click="tab = @js($i)" {{ $attributes->class([
+    'px-6 py-2 font-medium text-sm',
+    $activeClasses => $active,
+]) }} x-bind:class="{
+    @js($activeClasses): tab === @js($i),
+}">
     {{ $slot }}
 </button>

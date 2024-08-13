@@ -15,4 +15,9 @@ class Dentist extends Model
     protected $casts = [
         'address' => 'array',
     ];
+
+    public function formattedAddress(): string
+    {
+        return implode(', ', array_filter($this->address));
+    }
 }

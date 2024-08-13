@@ -10,25 +10,6 @@
     width: 100%;
 }
 
-@layer components {
-    .constituency-tabs {
-        box-shadow: inset 0 -1px theme('colors.neutral.300');
-    }
-
-    .constituency-tab {
-        @apply px-5 rounded-t py-2.5 font-medium tracking-tight border-t border-x border-transparent transition-all ease-in-out duration-150;
-    }
-
-    .constituency-tab-active {
-        box-shadow: inset 0px -2px 0px 0px theme('colors.gray.50');
-        @apply bg-gray-50 border-t border-x border-neutral-300;
-    }
-
-    .constituency-tab-inactive {
-        @apply hover:border-t hover:border-x hover:border-neutral-300;
-    }
-}
-
 [x-cloak] {
     display: none !important;
 }
