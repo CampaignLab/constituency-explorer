@@ -25,7 +25,7 @@
             'overflow-hidden': modal !== null,
         }"
     >
-        <header class="bg-white py-6">
+        <header class="bg-white py-6 border-b border-primary-border">
             <nav class="w-full px-6 md:px-10 2xl:px-24 flex items-center justify-between">
                 <a href="{{ route('index') }}" class="font-medium text-black text-xl flex items-center gap-x-4 md:gap-x-6">
                     <x-icon class="size-5 md:size-auto" />
@@ -55,10 +55,10 @@
         </main>
 
         <footer class="bg-white py-6 px-6 md:px-10 2xl:px-24">
-            <p class="text-sm text-neutral-700">Constituency Explorer is a collaborative project between Campaign Lab and C6 Digital.</p>
+            <p class="text-xs text-muted-foreground">Constituency Explorer is a collaborative project between Campaign Lab and C6 Digital.</p>
         </footer>
 
-        <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" x-show="modal !== null" x-cloak>
+        <div class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true" x-show="modal !== null" x-cloak>
             <div
                 class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
                 x-transition:enter="transition ease-out duration-300"
