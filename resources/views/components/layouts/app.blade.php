@@ -26,23 +26,25 @@
         }"
     >
         <header class="bg-white py-6">
-            <nav class="w-full px-24 flex items-center justify-between">
-                <a href="{{ route('index') }}" class="font-medium text-black text-xl flex items-center gap-x-6">
-                    <x-icon />
-                    <p class="font-bold text-sm">Constituency Explorer</p>
+            <nav class="w-full px-6 md:px-10 2xl:px-24 flex items-center justify-between">
+                <a href="{{ route('index') }}" class="font-medium text-black text-xl flex items-center gap-x-4 md:gap-x-6">
+                    <x-icon class="size-5 md:size-auto" />
+                    <p class="font-semibold md:font-bold text-sm">Constituency Explorer</p>
                 </a>
 
-                <div class="flex items-center gap-x-2.5">
+                <div class="flex items-center lg:gap-x-2.5">
                     <button
                         type="button"
-                        class="appearance-none text-black font-medium hover:bg-black/5 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200"
+                        class="appearance-none text-black font-medium hover:bg-black/5 px-2.5 lg:px-4 py-2 rounded-lg transition-colors ease-in-out duration-200"
                         x-on:click="modal = 'about'"
                     >
-                        About
+                        <span class="hidden lg:inline">About</span>
+                        <x-icons.question-mark-circle class="size-5 lg:hidden" />
                     </button>
 
-                    <button type="button" class="appearance-none text-black font-medium hover:bg-black/5 px-4 py-2 rounded-lg transition-colors ease-in-out duration-200" x-on:click="modal = 'download'">
-                        Download
+                    <button type="button" class="appearance-none text-black font-medium hover:bg-black/5 px-2.5 lg:px-4 py-2 rounded-lg transition-colors ease-in-out duration-200" x-on:click="modal = 'download'">
+                        <span class="hidden lg:inline">Download</span>
+                        <x-icons.download class="size-4 lg:hidden" />
                     </button>
                 </div>
             </nav>
@@ -52,7 +54,7 @@
             {{ $slot }}
         </main>
 
-        <footer class="bg-white py-6 px-24">
+        <footer class="bg-white py-6 px-6 md:px-10 2xl:px-24">
             <p class="text-sm text-neutral-700">Constituency Explorer is a collaborative project between Campaign Lab and C6 Digital.</p>
         </footer>
 

@@ -15,7 +15,7 @@
     x-show="modal === @js($id)"
     x-cloak
 >
-    <button x-on:click="modal = null" type="button" class="p-1.5 hover:bg-neutral-50 rounded-lg absolute top-5 right-5">
+    <button x-on:click="modal = null" type="button" class="p-1.5 hover:bg-neutral-50 rounded-lg absolute top-3 right-3 md:top-5 md:right-5">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
