@@ -12,14 +12,14 @@
                 {{ $constituency->name }}
             </h1>
 
-            <div class="flex justify-between gap-x-3 bg-white mt-9 rounded-lg p-3 border border-primary-border">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 lg:gap-6 w-full lg:w-1/2">
-                    <x-constituency.hero-stat-card label="GSS Code" :value="$constituency->gss_code" />
-                    <x-constituency.hero-stat-card label="Nation" :value="$constituency->nation" />
-                    <x-constituency.hero-stat-card label="Region" :value="$constituency->region" />
-                    <x-constituency.hero-stat-card label="Electorate" :value="number_format($constituency->electorate)" />
-                    <x-constituency.hero-stat-card label="Area" :value="number_format($constituency->area, 2)" />
-                    <x-constituency.hero-stat-card label="Density" :value="number_format($constituency->density, 2)" />
+            <div class="flex justify-between gap-x-6 mt-9">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 lg:gap-6 w-full lg:w-1/2">
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="GSS Code" :value="$constituency->gss_code" />
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Nation" :value="$constituency->nation" />
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Region" :value="$constituency->region" />
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Electorate" :value="number_format($constituency->electorate)" />
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Area" :value="number_format($constituency->area, 2)" />
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Density" :value="number_format($constituency->density, 2)" />
                 </div>
 
                 <img src="{{ $constituency->getMapBoxImageUrl() }}" alt="" class="w-1/2 hidden lg:block h-[300px] object-center object-cover rounded-lg">
