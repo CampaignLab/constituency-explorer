@@ -80,6 +80,8 @@
                         <x-constituency.overview-stat-card label="Dentists" :value="number_format($constituency->dentists->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'dentists'])" />
                         <x-constituency.overview-stat-card label="Hospitals" :value="number_format($constituency->hospitals->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'hospitals'])" />
                         <x-constituency.overview-stat-card label="Schools" :value="number_format($constituency->schools->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" />
+                        <x-constituency.overview-stat-card label="Community Centres" :value="number_format($constituency->communityCentres->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'community-centres'])" />
+                        <x-constituency.overview-stat-card label="Places of Worship" :value="number_format($constituency->placesOfWorship->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'places-of-worship'])" />
                     </div>
 
                     <div class="mt-10">
@@ -506,8 +508,7 @@
                         </x-constituency.counter>
                     </div>
 
-                    {{-- FIXME: Add in download link here. --}}
-                    {{-- <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" target="_blank" class="mt-6" /> --}}
+                    <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'community-centres'])" target="_blank" class="mt-6" />
 
                     <div x-data="constituencyMap({
                         token: @js(config('services.mapbox.token')),
@@ -547,8 +548,7 @@
                         </x-constituency.counter>
                     </div>
 
-                    {{-- FIXME: Add in download link here. --}}
-                    {{-- <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" target="_blank" class="mt-6" /> --}}
+                    <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'places-of-worship'])" target="_blank" class="mt-6" />
 
                     <div x-data="constituencyMap({
                         token: @js(config('services.mapbox.token')),

@@ -3,10 +3,12 @@
 use App\Exports\AllLaExport;
 use App\Exports\AllPcon23Export;
 use App\Exports\ConstituencyCharities;
+use App\Exports\ConstituencyCommunityCentres;
 use App\Exports\ConstituencyDentists;
 use App\Exports\ConstituencyHospitals;
 use App\Exports\ConstituencyLocalAuthority;
 use App\Exports\ConstituencyOldConstituency;
+use App\Exports\ConstituencyPlacesOfWorship;
 use App\Exports\ConstituencySchools;
 use App\Exports\ConstituencyTownsExport;
 use App\Exports\ConstituencyWithAllOverlapsExport;
@@ -93,6 +95,8 @@ Route::get('/constituency/{constituency:gss_code}/export', function (Request $re
         'schools' => new ConstituencySchools($constituency),
         'la' => new ConstituencyLocalAuthority($constituency),
         'old' => new ConstituencyOldConstituency($constituency),
+        'community-centres' => new ConstituencyCommunityCentres($constituency),
+        'places-of-worship' => new ConstituencyPlacesOfWorship($constituency),
     }, "{$constituency->name}+{$export}.csv");
 })
     ->name('constituency.export');
