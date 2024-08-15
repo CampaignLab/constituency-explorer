@@ -567,6 +567,30 @@
                                     <p class="font-bold">
                                         {{ $place->name }}
                                     </p>
+
+                                    <hr class="my-5 border-primary-border">
+
+                                    <div class="grid grid-cols-2 lg:grid-cols-3">
+                                        <div class="space-y-2.5">
+                                            <p>
+                                                Religion
+                                            </p>
+
+                                            <p class="font-semibold">
+                                                {{ $place->religion ?? App\mdash() }}
+                                            </p>
+                                        </div>
+
+                                        <div class="space-y-2.5">
+                                            <p>
+                                                Denomination
+                                            </p>
+
+                                            <p class="font-semibold">
+                                                {{ $place->denomination ?? App\mdash() }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </button>
                             @endforeach
                         </div>
