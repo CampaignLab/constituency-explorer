@@ -148,7 +148,7 @@
                     </a>
                 </div>
 
-                {{-- <div class="py-4 px-4 flex items-center justify-between">
+                <div class="py-4 px-4 flex items-center justify-between">
                     <div class="space-y-1">
                         <p class="font-semibold">
                             All Charities
@@ -159,10 +159,10 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('exports.constituency-charities') }}" target="_blank">
+                    <a href="https://search.charitybase.uk/chc?download=f" target="_blank">
                         <x-icons.download />
                     </a>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
