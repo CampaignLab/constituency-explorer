@@ -42,10 +42,10 @@
                         <x-icons.question-mark-circle class="size-5 lg:hidden" />
                     </button>
 
-                    <button type="button" class="appearance-none text-black font-medium hover:bg-black/5 px-2.5 lg:px-4 py-2 rounded-lg transition-colors ease-in-out duration-200" x-on:click="modal = 'download'">
+                    {{-- <button type="button" class="appearance-none text-black font-medium hover:bg-black/5 px-2.5 lg:px-4 py-2 rounded-lg transition-colors ease-in-out duration-200" x-on:click="modal = 'download'">
                         <span class="hidden lg:inline">Download</span>
                         <x-icons.download class="size-4 lg:hidden" />
-                    </button>
+                    </button> --}}
                 </div>
             </nav>
         </header>

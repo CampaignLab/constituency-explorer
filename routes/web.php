@@ -10,7 +10,12 @@ use App\Exports\ConstituencyOldConstituency;
 use App\Exports\ConstituencySchools;
 use App\Exports\ConstituencyTownsExport;
 use App\Exports\ConstituencyWithAllOverlapsExport;
+use App\Exports\ConstituencyWithCharities;
+use App\Exports\ConstituencyWithDentists;
 use App\Exports\ConstituencyWithHighestOverlapExport;
+use App\Exports\ConstituencyWithHospitals;
+use App\Exports\ConstituencyWithSchools;
+use App\Exports\ConstituencyWithTowns;
 use App\Models\Constituency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +56,31 @@ Route::get('/exports/constituency-with-all-overlaps', function () {
     return Excel::download(new ConstituencyWithAllOverlapsExport, 'constituencies+all-overlaps.csv');
 })
     ->name('exports.constituency-with-all-overlaps');
+
+Route::get('/exports/constituency-towns', function () {
+    return Excel::download(new ConstituencyWithTowns, 'constituencies+towns.csv');
+})
+    ->name('exports.constituency-towns');
+
+Route::get('/exports/constituency-schools', function () {
+    return Excel::download(new ConstituencyWithSchools, 'constituencies+schools.csv');
+})
+    ->name('exports.constituency-schools');
+
+Route::get('/exports/constituency-hospitals', function () {
+    return Excel::download(new ConstituencyWithHospitals, 'constituencies+hospitals.csv');
+})
+->name('exports.constituency-hospitals');
+
+Route::get('/exports/constituency-dentists', function () {
+    return Excel::download(new ConstituencyWithDentists, 'constituencies+dentists.csv');
+})
+->name('exports.constituency-dentists');
+
+Route::get('/exports/constituency-charities', function () {
+    return Excel::download(new ConstituencyWithCharities, 'constituencies+charities.csv');
+})
+->name('exports.constituency-charities');
 
 Route::get('/constituency/{constituency:gss_code}/export', function (Request $request, Constituency $constituency) {
     $export = $request->input('export');

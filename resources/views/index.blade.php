@@ -83,6 +83,86 @@
                         <x-icons.download />
                     </a>
                 </div>
+
+                <div class="py-4 px-4 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="font-semibold">
+                            All Towns
+                        </p>
+
+                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                            CSV
+                        </p>
+                    </div>
+
+                    <a href="{{ route('exports.constituency-towns') }}" target="_blank">
+                        <x-icons.download />
+                    </a>
+                </div>
+
+                <div class="py-4 px-4 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="font-semibold">
+                            All Schools
+                        </p>
+
+                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                            CSV
+                        </p>
+                    </div>
+
+                    <a href="{{ route('exports.constituency-schools') }}" target="_blank">
+                        <x-icons.download />
+                    </a>
+                </div>
+
+                <div class="py-4 px-4 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="font-semibold">
+                            All Hospitals
+                        </p>
+
+                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                            CSV
+                        </p>
+                    </div>
+
+                    <a href="{{ route('exports.constituency-hospitals') }}" target="_blank">
+                        <x-icons.download />
+                    </a>
+                </div>
+
+                <div class="py-4 px-4 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="font-semibold">
+                            All Dentists
+                        </p>
+
+                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                            CSV
+                        </p>
+                    </div>
+
+                    <a href="{{ route('exports.constituency-dentists') }}" target="_blank">
+                        <x-icons.download />
+                    </a>
+                </div>
+
+                {{-- <div class="py-4 px-4 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="font-semibold">
+                            All Charities
+                        </p>
+
+                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                            CSV
+                        </p>
+                    </div>
+
+                    <a href="{{ route('exports.constituency-charities') }}" target="_blank">
+                        <x-icons.download />
+                    </a>
+                </div> --}}
             </div>
         </div>
     </div>
