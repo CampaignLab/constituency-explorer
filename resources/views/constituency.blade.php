@@ -57,6 +57,18 @@
                         Schools
                     </x-tabs.tab>
                 @endif
+
+                @if($constituency->communityCentres->isNotEmpty())
+                    <x-tabs.tab i="community-centres">
+                        Community Centres
+                    </x-tabs.tab>
+                @endif
+
+                @if($constituency->placesOfWorship->isNotEmpty())
+                    <x-tabs.tab i="places-of-worship">
+                        Places of Worship
+                    </x-tabs.tab>
+                @endif
             </x-tabs.host>
 
             <div class="flex flex-col mt-10">
@@ -473,6 +485,88 @@
                                             </p>
                                         </div>
                                     </div>
+                                </button>
+                            @endforeach
+                        </div>
+
+                        <div class="w-full hidden lg:block h-[500px] rounded-lg overflow-hidden border border-primary-border sticky top-10">
+                            <div x-ref="map"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="tab === 'community-centres'" x-cloak>
+                    <div class="flex items-center gap-x-4">
+                        <x-constituency.subheading>
+                            Community Centres
+                        </x-constituency.subheading>
+
+                        <x-constituency.counter>
+                            {{ number_format($constituency->communityCentres->count()) }}
+                        </x-constituency.counter>
+                    </div>
+
+                    {{-- FIXME: Add in download link here. --}}
+                    {{-- <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" target="_blank" class="mt-6" /> --}}
+
+                    <div x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->communityCentres->map(fn ($centre) => [
+                            'id' => $centre->id,
+                            'name' => mb_convert_encoding($centre->name, 'UTF-8'),
+                            'longitude' => $centre->longitude,
+                            'latitude' => $centre->latitude,
+                        ])->all()),
+                    })" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-x-6">
+                        <div class="space-y-6 flex flex-col">
+                            @foreach($constituency->communityCentres->sortBy('name', SORT_NATURAL) as $centre)
+                                <button type="button" x-on:click="focusMarker(@js($centre->id))" class="border border-primary-border bg-white text-left rounded-lg p-5 text-sm">
+                                    <p class="font-bold">
+                                        {{ $centre->name }}
+                                    </p>
+                                </button>
+                            @endforeach
+                        </div>
+
+                        <div class="w-full hidden lg:block h-[500px] rounded-lg overflow-hidden border border-primary-border sticky top-10">
+                            <div x-ref="map"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="tab === 'places-of-worship'" x-cloak>
+                    <div class="flex items-center gap-x-4">
+                        <x-constituency.subheading>
+                            Places of Worship
+                        </x-constituency.subheading>
+
+                        <x-constituency.counter>
+                            {{ number_format($constituency->placesOfWorship->count()) }}
+                        </x-constituency.counter>
+                    </div>
+
+                    {{-- FIXME: Add in download link here. --}}
+                    {{-- <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" target="_blank" class="mt-6" /> --}}
+
+                    <div x-data="constituencyMap({
+                        token: @js(config('services.mapbox.token')),
+                        geometry: @js($constituency->geojson),
+                        center: @js([$constituency->center_lon, $constituency->center_lat]),
+                        markers: @js($constituency->placesOfWorship->map(fn ($place) => [
+                            'id' => $place->id,
+                            'name' => mb_convert_encoding($place->name, 'UTF-8'),
+                            'longitude' => $place->longitude,
+                            'latitude' => $place->latitude,
+                        ])->all()),
+                    })" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-x-6">
+                        <div class="space-y-6 flex flex-col">
+                            @foreach($constituency->placesOfWorship->sortBy('name', SORT_NATURAL) as $place)
+                                <button type="button" x-on:click="focusMarker(@js($place->id))" class="border border-primary-border bg-white text-left rounded-lg p-5 text-sm">
+                                    <p class="font-bold">
+                                        {{ $place->name }}
+                                    </p>
                                 </button>
                             @endforeach
                         </div>

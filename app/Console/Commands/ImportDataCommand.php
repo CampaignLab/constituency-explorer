@@ -27,5 +27,7 @@ class ImportDataCommand extends Command
         $this->call(ImportDentistsCommand::class);
         $this->call(ImportEnglishHospitalsCommand::class);
         $this->call(ImportEnglishSchoolsCommand::class);
+        $this->call(ImportCommunityCentres::class);
+        $this->call(ImportPlacesOfWorship::class);
     }
 }
