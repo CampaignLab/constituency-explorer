@@ -20,7 +20,7 @@
 
     <div class="border border-primary-border rounded-b-lg divide-y divide-primary-border text-sm">
         <div class="p-4 flex items-center justify-between">
-            <p class="font-bold">Population Overlap Percentage</p>
+            <p class="font-bold">Population Overlap</p>
 
             <div class="text-right">
                 <p>{{ number_format($populationOverlapPercentage) }}%</p>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="p-4 flex items-center justify-between">
-            <p class="font-bold">Area Overlap Percentage</p>
+            <p class="font-bold">Area Overlap</p>
 
             <div class="text-right">
                 <p>{{ number_format($areaOverlapPercentage) }}%</p>
