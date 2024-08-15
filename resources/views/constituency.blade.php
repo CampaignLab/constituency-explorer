@@ -98,7 +98,7 @@
                         <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'la'])" class="mt-6" target="_blank" />
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                            @foreach($constituency->localAuthorities->sortByDesc('percentage_overlap_pop') as $authority)
+                            @foreach($constituency->localAuthorities->sortByDesc('pivot.percentage_overlap_pop') as $authority)
                                 <x-constituency.overview-entity-card
                                     :name="$authority->name"
                                     :code="$authority->gss_code"
@@ -125,7 +125,7 @@
                         <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'old'])" class="mt-6" target="_blank" />
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                            @foreach($constituency->oldConstituencies->sortByDesc('percentage_overlap_pop') as $oldConstituency)
+                            @foreach($constituency->oldConstituencies->sortByDesc('pivot.percentage_overlap_pop') as $oldConstituency)
                                 <x-constituency.overview-entity-card
                                     :name="$oldConstituency->name"
                                     :code="$oldConstituency->gss_code"
