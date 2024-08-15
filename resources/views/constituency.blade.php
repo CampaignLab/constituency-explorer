@@ -22,7 +22,7 @@
                     <x-constituency.overview-stat-card size="sm" class="bg-white" label="Density" :value="number_format($constituency->density, 2)" />
                 </div>
 
-                <img src="{{ $constituency->getMapBoxImageUrl() }}" alt="" class="w-1/2 hidden lg:block h-[300px] object-center object-cover rounded-lg">
+                <img src="{{ $constituency->getMapBoxImageUrl() }}" alt="" class="w-1/2 hidden lg:block h-[300px] object-center object-cover rounded-lg border border-primary-border">
             </div>
         </div>
 
@@ -62,12 +62,12 @@
             <div class="flex flex-col mt-10">
                 <div x-show="tab === 'overview'">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <x-constituency.overview-stat-card label="Local Authorities" :value="number_format($constituency->localAuthorities->count())" />
-                        <x-constituency.overview-stat-card label="Towns" :value="number_format($constituency->towns->count())" />
-                        <x-constituency.overview-stat-card label="Charities" :value="number_format($constituency->charities->count())" />
-                        <x-constituency.overview-stat-card label="Dentists" :value="number_format($constituency->dentists->count())" />
-                        <x-constituency.overview-stat-card label="Hospitals" :value="number_format($constituency->hospitals->count())" />
-                        <x-constituency.overview-stat-card label="Schools" :value="number_format($constituency->schools->count())" />
+                        <x-constituency.overview-stat-card label="Local Authorities" :value="number_format($constituency->localAuthorities->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'la'])" />
+                        <x-constituency.overview-stat-card label="Towns" :value="number_format($constituency->towns->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'towns'])" />
+                        <x-constituency.overview-stat-card label="Charities" :value="number_format($constituency->charities->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'charities'])" />
+                        <x-constituency.overview-stat-card label="Dentists" :value="number_format($constituency->dentists->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'dentists'])" />
+                        <x-constituency.overview-stat-card label="Hospitals" :value="number_format($constituency->hospitals->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'hospitals'])" />
+                        <x-constituency.overview-stat-card label="Schools" :value="number_format($constituency->schools->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" />
                     </div>
 
                     <div class="mt-10">
@@ -81,7 +81,7 @@
                             </x-constituency.counter>
                         </div>
 
-                        <x-constituency.download-data-link class="mt-6" />
+                        <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'la'])" class="mt-6" target="_blank" />
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                             @foreach($constituency->localAuthorities->sortBy('name') as $authority)
@@ -108,7 +108,7 @@
                             </x-constituency.counter>
                         </div>
 
-                        <x-constituency.download-data-link class="mt-6" />
+                        <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'old'])" class="mt-6" target="_blank" />
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                             @foreach($constituency->oldConstituencies->sortBy('name') as $oldConstituency)
@@ -438,7 +438,7 @@
                         center: @js([$constituency->center_lon, $constituency->center_lat]),
                         markers: @js($constituency->schools->map(fn ($school) => [
                             'id' => $school->id,
-                            'name' => $school->name,
+                            'name' => mb_convert_encoding($school->name, 'UTF-8'),
                             'longitude' => $school->longitude,
                             'latitude' => $school->latitude,
                         ])->all()),
