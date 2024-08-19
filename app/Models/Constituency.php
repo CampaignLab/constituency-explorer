@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use function App\simplify_geojson_coordinates;
+
 class Constituency extends Model
 {
     use HasFactory;
@@ -105,7 +107,7 @@ class Constituency extends Model
 
         return sprintf(
             'https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/geojson(%s)/%f,%f,10,0/800x300@2x?access_token=%s',
-            json_encode($this->geojson),
+            urlencode(json_encode(simplify_geojson_coordinates($this->geojson))),
             round($this->center_lon, 4),
             round($this->center_lat, 4),
             config('services.mapbox.token'),

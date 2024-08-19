@@ -17,15 +17,11 @@ document.addEventListener('alpine:initializing', () => {
                 zoom: 11,
             });
 
-            document.addEventListener('tab:changed', () => {
-                map.resize();
-            });
+            map.on('idle', () => {
+                map.resize()._update();
+            })
 
             this.map = map;
-
-            map.on('render', () => {
-                map.resize();
-            })
 
             map.on('load', () => {
                 map.addSource('constituency', {
@@ -66,7 +62,7 @@ document.addEventListener('alpine:initializing', () => {
                                 `)
                         )
                         .addTo(map);
-                })
+                });
             })
         },
         focusMarker(id) {
