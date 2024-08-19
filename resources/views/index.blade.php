@@ -31,8 +31,22 @@
             </x-constituency.subheading>
 
             <div class="max-w-4xl text-sm mt-6 space-y-4">
-                <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Sapien fermentum natoque ut; penatibus sollicitudin libero. Arcu parturient sem augue diam; curae fusce eget dapibus. Maximus curae bibendum lacus id metus conubia. Cras finibus et congue ultricies pulvinar odio. Sit egestas litora aliquet tempus libero augue pretium. Pretium inceptos porttitor ante, auctor torquent nostra himenaeos dignissim. Dolor feugiat vestibulum habitant elit in.</p>
-                <p>Primis in ut risus tellus eget, blandit mi. Quam blandit libero aptent maximus ullamcorper penatibus sollicitudin et. Vehicula mus diam integer inceptos efficitur etiam. Laoreet ad fringilla maecenas vulputate lacus tortor venenatis accumsan. Netus nisl fermentum sem turpis ac non elit himenaeos. Maecenas quisque vitae pharetra leo netus. Aliquet viverra ultricies vitae netus dis aenean. Luctus vestibulum lorem diam enim primis curabitur dapibus ac. Cras finibus hac volutpat efficitur quis ultrices nisi suspendisse phasellus.</p>
+                <p>As well as looking up constituencies, you can also download all of the data that is available in this tool, mapped to the new constituencies.</p>
+
+                <div class="space-y-2">
+                    <p class="font-semibold">Constituencies mapped to single Local Authority & previous Constituency</p>
+                    <p>Using population overlap to map constituencies to their biggest Local Authority & biggest previous Constituency</p>
+                </div>
+
+                <div class="space-y-2">
+                    <p class="font-semibold">Constituencies mapped to all Local Authorities</p>
+                    <p>One row per mapping (e.g. if a constituency has 2 local authorities - then there are 2 rows - 1 for each local authority)</p>
+                </div>
+
+                <div class="space-y-2">
+                    <p class="font-semibold">Constituencies mapped to all previous constituencies</p>
+                    <p>One row per mapping (e.g. if a constituency has 2 previous constituencies - then there are 2 rows - 1 for each previous constituency)</p>
+                </div>
             </div>
 
             <div class="flex flex-col max-w-[600px] border-y border-primary-border divide-y divide-primary-border mt-6 text-sm">
