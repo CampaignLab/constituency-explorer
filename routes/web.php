@@ -7,6 +7,7 @@ use App\Exports\ConstituencyCommunityCentres;
 use App\Exports\ConstituencyDentists;
 use App\Exports\ConstituencyHospitals;
 use App\Exports\ConstituencyLocalAuthority;
+use App\Exports\ConstituencyLocalMedia;
 use App\Exports\ConstituencyOldConstituency;
 use App\Exports\ConstituencyPlacesOfWorship;
 use App\Exports\ConstituencySchools;
@@ -97,6 +98,7 @@ Route::get('/constituency/{constituency:gss_code}/export', function (Request $re
         'old' => new ConstituencyOldConstituency($constituency),
         'community-centres' => new ConstituencyCommunityCentres($constituency),
         'places-of-worship' => new ConstituencyPlacesOfWorship($constituency),
+        'local-media' => new ConstituencyLocalMedia($constituency),
     }, "{$constituency->name}+{$export}.csv");
 })
     ->name('constituency.export');

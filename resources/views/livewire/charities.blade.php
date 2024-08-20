@@ -1,7 +1,7 @@
 <div>
     <div class="flex items-start justify-between">
         <div class="flex items-center gap-x-4">
-            <x-constituency.subheading id="charities">
+            <x-constituency.subheading id="local-media">
                 Charities
             </x-constituency.subheading>
 
@@ -12,8 +12,6 @@
 
         <x-input type="search" wire:model.live.debounce.500ms="search" placeholder="Search by name..." />
     </div>
-
-    {{-- FIXME: Add in Charity search here. --}}
 
     <x-constituency.download-data-link :href="route('constituency.export', ['constituency' => $constituency, 'export' => 'charities'])" target="_blank" class="mt-6" />
 

@@ -22,12 +22,16 @@
                     <x-constituency.overview-stat-card size="sm" class="bg-white" label="Density" :value="number_format($constituency->density, 2)" />
                 </div>
 
-                <img src="{{ $constituency->getMapBoxImageUrl() }}" alt="" class="w-1/2 hidden lg:block h-[300px] object-center object-cover rounded-lg border border-primary-border">
+                <div class="w-1/2 hidden lg:block h-[300px] object-center object-cover rounded-lg border border-primary-border" x-data="constituencyStaticMap({
+                    token: @js(config('services.mapbox.token')),
+                    geometry: @js($constituency->geojson),
+                    center: @js([$constituency->center_lon, $constituency->center_lat]),
+                })"></div>
             </div>
         </div>
 
         <div class="bg-white py-7 px-6 md:px-10 2xl:px-24">
-            <x-tabs.host>
+        <x-tabs.host>
                 <x-tabs.tab i="overview" active>
                     Overview
                 </x-tabs.tab>
@@ -69,6 +73,12 @@
                         Places of Worship
                     </x-tabs.tab>
                 @endif
+
+                @if($constituency->localMedia->isNotEmpty())
+                    <x-tabs.tab i="local-media">
+                        Local Media
+                    </x-tabs.tab>
+                @endif
             </x-tabs.host>
 
             <div class="flex flex-col mt-10">
@@ -82,6 +92,7 @@
                         <x-constituency.overview-stat-card label="Schools" :value="number_format($constituency->schools->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" />
                         <x-constituency.overview-stat-card label="Community Centres" :value="number_format($constituency->communityCentres->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'community-centres'])" />
                         <x-constituency.overview-stat-card label="Places of Worship" :value="number_format($constituency->placesOfWorship->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'places-of-worship'])" />
+                        <x-constituency.overview-stat-card label="Local Media" :value="number_format($constituency->localMedia->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'local-media'])" />
                     </div>
 
                     <div class="mt-10">
@@ -185,6 +196,10 @@
 
                 <div x-show="tab === 'places-of-worship'" x-cloak>
                     <livewire:places-of-worship :$constituency />
+                </div>
+
+                <div x-show="tab === 'local-media'" x-cloak>
+                    <livewire:local-media :$constituency />
                 </div>
             </div>
         </div>
