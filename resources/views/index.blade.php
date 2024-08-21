@@ -30,33 +30,18 @@
                 Data Download
             </x-constituency.subheading>
 
-            <div class="max-w-4xl text-sm mt-6 space-y-4">
-                <p>As well as looking up constituencies, you can also download all of the data that is available in this tool, mapped to the new constituencies.</p>
+            <p>As well as looking up constituencies, you can also download all of the data that is available in this tool, mapped to the new constituencies.</p>
 
-                <div class="space-y-2">
-                    <p class="font-semibold">Constituencies mapped to single Local Authority & previous Constituency</p>
-                    <p>Using population overlap to map constituencies to their biggest Local Authority & biggest previous Constituency</p>
-                </div>
-
-                <div class="space-y-2">
-                    <p class="font-semibold">Constituencies mapped to all Local Authorities</p>
-                    <p>One row per mapping (e.g. if a constituency has 2 local authorities - then there are 2 rows - 1 for each local authority)</p>
-                </div>
-
-                <div class="space-y-2">
-                    <p class="font-semibold">Constituencies mapped to all previous constituencies</p>
-                    <p>One row per mapping (e.g. if a constituency has 2 previous constituencies - then there are 2 rows - 1 for each previous constituency)</p>
-                </div>
-            </div>
-
-            <div class="flex flex-col max-w-[600px] border-y border-primary-border divide-y divide-primary-border mt-6 text-sm">
-                <div class="py-4 px-4 flex items-center justify-between">
+            <div class="flex flex-col max-w-[800px] border-y border-primary-border divide-y divide-primary-border mt-6 text-sm">
+                <div class="py-4 px-4 flex items-center justify-between gap-x-12">
                     <div class="space-y-1">
                         <p class="font-semibold">
-                            Constituency to single Local Authority
+                            Constituencies mapped to single Local Authority & previous Constituency
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-muted-foreground">Using population overlap to map constituencies to their biggest Local Authority & biggest previous Constituency</p>
+
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
@@ -66,13 +51,15 @@
                     </a>
                 </div>
 
-                <div class="py-4 px-4 flex items-center justify-between">
+                <div class="py-4 px-4 flex items-center justify-between gap-x-12">
                     <div class="space-y-1">
                         <p class="font-semibold">
-                            Constituency to all Local Authorities
+                            Constituencies mapped to all Local Authorities
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-muted-foreground">One row per mapping (e.g. if a constituency has 2 local authorities - then there are 2 rows - 1 for each local authority)</p>
+
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
@@ -82,13 +69,15 @@
                     </a>
                 </div>
 
-                <div class="py-4 px-4 flex items-center justify-between">
+                <div class="py-4 px-4 flex items-center justify-between gap-x-12">
                     <div class="space-y-1">
                         <p class="font-semibold">
-                            Constituency to all Old Constituencies
+                            Constituencies mapped to all previous constituencies
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-muted-foreground">One row per mapping (e.g. if a constituency has 2 previous constituencies - then there are 2 rows - 1 for each previous constituency)</p>
+
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
@@ -104,7 +93,7 @@
                             All Towns
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
@@ -120,7 +109,7 @@
                             All Schools
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
@@ -136,7 +125,7 @@
                             All Hospitals
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
@@ -152,7 +141,7 @@
                             All Dentists
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
@@ -168,7 +157,7 @@
                             All Charities
                         </p>
 
-                        <p class="text-xs text-muted-foreground font-medium uppercase">
+                        <p class="text-xs text-muted-foreground/75 font-medium uppercase">
                             CSV
                         </p>
                     </div>
