@@ -1,13 +1,23 @@
 @props([
     'label',
     'value',
+    'tab' => null,
     'download' => null,
     'size' => 'md',
 ])
 
-<div {{ $attributes->class(['border border-primary-border rounded-lg flex flex-col']) }}>
+@php
+    $tag = isset($tab) ? 'button' : 'div';
+@endphp
+
+<{{ $tag }}
+    @isset($tab)
+        x-on:click="if (document.querySelector(`[data-tab-target=@js($tab)]`)) { tab = @js($tab) }"
+    @endisset
+    {{ $attributes->class(['border border-primary-border rounded-lg flex flex-col text-left']) }}
+>
     <div @class([
-        'flex-1',
+        'flex-1 w-full',
         'p-6' => $size === 'md',
         'p-4' => $size === 'sm',
     ])>
@@ -26,7 +36,7 @@
 
     @isset($download)
         <a href="{{ $download }}" target="_blank" @class([
-            'flex items-center gap-x-2.5 text-xs border-t border-primary-border',
+            'flex items-center gap-x-2.5 text-xs border-t border-primary-border w-full',
             'px-6 py-2.5' => $size === 'md',
             'px-4 py-2.5' => $size === 'sm',
         ])>
@@ -34,4 +44,4 @@
             <span>Download data</span>
         </a>
     @endisset
-</div>
+</{{ $tag }}>

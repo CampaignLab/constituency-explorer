@@ -79,20 +79,27 @@
                         Local Media
                     </x-tabs.tab>
                 @endif
+
+                @if($constituency->greenSpaces->isNotEmpty())
+                    <x-tabs.tab i="green-spaces">
+                        Green Spaces
+                    </x-tabs.tab>
+                @endif
             </x-tabs.host>
 
             <div class="flex flex-col mt-10">
                 <div x-show="tab === 'overview'">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <x-constituency.overview-stat-card label="Local Authorities" :value="number_format($constituency->localAuthorities->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'la'])" />
-                        <x-constituency.overview-stat-card label="Towns" :value="number_format($constituency->towns->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'towns'])" />
-                        <x-constituency.overview-stat-card label="Charities" :value="number_format($constituency->charities->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'charities'])" />
-                        <x-constituency.overview-stat-card label="Dentists" :value="number_format($constituency->dentists->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'dentists'])" />
-                        <x-constituency.overview-stat-card label="Hospitals" :value="number_format($constituency->hospitals->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'hospitals'])" />
-                        <x-constituency.overview-stat-card label="Schools" :value="number_format($constituency->schools->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" />
-                        <x-constituency.overview-stat-card label="Community Centres" :value="number_format($constituency->communityCentres->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'community-centres'])" />
-                        <x-constituency.overview-stat-card label="Places of Worship" :value="number_format($constituency->placesOfWorship->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'places-of-worship'])" />
-                        <x-constituency.overview-stat-card label="Local Media" :value="number_format($constituency->localMedia->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'local-media'])" />
+                        <x-constituency.overview-stat-card tab="towns" label="Towns" :value="number_format($constituency->towns->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'towns'])" />
+                        <x-constituency.overview-stat-card tab="charities" label="Charities" :value="number_format($constituency->charities->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'charities'])" />
+                        <x-constituency.overview-stat-card tab="dentists" label="Dentists" :value="number_format($constituency->dentists->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'dentists'])" />
+                        <x-constituency.overview-stat-card tab="hospitals" label="Hospitals" :value="number_format($constituency->hospitals->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'hospitals'])" />
+                        <x-constituency.overview-stat-card tab="schools" label="Schools" :value="number_format($constituency->schools->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'schools'])" />
+                        <x-constituency.overview-stat-card tab="community-centres" label="Community Centres" :value="number_format($constituency->communityCentres->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'community-centres'])" />
+                        <x-constituency.overview-stat-card tab="places-of-worship" label="Places of Worship" :value="number_format($constituency->placesOfWorship->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'places-of-worship'])" />
+                        <x-constituency.overview-stat-card tab="local-media" label="Local Media" :value="number_format($constituency->localMedia->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'local-media'])" />
+                        <x-constituency.overview-stat-card tab="green-spaces" label="Green Spaces" :value="number_format($constituency->greenSpaces->count())" :download="route('constituency.export', ['constituency' => $constituency, 'export' => 'green-spaces'])" />
                     </div>
 
                     <div class="mt-10">
@@ -200,6 +207,10 @@
 
                 <div x-show="tab === 'local-media'" x-cloak>
                     <livewire:local-media :$constituency />
+                </div>
+
+                <div x-show="tab === 'green-spaces'" x-cloak>
+                    <livewire:green-spaces :$constituency />
                 </div>
             </div>
         </div>

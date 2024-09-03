@@ -45,14 +45,14 @@
         </svg>
         <input type="text"
             class="h-10 w-full border-0 bg-transparent pl-10 pr-4 text-neutral-900 placeholder:text-neutral-400 focus:ring-0 sm:text-sm"
-            placeholder="Search..." role="combobox" aria-expanded="false" aria-controls="options"
+            placeholder="Search by constituency or postcode..." role="combobox" aria-expanded="false" aria-controls="options"
             wire:model.live.debounce.500ms="search" x-on:focus="open = true" x-ref="search">
     </div>
 
     <div class="absolute top-10 z-20 bg-white w-full rounded-b-lg ring-1 ring-primary-border overflow-hidden" x-show="open" x-cloak>
-        @if ($constituencies->isNotEmpty())
+        @if ($this->constituencies->isNotEmpty())
             <ul class="max-h-72 scroll-py-2 overflow-y-auto text-sm text-neutral-800" id="options" role="listbox" x-ref="options">
-                @foreach ($constituencies as $constituency)
+                @foreach ($this->constituencies as $constituency)
                     <li class="cursor-default select-none px-4 py-2 hover:bg-neutral-100 focus-within:bg-neutral-100" id="option-1" role="option"
                         tabindex="-1">
                         <a href="{{ route('constituency', $constituency) }}" class="block focus:outline-none">{{ $constituency->name }}</a>

@@ -10,7 +10,7 @@
 <button type="button" x-on:click="tab = @js($i)" {{ $attributes->class([
     'px-6 py-2 font-medium text-sm flex-1 lg:flex-initial cursor-pointer',
     $activeClasses => $active,
-]) }} x-bind:class="{
+]) }} data-tab-target="{{ $i }}" x-bind:class="{
     @js($activeClasses): tab === @js($i),
 }">
     {{ $slot }}

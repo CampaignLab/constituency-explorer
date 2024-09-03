@@ -5,6 +5,7 @@ use App\Exports\AllPcon23Export;
 use App\Exports\ConstituencyCharities;
 use App\Exports\ConstituencyCommunityCentres;
 use App\Exports\ConstituencyDentists;
+use App\Exports\ConstituencyGreenSpaces;
 use App\Exports\ConstituencyHospitals;
 use App\Exports\ConstituencyLocalAuthority;
 use App\Exports\ConstituencyLocalMedia;
@@ -99,6 +100,7 @@ Route::get('/constituency/{constituency:gss_code}/export', function (Request $re
         'community-centres' => new ConstituencyCommunityCentres($constituency),
         'places-of-worship' => new ConstituencyPlacesOfWorship($constituency),
         'local-media' => new ConstituencyLocalMedia($constituency),
+        'green-spaces' => new ConstituencyGreenSpaces($constituency),
     }, "{$constituency->name}+{$export}.csv");
 })
     ->name('constituency.export');
