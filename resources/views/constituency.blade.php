@@ -37,8 +37,8 @@
                     Overview
                 </x-tabs.tab>
 
-                <x-tabs.tab i="towns">
-                    Towns
+                <x-tabs.tab i="local-areas">
+                    Local Areas
                 </x-tabs.tab>
 
                 <x-tabs.tab i="charities">
@@ -158,10 +158,10 @@
                     </div>
                 </div>
 
-                <div x-show="tab === 'towns'" x-cloak>
+                <div x-show="tab === 'local-areas'" x-cloak>
                     <div class="flex items-center gap-x-4">
                         <x-constituency.subheading>
-                            Towns
+                            Local Areas
                         </x-constituency.subheading>
 
                         <x-constituency.counter>
