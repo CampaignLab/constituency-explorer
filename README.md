@@ -79,6 +79,7 @@ php artisan import:english-schools
 php artisan import:scottish-schools
 php artisan import:green-spaces
 php artisan import:constituencies-population
+php artisan import:parliament-constituency-ids
 ```
 
 ### Assets

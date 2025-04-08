@@ -42,6 +42,7 @@ class Constituency extends Model
         'center_lon',
         'geojson',
         'population',
+        'parliament_constituency_id',
     ];
 
     protected $casts = [
