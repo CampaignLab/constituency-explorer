@@ -18,8 +18,8 @@
                     <x-constituency.overview-stat-card size="sm" class="bg-white" label="Nation" :value="$constituency->nation" />
                     <x-constituency.overview-stat-card size="sm" class="bg-white" label="Region" :value="$constituency->region" />
                     <x-constituency.overview-stat-card size="sm" class="bg-white" label="Electorate" :value="number_format($constituency->electorate)" />
-                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Area" :value="number_format($constituency->area, 2)" />
-                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Density" :value="number_format($constituency->density, 2)" />
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Area (km²)" :value="number_format($constituency->area, 2)" />
+                    <x-constituency.overview-stat-card size="sm" class="bg-white" label="Density (people per km²)" :value="number_format($constituency->density, 2)" />
                 </div>
 
                 <div class="w-1/2 hidden lg:block h-[300px] object-center object-cover rounded-lg border border-primary-border" x-data="constituencyStaticMap({
