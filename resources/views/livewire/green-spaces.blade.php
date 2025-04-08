@@ -23,7 +23,14 @@
         ])->all()),
     })" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-6">
         <div class="space-y-6 flex flex-col">
-            <x-input type="search" wire:model.live.debounce.500ms="search" placeholder="Search by name..." />
+            <div class="flex flex-col space-y-3 mt-2">
+                <x-input type="search" wire:model.live.debounce.500ms="search" placeholder="Search by name..." />
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="hide-unknown" wire:model.live="hideUnknown" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-primary-300 rounded">
+                    <label for="hide-unknown" class="ml-2 block text-sm text-gray-700">Hide missing names ("Unknown")</label>
+                </div>
+            </div>
 
             @foreach($this->greenSpaces as $place)
                 <button type="button" x-on:click="focusMarker(@js($place->id))" class="border border-primary-border bg-white text-left rounded-lg p-5 text-sm">

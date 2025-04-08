@@ -11,14 +11,19 @@ class GreenSpaces extends Component
     public Constituency $constituency;
 
     public $search = '';
+    public $hideUnknown = true;
 
     #[Computed()]
     public function greenSpaces()
     {
-        return $this->constituency->greenSpaces()
-            ->where('name', 'like', "%{$this->search}%")
-            ->orderBy('name')
-            ->get();
+        $query = $this->constituency->greenSpaces()
+            ->where('name', 'like', "%{$this->search}%");
+            
+        if ($this->hideUnknown) {
+            $query->where('name', '!=', 'Unknown');
+        }
+        
+        return $query->orderBy('name')->get();
     }
 
     public function render()
