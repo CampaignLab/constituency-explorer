@@ -1,3 +1,5 @@
+![](./thumbnail.png)
+
 # Constituency Explorer
 
 An app for people to explore the new UK constituency boundaries.
