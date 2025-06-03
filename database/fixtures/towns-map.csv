@@ -1053,7 +1053,7 @@ id,new_constituency_name,town_name
 4803,Rhondda and Ogmore,Blaenllechau
 4811,Merthyr Tydfil and Aberdare,Tre-Gibbon
 4819,Merthyr Tydfil and Aberdare,Abercwmboi
-4827,Merthyr Tydfil and Aberdare,Aberdare / AberdÃ¢r
+4827,Merthyr Tydfil and Aberdare,Aberdare / Aberdâr
 4831,Merthyr Tydfil and Aberdare,Cwmdare
 4841,Merthyr Tydfil and Aberdare,Cefn Rhigos
 4849,Pontypridd,Perthcelyn
@@ -1069,11 +1069,11 @@ id,new_constituency_name,town_name
 4900,Merthyr Tydfil and Aberdare,Dowlais
 4904,Merthyr Tydfil and Aberdare,Pentrebach
 4916,Cardiff West,Victoria Park
-4918,Cardiff West,Llandaff / LlandÃ¢f
+4918,Cardiff West,Llandaff / Llandâf
 4925,Cardiff West,Fairwater
 4932,Cardiff West,Cyntwell
 4952,Cardiff West,Caerau
-4962,Vale of Glamorgan,Wenvoe / GwenfÃ´
+4962,Vale of Glamorgan,Wenvoe / Gwenfô
 4965,Vale of Glamorgan,Dimlands
 4970,Vale of Glamorgan,Frampton
 4971,Vale of Glamorgan,Lower Porthkerry
@@ -3045,7 +3045,7 @@ id,new_constituency_name,town_name
 14441,Wrexham,Greenfields
 14443,Wrexham,Little Acton
 14445,Wrexham,Singret
-14449,Alyn and Deeside,Abermorddu / Yr HÃ´b
+14449,Alyn and Deeside,Abermorddu / Yr Hôb
 14452,Wrexham,Talwrn
 14458,Wrexham,Felin Puleston
 14470,Wrexham,Hightown
@@ -3091,7 +3091,7 @@ id,new_constituency_name,town_name
 14620,Bangor Aberconwy,Dolwyddelan
 14621,Bangor Aberconwy,Maenan
 14625,Bangor Aberconwy,Trefriw
-14626,Clwyd North,Llandrillo-yn-RhÃ´s
+14626,Clwyd North,Llandrillo-yn-Rhôs
 14627,Bangor Aberconwy,Pentre'r Felin
 14630,Clwyd North,Pentre'r Felin
 14637,Clwyd North,Llysfaen
@@ -3139,28 +3139,28 @@ id,new_constituency_name,town_name
 14792,Bangor Aberconwy,Gerlan
 14796,Bangor Aberconwy,Bryn Eglwys
 14797,Dwyfor Meirionnydd,Bryn Eglwys
-14802,Ynys Mon,Beaumaris
-14805,Ynys Mon,Llansadwrn
-14809,Ynys Mon,Pentre Berw
-14812,Ynys Mon,Llanfair Pwllgwyngyll
-14813,Ynys Mon,Penmynydd
-14817,Ynys Mon,Paradwys
-14819,Ynys Mon,Bryn Du
-14821,Ynys Mon,Rhosneigr
-14822,Ynys Mon,Goferydd
-14825,Ynys Mon,Penrhos
-14829,Ynys Mon,Caergeiliog
-14836,Ynys Mon,Llanrhuddlad
-14842,Ynys Mon,Cemaes
-14843,Ynys Mon,Llanfflewyn
-14845,Ynys Mon,Llaneilian
-14848,Ynys Mon,Penygraigwen
-14849,Ynys Mon,Bachau
-14850,Ynys Mon,Llanallgo
-14851,Ynys Mon,Bwlch
-14852,Ynys Mon,Rhoscefnhir
-14853,Ynys Mon,Llanbedrgoch
-14855,Ynys Mon,Tregaian
+14802,Ynys Môn,Beaumaris
+14805,Ynys Môn,Llansadwrn
+14809,Ynys Môn,Pentre Berw
+14812,Ynys Môn,Llanfair Pwllgwyngyll
+14813,Ynys Môn,Penmynydd
+14817,Ynys Môn,Paradwys
+14819,Ynys Môn,Bryn Du
+14821,Ynys Môn,Rhosneigr
+14822,Ynys Môn,Goferydd
+14825,Ynys Môn,Penrhos
+14829,Ynys Môn,Caergeiliog
+14836,Ynys Môn,Llanrhuddlad
+14842,Ynys Môn,Cemaes
+14843,Ynys Môn,Llanfflewyn
+14845,Ynys Môn,Llaneilian
+14848,Ynys Môn,Penygraigwen
+14849,Ynys Môn,Bachau
+14850,Ynys Môn,Llanallgo
+14851,Ynys Môn,Bwlch
+14852,Ynys Môn,Rhoscefnhir
+14853,Ynys Môn,Llanbedrgoch
+14855,Ynys Môn,Tregaian
 14863,Louth and Horncastle,Bucknall
 14864,Louth and Horncastle,Martin Dales
 14866,Lincoln,
@@ -5200,7 +5200,7 @@ id,new_constituency_name,town_name
 24848,Caerfyrddin,Myrtle Hill
 24854,Swansea West,Upper Killay
 24855,Gower,Upper Killay
-24861,Swansea West,Ty-cÃ´ch
+24861,Swansea West,Ty-côch
 24863,Gower,Penrice
 24865,Caerfyrddin,Carmarthen / Caerfyrddin
 24869,Caerfyrddin,Bryn Myrddin
@@ -5225,8 +5225,8 @@ id,new_constituency_name,town_name
 24927,Ceredigion Preseli,Rhippinllwyd
 24932,Caerfyrddin,Maesycrugiau
 24937,Llanelli,Hendy
-24939,Ceredigion Preseli,Aber-GiÃ¢r
-24943,Caerfyrddin,Aber-GiÃ¢r
+24939,Ceredigion Preseli,Aber-Giâr
+24943,Caerfyrddin,Aber-Giâr
 24944,Ceredigion Preseli,Pentre Galar
 24949,Ceredigion Preseli,Parrog
 24952,Gower,Poundffald
@@ -5267,7 +5267,7 @@ id,new_constituency_name,town_name
 25094,Neath and Swansea East,Aber-Clydach
 25095,Gower,Aber-Clydach
 25101,Ceredigion Preseli,Pentrisil
-25107,Swansea West,Cwm-felin-fÃ¢ch
+25107,Swansea West,Cwm-felin-fâch
 25114,Ceredigion Preseli,Llandilo
 25116,Caerfyrddin,Llandilo
 25119,Swansea West,Clase
@@ -7292,13 +7292,13 @@ id,new_constituency_name,town_name
 36132,Chesham and Amersham,Tylers Green
 36133,Wycombe,Loudwater
 36157,Aylesbury,Haydon Hill
-36219,Na h-Eileanan an Iar,Ceann a' ChÃ²inich
+36219,Na h-Eileanan an Iar,Ceann a' Chòinich
 36221,Na h-Eileanan an Iar,Cearsiadair
 36222,Na h-Eileanan an Iar,Taobh Siar
 36223,Na h-Eileanan an Iar,Srannda / Strond
-36224,Na h-Eileanan an Iar,Ardnastruban / Ã€ird nan SrÃ¹ban
+36224,Na h-Eileanan an Iar,Ardnastruban / Àird nan Srùban
 36225,Na h-Eileanan an Iar,Torlum
-36226,Na h-Eileanan an Iar,CÃ rnan
+36226,Na h-Eileanan an Iar,Càrnan
 36227,Na h-Eileanan an Iar,Kentangaval / Ceann Tangabhal
 36230,Kingston upon Hull East,West Newton
 36464,"Caithness, Sutherland and Easter Ross",Rosemarkie
@@ -7328,7 +7328,7 @@ id,new_constituency_name,town_name
 36500,"Inverness, Skye and West Ross-shire",Balmacara
 36502,"Caithness, Sutherland and Easter Ross",Ruilick
 36504,"Inverness, Skye and West Ross-shire",Ardtreck
-36505,"Inverness, Skye and West Ross-shire",Dunan / An DÃ¹nan
+36505,"Inverness, Skye and West Ross-shire",Dunan / An Dùnan
 36506,"Inverness, Skye and West Ross-shire",Glenmore
 36507,"Inverness, Skye and West Ross-shire",Toscaig
 36509,"Inverness, Skye and West Ross-shire",Trumpan
@@ -7509,7 +7509,7 @@ id,new_constituency_name,town_name
 38348,"Argyll, Bute and South Lochaber",North Connel
 38349,"Argyll, Bute and South Lochaber",Fasnacloich
 38350,"Argyll, Bute and South Lochaber",Laphroaig
-38351,"Argyll, Bute and South Lochaber",Bowmore / Bogh MÃ²r
+38351,"Argyll, Bute and South Lochaber",Bowmore / Bogh Mòr
 38352,Paisley and Renfrewshire North,Blythswood
 38355,"Argyll, Bute and South Lochaber",Port Charlotte / Port Sgioba
 38356,Paisley and Renfrewshire South,Brookfield
@@ -7525,7 +7525,7 @@ id,new_constituency_name,town_name
 38370,Paisley and Renfrewshire North,Bourne Court
 38482,Angus and Perthshire Glens,Carsie
 38484,Perth and Kinross-shire,Tibbermore
-38487,Angus and Perthshire Glens,LeitfiÃ¨
+38487,Angus and Perthshire Glens,Leitfiè
 38488,Angus and Perthshire Glens,Burrelton
 38489,Angus and Perthshire Glens,Airntully
 38490,Perth and Kinross-shire,North Inch
@@ -7926,7 +7926,7 @@ id,new_constituency_name,town_name
 41490,Clwyd East,Padeswood
 41491,Clwyd East,Treuddyn
 41492,Clwyd East,Nant
-41493,Clwyd East,RhÅ·d-y-ceirw
+41493,Clwyd East,Rhŷd-y-ceirw
 41494,Clwyd East,Llong
 41496,Clwyd East,Pen-y-maes
 41497,Clwyd East,Greenfield / Maes-Glas
@@ -8516,7 +8516,7 @@ id,new_constituency_name,town_name
 42511,Wrexham,Borras
 42525,Alyn and Deeside,Ffos-y-go
 42526,Alyn and Deeside,Windy Hill
-42527,Alyn and Deeside,Hope / Yr HÃ´b
+42527,Alyn and Deeside,Hope / Yr Hôb
 42528,Alyn and Deeside,Talwrn
 42529,Alyn and Deeside,Cefn-y-bedd
 42530,Alyn and Deeside,Sydallt
@@ -8551,11 +8551,11 @@ id,new_constituency_name,town_name
 42575,Dwyfor Meirionnydd,Garth
 42576,Dwyfor Meirionnydd,Tremadog
 42577,Dwyfor Meirionnydd,Penmorfa
-42579,Ynys Mon,Twr
-42580,Ynys Mon,Pont Hwfa
-42581,Ynys Mon,Llaingoch
-42582,Ynys Mon,Porth-y-felin
-42583,Ynys Mon,Holyhead / Caergybi
+42579,Ynys Môn,Twr
+42580,Ynys Môn,Pont Hwfa
+42581,Ynys Môn,Llaingoch
+42582,Ynys Môn,Porth-y-felin
+42583,Ynys Môn,Holyhead / Caergybi
 42585,Leeds South,Beeston
 42587,Leeds North West,Cookridge
 42588,Leeds North West,Holt Park
@@ -9146,7 +9146,7 @@ id,new_constituency_name,town_name
 43576,Caerfyrddin,Llandilo-yr-ynys
 43577,Caerfyrddin,Abergorlech
 43578,Caerfyrddin,Llanfihangel-uwch-Gwili
-43579,Caerfyrddin,Nant-y-ffÃ®n
+43579,Caerfyrddin,Nant-y-ffîn
 43580,Caerfyrddin,Alltwalis
 43581,Caerfyrddin,Llanfynydd
 43582,Caerfyrddin,Pontarsais
@@ -9155,7 +9155,7 @@ id,new_constituency_name,town_name
 43585,Caerfyrddin,Llidiad-Nenog
 43587,Caerfyrddin,Halfpenny Furze
 43588,Caerfyrddin,Llanmiloe
-43589,Caerfyrddin,St Clears / SanclÃªr
+43589,Caerfyrddin,St Clears / Sanclêr
 43590,Caerfyrddin,Pendine / Pentywyn
 43591,Caerfyrddin,Llangynin
 43592,Caerfyrddin,Cross Inn
@@ -9166,7 +9166,7 @@ id,new_constituency_name,town_name
 43597,Caerfyrddin,Marros
 43598,Caerfyrddin,Laugharne / Talacharn
 43599,Caerfyrddin,Llansadwrnen
-43600,Caerfyrddin,Glan-y-mÃ´r
+43600,Caerfyrddin,Glan-y-môr
 43601,Caerfyrddin,Llansadurnen
 43602,Caerfyrddin,Pwll-trap
 43603,Caerfyrddin,Backe
@@ -9386,7 +9386,7 @@ id,new_constituency_name,town_name
 44001,Ceredigion Preseli,Pentre-llyn
 44002,Ceredigion Preseli,Capel Seion
 44003,Ceredigion Preseli,Llanafan
-44004,Ceredigion Preseli,Pant-y-crÃ»g
+44004,Ceredigion Preseli,Pant-y-crûg
 44005,Ceredigion Preseli,Blaenpennal
 44006,Ceredigion Preseli,Moriah
 44007,Ceredigion Preseli,Llanilar
