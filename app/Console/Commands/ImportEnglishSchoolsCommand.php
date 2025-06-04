@@ -31,7 +31,7 @@ class ImportEnglishSchoolsCommand extends Command
             return 1;
         }
 
-        $reader = SimpleExcelReader::create($file);
+        $reader = SimpleExcelReader::create($file)->useEncoding('ISO-8859-1');
         $proj4 = new Proj4php();
         $osgb = new Proj('EPSG:27700', $proj4);
         $wgs84 = new Proj('EPSG:4326', $proj4);
