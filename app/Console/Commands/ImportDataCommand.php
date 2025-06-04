@@ -26,7 +26,7 @@ use App\Console\Commands\ImportTownsCommand;
 
 class ImportDataCommand extends Command
 {
-    protected $signature = 'import:data';
+    protected $signature = 'import:data {--database= : The database connection to use}';
 
     protected $description = 'Execute all import scripts.';
 
@@ -34,6 +34,11 @@ class ImportDataCommand extends Command
     {
         if (! $this->confirm('Are you sure you want to import data?')) {
             return;
+        }
+
+        $database = $this->option('database');
+        if ($database) {
+            config(['database.default' => $database]);
         }
 
         $this->call(ImportConstituencies::class);

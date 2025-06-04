@@ -25,8 +25,8 @@ class CreateConstituenciesTable extends Migration
             $table->string('region');
             $table->string('con_type');
             $table->integer('electorate')->nullable();
-            $table->decimal('area', 10, 8)->nullable();
-            $table->decimal('density', 10, 8)->nullable();
+            $table->decimal('area', 18, 13)->nullable();
+            $table->decimal('density', 18, 13)->nullable();
             $table->decimal('center_lat', 10, 8)->nullable();
             $table->decimal('center_lon', 11, 8)->nullable();
             $table->timestamps();

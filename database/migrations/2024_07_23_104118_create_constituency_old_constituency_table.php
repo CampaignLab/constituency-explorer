@@ -8,6 +8,13 @@ return new class extends Migration
 {
     public function up()
     {
+        Schema::create('old_constituencies', function (Blueprint $table) {
+            $table->id();
+            $table->string('gss_code');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('constituency_old_constituency', function (Blueprint $table) {
             $table->id();
             $table->foreignId('constituency_id')->constrained();
