@@ -67,21 +67,25 @@ If you wish to import datasets separately, e.g. after pulling, use the following
 
 ```sh
 php artisan import:constituencies
-php artisan import:local-authorities
-php artisan import:pivot
-php artisan import:charities
-php artisan import:towns
-php artisan import:constituency-town-mappins
+php artisan import:constituencies-population
+php artisan import:constituency-geojson
+php artisan import:parliament-constituency-ids
 php artisan import:old-constituencies
 php artisan import:old-constituency-overlaps
+php artisan import:local-authorities
+php artisan import:constituency-local-authority-pivot-data
+php artisan import:charities
+php artisan import:towns
+php artisan import:constituency-town-mappings
 php artisan import:dentists
 php artisan import:english-hospitals
 php artisan import:scottish-hospitals
 php artisan import:english-schools
 php artisan import:scottish-schools
+php artisan import:community-centres
+php artisan import:places-of-worship
 php artisan import:green-spaces
-php artisan import:constituencies-population
-php artisan import:parliament-constituency-ids
+php artisan import:local-media
 ```
 
 ### Assets
