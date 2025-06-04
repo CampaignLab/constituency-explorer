@@ -1,39 +1,59 @@
 <?php
 
-// app/Console/Commands/ImportCharities.php
-
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\CharitiesImport;
-use Illuminate\Support\Facades\Log;
+use App\Models\Constituency;
+use App\Models\Charity;
 
-class ImportCharities extends Command
+class ImportCharities extends BaseImportCommand
 {
     protected $signature = 'import:charities';
-
     protected $description = 'Import charities.';
+    protected $filename = 'fixtures/CharityBase_6a177e34883233ee698fa2b9a69a34d4.csv';
 
-    public function handle()
+    private $constituencies;
+
+    public function initialise()
     {
-        ini_set('memory_limit', '512M'); // Increase memory limit
+        $this->constituencies = Constituency::all()->keyBy('gss_code');
+    }
 
-        $file = database_path('fixtures/CharityBase_6a177e34883233ee698fa2b9a69a34d4.csv');
+    public function importRow($row)
+    {
+        $constituency = $this->constituencies[$row['pcon_2024']] ?? null;
 
-        if (! file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
-        }
-
-        try {
-            Excel::import(new CharitiesImport, $file);
-            $this->info('Charities imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
-        }
-
-        return 0;
+        return Charity::create([
+            'charity_id' => $row['Charity ID'],
+            'company_id' => $row['Company ID'] ?: null,
+            'name' => $row['Name'],
+            'website' => $row['Website'] ?: null,
+            'trustees' => $row['Trustees'] ?: null,
+            'employees' => $row['Employees'] ?: null,
+            'volunteers' => $row['Volunteers'] ?: null,
+            'registered' => date('Y-m-d', strtotime($row['Registered'])),
+            'financial_year' => date('Y-m-d', strtotime($row['Financial Year'])),
+            'income' => $row['Income'] ?: null,
+            'spending' => $row['Spending'] ?: null,
+            'funders' => $row['Funders'] ?: null,
+            'email' => $row['Email'] ?: null,
+            'phone' => $row['Phone'] ?: null,
+            'address' => json_decode($row['Address']),
+            'postcode' => $row['Postcode'] ?: null,
+            'facebook' => $row['Facebook'] ?: null,
+            'instagram' => $row['Instagram'] ?: null,
+            'twitter' => $row['Twitter'] ?: null,
+            'ccg' => $row['CCG'] ?: null,
+            'eer' => $row['EER'] ?: null,
+            'laua' => $row['LAUA'] ?: null,
+            'lsoa' => $row['LSOA'] ?: null,
+            'msoa' => $row['MSOA'] ?: null,
+            'pcon' => $row['PCon'] ?: null,
+            'ru' => $row['RU'] ?: null,
+            'ttwa' => $row['TTWA'] ?: null,
+            'ward' => $row['Ward'] ?: null,
+            'latitude' => $row['Latitude'] ?: null,
+            'longitude' => $row['Longitude'] ?: null,
+            'constituency_id' => $constituency ? $constituency->id : null,
+        ]);
     }
 }

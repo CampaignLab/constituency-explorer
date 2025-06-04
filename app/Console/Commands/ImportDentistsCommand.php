@@ -2,33 +2,48 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\DentistsImport;
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Constituency;
+use App\Models\Dentist;
 
-class ImportDentistsCommand extends Command
+class ImportDentistsCommand extends BaseImportCommand
 {
     protected $signature = 'import:dentists';
-
     protected $description = 'Import dentists.';
+    protected $filename = 'fixtures/dentists-england.csv';
+    private $constituencies;
 
-    public function handle()
+    public function initialise()
     {
-        $file = database_path('fixtures/dentists-england.csv');
+        $this->constituencies = Constituency::all()->keyBy('gss_code');
+    }
 
-        if (!file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
+    public function importRow($row)
+    {
+        $gss_code = $row['Mapped: codes.parliamentary_constituency_2025'];
+        if (empty($gss_code)) {
+            return null;
         }
 
-        try {
-            Excel::import(new DentistsImport, $file);
-            $this->info('Dentists imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
+        $constituency = $this->constituencies[$gss_code] ?? null;
+
+        if (! $constituency) {
+            $this->warn("Constituency not found: {$gss_code}");
+            return null;
         }
 
-        return 0;
+        return Dentist::create([
+            'constituency_id' => $constituency->id,
+            'name' => $row['Name'],
+            'address' => [
+                $row['Address'],
+                $row['e'],
+                $row['f'],
+                $row['g'],
+                $row['HAMPSHIRE'],
+                $row['postcode'],
+            ],
+            'latitude' => $row['Mapped: latitude'],
+            'longitude' => $row['Mapped: longitude'],
+        ]);
     }
 }

@@ -2,33 +2,30 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\ConstituenciesPopulationImport;
+use App\Models\Constituency;
 
-class ImportConstituenciesPopulation extends Command
+class ImportConstituenciesPopulation extends BaseImportCommand
 {
     protected $signature = 'import:constituencies-population';
-
     protected $description = 'Import constituency population data.';
+    protected $filename = 'fixtures/constituencies_population.csv';
 
-    public function handle()
+    public function importRow($row)
     {
-        $file = database_path('fixtures/constituencies_population.csv');
+        $constituency = Constituency::where('gss_code', $row['code'])->first();
 
-        if (! file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
+        if (! $constituency) {
+            $this->warn("Constituency not found for {$row['code']}");
+            return null;
         }
 
-        try {
-            Excel::import(new ConstituenciesPopulationImport, $file);
-            $this->info('Constituency population data imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
-        }
+        // Cast population to integer and remove any commas
+        $population = (int) str_replace(',', '', $row['population']);
 
-        return 0;
+        $constituency->update([
+            'population' => $population,
+        ]);
+
+        return $constituency;
     }
-} 
+}

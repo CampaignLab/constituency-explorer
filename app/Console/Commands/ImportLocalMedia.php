@@ -4,53 +4,47 @@ namespace App\Console\Commands;
 
 use App\Models\LocalAuthority;
 use App\Models\LocalMedia;
-use Illuminate\Console\Command;
-use Spatie\SimpleExcel\SimpleExcelReader;
 
-class ImportLocalMedia extends Command
+class ImportLocalMedia extends BaseImportCommand
 {
     protected $signature = 'import:local-media';
-
     protected $description = 'Import local media data from CSV.';
+    protected $filename = 'fixtures/local-media.csv';
 
-    public function handle()
+    private $localAuthorities;
+
+    public function initialise()
     {
-        $file = database_path('fixtures/local-media.csv');
+        $this->localAuthorities = LocalAuthority::all()->keyBy('name');
+    }
 
-        if (!file_exists($file)) {
-            $this->error('File not found: ' . $file);
-            return;
+    public function importRow($row)
+    {
+        $la = $this->localAuthorities[$row['coverage LAD']] ?? null;
+
+        if (! $la) {
+            $this->warn("Local authority not found: {$row['coverage LAD']}");
+            return null;
         }
 
-        $reader = SimpleExcelReader::create($file);
+        $constituency = $la->constituencies->sortByDesc('pivot.percentage_overlap_area')->first();
 
-        $reader->getRows()->each(function (array $row) {
-            $la = LocalAuthority::where('name', $row['coverage LAD'])->first();
+        if (! $constituency) {
+            $this->warn('Constituency not found for Local Authority: ' . $row['coverage LAD']);
+            return null;
+        }
 
-            if (! $la) {
-                $this->warn('Local Authority not found: ' . $row['coverage LAD']);
-                return;
-            }
-
-            $constituency = $la->constituencies->sortByDesc('pivot.percentage_overlap_area')->first();
-
-            if (! $constituency) {
-                $this->warn('Constituency not found for Local Authority: ' . $row['coverage LAD']);
-                return;
-            }
-
-            LocalMedia::create([
-                'constituency_id' => $constituency->id,
-                'local_authority_id' => $la->id,
-                'name' => $row['Publication'],
-                'address' => $row['Office / Newsroom Address'] ? array_map(trim(...), explode(',', $row['Office / Newsroom Address'])) : null,
-                'twitter' => $row['Twitter'] ?: null,
-                'type_of_owner' => $row['Type of owner'] ?: null,
-                'frequency' => $row['Frequency'] ?: null,
-                'cost' => $row['Cost'] ?: null,
-                'media_type' => $row['Media Type'] ?: null,
-                'website' => $row['Website'] ?: null,
-            ]);
-        });
+        return LocalMedia::create([
+            'constituency_id' => $constituency->id,
+            'local_authority_id' => $la->id,
+            'name' => $row['Publication'],
+            'address' => $row['Office / Newsroom Address'] ? array_map(trim(...), explode(',', $row['Office / Newsroom Address'])) : null,
+            'twitter' => $row['Twitter'] ?: null,
+            'type_of_owner' => $row['Type of owner'] ?: null,
+            'frequency' => $row['Frequency'] ?: null,
+            'cost' => $row['Cost'] ?: null,
+            'media_type' => $row['Media Type'] ?: null,
+            'website' => $row['Website'] ?: null,
+        ]);
     }
 }

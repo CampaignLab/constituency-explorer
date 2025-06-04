@@ -2,33 +2,31 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\ConstituenciesImport;
+use App\Models\Constituency;
 
-class ImportConstituencies extends Command
+class ImportConstituencies extends BaseImportCommand
 {
     protected $signature = 'import:constituencies';
-
     protected $description = 'Import constituencies.';
+    protected $filename = 'fixtures/parliament_con_2025.csv';
 
-    public function handle()
+    public function importRow($row)
     {
-        $file = database_path('fixtures/parliament_con_2025.csv');
-
-        if (! file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
-        }
-
-        try {
-            Excel::import(new ConstituenciesImport, $file);
-            $this->info('Constituencies imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
-        }
-
-        return 0;
+        return Constituency::create([
+            'full_code' => $row['full_code'],
+            'short_code' => $row['short_code'],
+            'name' => $row['name'],
+            'name_cy' => $row['name_cy'],
+            'gss_code' => $row['gss_code'],
+            'three_code' => $row['three_code'],
+            'nation' => $row['nation'],
+            'region' => $row['region'],
+            'con_type' => $row['con_type'],
+            'electorate' => $row['electorate'],
+            'area' => $row['area'],
+            'density' => $row['density'],
+            'center_lat' => $row['center_lat'],
+            'center_lon' => $row['center_lon'],
+        ]);
     }
 }

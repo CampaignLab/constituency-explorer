@@ -4,47 +4,41 @@ namespace App\Console\Commands;
 
 use App\Models\CommunityCentre;
 use App\Models\Constituency;
-use Illuminate\Console\Command;
-use Spatie\SimpleExcel\SimpleExcelReader;
 
-class ImportCommunityCentres extends Command
+class ImportCommunityCentres extends BaseImportCommand
 {
     protected $signature = 'import:community-centres';
+    protected $description = 'Import community centres.';
+    protected $filename = 'fixtures/community-centres.csv';
+    private $constituencies;
 
-    protected $description = 'Import community centres from CSV file.';
-
-    public function handle()
+    public function initialise()
     {
-        $file = database_path('fixtures/community-centres.csv');
+        $this->constituencies = Constituency::all()->keyBy('gss_code');
+    }
 
-        if (! file_exists($file)) {
-            $this->error('File not found: ' . $file);
-            return;
+    public function importRow($row)
+    {
+        $gss_code = $row['Mapped: codes.parliamentary_constituency_2025'];
+        if (empty($gss_code)) {
+            return null;
         }
 
-        $this->info('Importing community centres...');
+        $constituency = $this->constituencies[$gss_code] ?? null;
 
-        $reader = SimpleExcelReader::create($file);
+        if (! $constituency) {
+            $this->warn("Constituency not found for {$gss_code}");
+            return null;
+        }
 
-        $reader->getRows()->each(function (array $row) {
-            $constituency = Constituency::where('gss_code', $row['Mapped: codes.parliamentary_constituency_2025'])->first();
-
-            if (! $constituency) {
-                $this->warn('Skipping community centre: ' . $row['name'] . ' - constituency not found.');
-                return;
-            }
-
-            CommunityCentre::create([
-                'name' => $row['name'],
-                'religion' => $row['religion'],
-                'denomination' => $row['denomination'],
-                'postcode' => $row['postcode'],
-                'constituency_id' => $constituency->id,
-                'longitude' => $row['Mapped: longitude'],
-                'latitude' => $row['Mapped: latitude'],
-            ]);
-        });
-
-        $this->info('Community centres imported.');
+        return CommunityCentre::create([
+            'name' => $row['name'],
+            'religion' => $row['religion'],
+            'denomination' => $row['denomination'],
+            'postcode' => $row['postcode'],
+            'constituency_id' => $constituency->id,
+            'longitude' => $row['Mapped: longitude'],
+            'latitude' => $row['Mapped: latitude'],
+        ]);
     }
 }

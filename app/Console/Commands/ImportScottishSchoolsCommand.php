@@ -2,55 +2,49 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\PhaseOfEducation;
-use App\Models\LocalAuthority;
 use App\Models\School;
-use Illuminate\Console\Command;
-use Spatie\SimpleExcel\SimpleExcelReader;
+use App\Models\LocalAuthority;
+use App\Enums\PhaseOfEducation;
 
-class ImportScottishSchoolsCommand extends Command
+class ImportScottishSchoolsCommand extends BaseImportCommand
 {
     protected $signature = 'import:scottish-schools';
-
     protected $description = 'Import Scottish schools.';
+    protected $filename = 'fixtures/schools-scotland.xlsx';
 
-    public function handle()
+    private $localAuthorities;
+
+    public function initialise()
     {
-        $file = database_path('fixtures/schools-scotland.xlsx');
+        $this->localAuthorities = LocalAuthority::all()->keyBy('gss_code');
+    }
 
-        if (!file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
+    public function importRow($row)
+    {
+        $la = $this->localAuthorities[$row['LACode']] ?? null;
+
+        if (! $la) {
+            $this->warn("Local authority not found: {$row['LACode']}");
+            return null;
         }
 
-        $reader = SimpleExcelReader::create($file);
+        $constituency = $la->constituencies->first();
 
-        $reader->getRows()->each(function (array $row) {
-            $la = LocalAuthority::where('gss_code', $row['LACode'])->first();
+        if (! $constituency) {
+            $this->warn("Constituency not found: {$row['LACode']}");
+            return null;
+        }
 
-            if (! $la) {
-                return;
-            }
-
-            $constituency = $la->constituencies->first();
-
-            if (! $constituency) {
-                return;
-            }
-
-            School::create([
-                'constituency_id' => $constituency->id,
-                'name' => $row['SchoolName'],
-                'phase_of_education' => match ($row['SchoolType']) {
-                    'Primary' => PhaseOfEducation::Primary,
-                    'Secondary' => PhaseOfEducation::Secondary,
-                    default => null,
-                },
-                'latitude' => $row['Latitude'],
-                'longitude' => $row['Longitude'],
-            ]);
-        });
-
-        $this->info('Scottish schools imported successfully.');
+        return School::create([
+            'constituency_id' => $constituency->id,
+            'name' => $row['SchoolName'],
+            'phase_of_education' => match ($row['SchoolType']) {
+                'Primary' => PhaseOfEducation::Primary,
+                'Secondary' => PhaseOfEducation::Secondary,
+                default => null,
+            },
+            'latitude' => $row['Latitude'],
+            'longitude' => $row['Longitude'],
+        ]);
     }
 }

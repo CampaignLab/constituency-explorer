@@ -2,33 +2,19 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\OldConstituenciesImport;
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\OldConstituency;
 
-class ImportOldConstituenciesCommand extends Command
+class ImportOldConstituenciesCommand extends BaseImportCommand
 {
     protected $signature = 'import:old-constituencies';
-
     protected $description = 'Import old constituencies (PCON23).';
+    protected $filename = 'fixtures/Westminster_Parliamentary_Constituencies_(December_2023)_Names_and_Codes_in_the_UK.csv';
 
-    public function handle()
+    public function importRow($row)
     {
-        $file = database_path('fixtures/Westminster_Parliamentary_Constituencies_(December_2023)_Names_and_Codes_in_the_UK.csv');
-
-        if (!file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
-        }
-
-        try {
-            Excel::import(new OldConstituenciesImport, $file);
-            $this->info('Old constituencies imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
-        }
-
-        return 0;
+        return OldConstituency::create([
+            'gss_code' => $row['PCON23CD'],
+            'name' => $row['PCON23NM'],
+        ]);
     }
 }

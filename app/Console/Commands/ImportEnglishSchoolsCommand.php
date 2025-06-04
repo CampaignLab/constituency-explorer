@@ -4,70 +4,82 @@ namespace App\Console\Commands;
 
 use App\Enums\PhaseOfEducation;
 use App\Enums\SchoolGender;
-use App\Imports\EnglishSchoolsImport;
 use App\Models\Constituency;
 use App\Models\School;
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
 use proj4php\Point;
 use proj4php\Proj;
 use proj4php\Proj4php;
-use Spatie\SimpleExcel\SimpleExcelReader;
 
-class ImportEnglishSchoolsCommand extends Command
+class ImportEnglishSchoolsCommand extends BaseImportCommand
 {
     protected $signature = 'import:english-schools';
-
     protected $description = 'Import English schools.';
+    protected $filename = 'fixtures/schools-england.csv';
 
-    public function handle()
+    protected $proj4;
+    protected $osgb;
+    protected $wgs84;
+    private $constituencies;
+
+    public function initialise()
     {
-        ini_set('memory_limit', '-1'); // Increase memory limit
+        $this->proj4 = new Proj4php();
+        $this->osgb = new Proj('EPSG:27700', $this->proj4);
+        $this->wgs84 = new Proj('EPSG:4326', $this->proj4);
+        $this->constituencies = Constituency::all()->keyBy('gss_code');
+    }
 
-        $file = database_path('fixtures/schools-england.csv');
+    public function setupReader($reader)
+    {
+        return $reader->useEncoding('ISO-8859-1');
+    }
 
-        if (! file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
+    public function importRow($row)
+    {
+        $gss_code = $row['ParliamentaryConstituency (code)'];
+
+        // if ($gss_code === '999') {
+        //     // Closed
+        //     return null;
+        // } elseif ($gss_code === 'L99999999') {
+        //     // Channel Islands
+        //     return null;
+        // } elseif ($gss_code === 'M99999999') {
+        //     // Isle of Man
+        //     return null;
+        // }
+
+        $constituency = $this->constituencies[$gss_code] ?? null;
+
+        if (! $constituency) {
+            // if ($row['EstablishmentStatus (name)'] !== 'Closed') {
+            //     $this->warn("Constituency not found: {$gss_code} ({$row['URN']})");
+            // }
+            return null;
         }
 
-        $reader = SimpleExcelReader::create($file)->useEncoding('ISO-8859-1');
-        $proj4 = new Proj4php();
-        $osgb = new Proj('EPSG:27700', $proj4);
-        $wgs84 = new Proj('EPSG:4326', $proj4);
+        $point = new Point($row['Easting'], $row['Northing'], $this->osgb);
+        $point = $this->proj4->transform($this->wgs84, $point);
 
-        $reader->getRows()->each(function (array $row) use ($osgb, $wgs84, $proj4) {
-            $constituency = Constituency::where('gss_code', $row['ParliamentaryConstituency (code)'])->value('id');
-
-            if (! $constituency) {
-                return;
-            }
-
-            $point = new Point($row['Easting'], $row['Northing'], $osgb);
-            $point = $proj4->transform($wgs84, $point);
-
-            School::create([
-                'constituency_id' => $constituency,
-                'name' => $row['EstablishmentName'],
-                'phase_of_education' => match ($row['PhaseOfEducation (name)']) {
-                    'Primary', 'Middle deemed primary' => PhaseOfEducation::Primary,
-                    'Secondary', 'Middle deemed secondary' => PhaseOfEducation::Secondary,
-                    'Nursery' => PhaseOfEducation::Nursery,
-                    '16 plus' => PhaseOfEducation::Over16,
-                    'All-through' => PhaseOfEducation::All,
-                    default => null,
-                },
-                'gender' => match ($row['Gender (name)']) {
-                    'Mixed' => SchoolGender::Mixed,
-                    'Boys' => SchoolGender::Boys,
-                    'Girls' => SchoolGender::Girls,
-                    default => null,
-                },
-                'latitude' => $point->y,
-                'longitude' => $point->x,
-            ]);
-        });
-
-        $this->info('English schools imported successfully.');
+        return School::create([
+            'constituency_id' => $constituency->id,
+            'name' => $row['EstablishmentName'],
+            'phase_of_education' => match ($row['PhaseOfEducation (name)']) {
+                'Primary', 'Middle deemed primary' => PhaseOfEducation::Primary,
+                'Secondary', 'Middle deemed secondary' => PhaseOfEducation::Secondary,
+                'Nursery' => PhaseOfEducation::Nursery,
+                '16 plus' => PhaseOfEducation::Over16,
+                'All-through' => PhaseOfEducation::All,
+                default => null,
+            },
+            'gender' => match ($row['Gender (name)']) {
+                'Mixed' => SchoolGender::Mixed,
+                'Boys' => SchoolGender::Boys,
+                'Girls' => SchoolGender::Girls,
+                default => null,
+            },
+            'latitude' => $point->y,
+            'longitude' => $point->x,
+        ]);
     }
 }

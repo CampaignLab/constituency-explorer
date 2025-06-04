@@ -2,33 +2,30 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\TownsImport;
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Town;
 
-class ImportTownsCommand extends Command
+class ImportTownsCommand extends BaseImportCommand
 {
-    protected $signature = 'imports:towns';
-
+    protected $signature = 'import:towns';
     protected $description = 'Import towns.';
+    protected $filename = 'fixtures/uktowns.csv';
 
-    public function handle()
+    public function importRow($row)
     {
-        $file = database_path('fixtures/uktowns.csv');
-
-        if (!file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
-        }
-
-        try {
-            Excel::import(new TownsImport, $file);
-            $this->info('Towns imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
-        }
-
-        return 0;
+        return Town::create([
+            'name' => $row['name'],
+            'county' => $row['county'],
+            'country' => $row['country'],
+            'grid_reference' => $row['grid_reference'],
+            'easting' => $row['easting'],
+            'northing' => $row['northing'],
+            'latitude' => $row['latitude'],
+            'longitude' => $row['longitude'],
+            'elevation' => $row['elevation'],
+            'postcode_sector' => $row['postcode_sector'],
+            'local_government_area' => $row['local_government_area'],
+            'region' => $row['nuts_region'],
+            'type' => $row['type'],
+        ]);
     }
 }
