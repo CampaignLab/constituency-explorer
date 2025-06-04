@@ -9,9 +9,10 @@ use App\Models\Constituency;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Illuminate\Support\Facades\Log;
 
-class CharitiesImport implements ToModel, WithHeadingRow, WithChunkReading
+class CharitiesImport implements ToModel, WithCustomCsvSettings, WithHeadingRow, WithChunkReading
 {
     public function model(array $row)
     {
@@ -54,6 +55,13 @@ class CharitiesImport implements ToModel, WithHeadingRow, WithChunkReading
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    public function getCsvSettings(): array
+    {
+        return [
+            'escape_character' => ''
+        ];
     }
 
     public function chunkSize(): int
