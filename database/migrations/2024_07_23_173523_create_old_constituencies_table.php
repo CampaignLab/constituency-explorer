@@ -8,11 +8,6 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('old_constituencies', function (Blueprint $table) {
-            $table->id();
-            $table->string('gss_code');
-            $table->string('name');
-            $table->timestamps();
-        });
+        // Moved to the create_constituency_old_constituency_table migration
     }
 };
