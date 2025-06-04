@@ -21,9 +21,9 @@ id,name,slug,code,ranking,population,electoral_register,mp_name,created_at,updat
 1892,Waveney Valley,waveney-valley,E14001569,20,88193,70540,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1893,Derbyshire Dales,derbyshire-dales,E14001195,21,89331,71435,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1894,Gower,gower,W07000097,22,96264,76801,,2024-11-05 09:35:54,2024-11-05 09:35:54
-1895,"Ayr, Carrick and Cumnock",ayr-carrick-and-cumnock,S14000006,23,90327,72057,,2024-11-05 09:35:54,2024-11-05 09:35:54
+1895,"Ayr, Carrick and Cumnock",ayr-carrick-and-cumnock,S14000107,23,90327,72057,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1896,Mid Derbyshire,mid-derbyshire,E14001362,24,87995,70085,,2024-11-05 09:35:54,2024-11-05 09:35:54
-1897,Central Ayrshire,central-ayrshire,S14000010,25,87670,69779,,2024-11-05 09:35:54,2024-11-05 09:35:54
+1897,Central Ayrshire,central-ayrshire,S14000109,25,87670,69779,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1898,Westmorland and Lonsdale,westmorland-and-lonsdale,E14001580,26,90922,72322,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1899,Bexhill and Battle,bexhill-and-battle,E14001088,27,89109,70869,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1900,Clwyd East,clwyd-east,W07000094,28,96116,76395,,2024-11-05 09:35:54,2024-11-05 09:35:54
@@ -70,7 +70,7 @@ id,name,slug,code,ranking,population,electoral_register,mp_name,created_at,updat
 1941,Monmouthshire,monmouthshire,W07000101,69,92955,72681,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1942,Richmond and Northallerton,richmond-and-northallerton,E14001444,70,93047,72744,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1943,Newton Abbot,newton-abbot,E14001381,71,93355,72956,,2024-11-05 09:35:54,2024-11-05 09:35:54
-1944,Kilmarnock and Loudoun,kilmarnock-and-loudoun,S14000040,72,95744,74801,,2024-11-05 09:35:54,2024-11-05 09:35:54
+1944,Kilmarnock and Loudoun,kilmarnock-and-loudoun,S14000110,72,95744,74801,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1945,Broadland and Fakenham,broadland-and-fakenham,E14001136,73,93322,72907,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1946,Aldridge-Brownhills,aldridge-brownhills,E14001064,74,93607,73122,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1947,Forest of Dean,forest-of-dean,E14001240,75,91559,71510,,2024-11-05 09:35:54,2024-11-05 09:35:54
@@ -98,7 +98,7 @@ id,name,slug,code,ranking,population,electoral_register,mp_name,created_at,updat
 1969,North Dorset,north-dorset,E14001388,97,93155,72109,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1970,Clacton,clacton,E14001174,98,98193,75959,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1971,Morecambe and Lunesdale,morecambe-and-lunesdale,E14001372,99,98306,76040,,2024-11-05 09:35:54,2024-11-05 09:35:54
-1972,"Berwickshire, Roxburgh and Selkirk",berwickshire-roxburgh-and-selkirk,S14000008,100,96588,74687,,2024-11-05 09:35:54,2024-11-05 09:35:54
+1972,"Berwickshire, Roxburgh and Selkirk",berwickshire-roxburgh-and-selkirk,S14000108,100,96588,74687,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1973,Truro and Falmouth,truro-and-falmouth,E14001554,101,94888,73326,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1974,"Moray West, Nairn and Strathspey",moray-west-nairn-and-strathspey,S14000098,102,98659,76237,,2024-11-05 09:35:54,2024-11-05 09:35:54
 1975,Cheadle,cheadle,E14001158,103,95479,73775,,2024-11-05 09:35:54,2024-11-05 09:35:54
@@ -193,7 +193,7 @@ id,name,slug,code,ranking,population,electoral_register,mp_name,created_at,updat
 2064,North Cornwall,north-cornwall,E14001385,192,99156,75034,,2024-11-05 09:35:54,2024-11-05 09:35:54
 2065,Hyndburn,hyndburn,E14001299,193,94025,71145,,2024-11-05 09:35:54,2024-11-05 09:35:54
 2066,Erewash,erewash,E14001228,194,95173,71986,,2024-11-05 09:35:54,2024-11-05 09:35:54
-2067,West Aberdeenshire and Kincardine,west-aberdeenshire-and-kincardine,S14000058,195,97475,73634,,2024-11-05 09:35:54,2024-11-05 09:35:54
+2067,West Aberdeenshire and Kincardine,west-aberdeenshire-and-kincardine,S14000111,195,97475,73634,,2024-11-05 09:35:54,2024-11-05 09:35:54
 2068,Weald of Kent,weald-of-kent,E14001570,196,92841,70110,,2024-11-05 09:35:54,2024-11-05 09:35:54
 2069,Stirling and Strathallan,stirling-and-strathallan,S14000105,197,102001,77008,,2024-11-05 09:35:54,2024-11-05 09:35:54
 2070,South Norfolk,south-norfolk,E14001489,198,92548,69837,,2024-11-05 09:35:54,2024-11-05 09:35:54

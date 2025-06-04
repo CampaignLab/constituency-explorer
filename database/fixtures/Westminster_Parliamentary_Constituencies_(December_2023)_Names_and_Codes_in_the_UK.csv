@@ -505,11 +505,11 @@ S14000002,Aberdeen South,,503
 S14000003,Airdrie and Shotts,,504
 S14000004,Angus,,505
 S14000005,Argyll and Bute,,506
-S14000006,"Ayr, Carrick and Cumnock",,507
+S14000107,"Ayr, Carrick and Cumnock",,507
 S14000007,Banff and Buchan,,508
-S14000008,"Berwickshire, Roxburgh and Selkirk",,509
+S14000108,"Berwickshire, Roxburgh and Selkirk",,509
 S14000009,"Caithness, Sutherland and Easter Ross",,510
-S14000010,Central Ayrshire,,511
+S14000109,Central Ayrshire,,511
 S14000011,"Coatbridge, Chryston and Bellshill",,512
 S14000012,"Cumbernauld, Kilsyth and Kirkintilloch East",,513
 S14000013,Dumfries and Galloway,,514
@@ -539,7 +539,7 @@ S14000036,Glenrothes,,537
 S14000037,Gordon,,538
 S14000038,Inverclyde,,539
 S14000039,"Inverness, Nairn, Badenoch and Strathspey",,540
-S14000040,Kilmarnock and Loudoun,,541
+S14000110,Kilmarnock and Loudoun,,541
 S14000041,Kirkcaldy and Cowdenbeath,,542
 S14000042,Lanark and Hamilton East,,543
 S14000043,Linlithgow and East Falkirk,,544
@@ -557,7 +557,7 @@ S14000054,Perth and North Perthshire,,555
 S14000055,"Ross, Skye and Lochaber",,556
 S14000056,Rutherglen and Hamilton West,,557
 S14000057,Stirling,,558
-S14000058,West Aberdeenshire and Kincardine,,559
+S14000111,West Aberdeenshire and Kincardine,,559
 S14000059,West Dunbartonshire,,560
 W07000041,Ynys Môn,Ynys Môn,561
 W07000042,Delyn,Delyn,562
