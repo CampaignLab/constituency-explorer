@@ -17,6 +17,10 @@ Data can be mapped to the new constituencies via a few different methods:
 > [!TIP]
 > To get the Schema for datasets, see the linked "Import command" and check what `$row` fields it's using
 
+> [!IMPORTANT]
+> Shortly before the boundary change in July 2024, the GSS codes for five constituencies were changed (this was resolved manually - for more details, see: [issue #35](https://github.com/CampaignLab/constituency-explorer/issues/35)).
+
+
 ### Geographical Datasets
 
 | Dataset | Source | Fixture file | Import command |
@@ -47,10 +51,6 @@ Data can be mapped to the new constituencies via a few different methods:
 | Green spaces | - | [green-spaces.csv](https://github.com/CampaignLab/constituency-explorer/blob/refs/heads/main/database/fixtures/green-spaces.csv) | [`import:green-spaces`](https://github.com/CampaignLab/constituency-explorer/blob/main/app/Console/Commands/ImportGreenSpaces.php) |
 | Local media | - | [local-media.csv](https://github.com/CampaignLab/constituency-explorer/blob/refs/heads/main/database/fixtures/local-media.csv) | [`import:local-media`](https://github.com/CampaignLab/constituency-explorer/blob/main/app/Console/Commands/ImportLocalMedia.php) |
 
-> [!IMPORTANT]
-> Shortly before the boundary change in July 2024, the GSS codes for five constituencies were changed (for more details, see: [issue #35](https://github.com/CampaignLab/constituency-explorer/issues/35)).
->
-> This site launched using the previous codes for these five constituencies, but the underlying datasets have since been updated to reflect the change.
 
 ## Installation
 
