@@ -2,33 +2,44 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\EnglishHospitalsImport;
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Constituency;
+use App\Models\Hospital;
 
-class ImportEnglishHospitalsCommand extends Command
+class ImportEnglishHospitalsCommand extends BaseImportCommand
 {
     protected $signature = 'import:english-hospitals';
-
     protected $description = 'Import English hospitals.';
+    protected $filename = 'fixtures/hospitals-england.csv';
+    private $constituencies;
 
-    public function handle()
+    public function initialise()
     {
-        $file = database_path('fixtures/hospitals-england.csv');
+        $this->constituencies = Constituency::all()->keyBy('gss_code');
+    }
 
-        if (!file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
+    public function importRow($row)
+    {
+        $gss_code = $row['Mapped: codes.parliamentary_constituency_2025'];
+        if (empty($gss_code)) {
+            return null;
         }
 
-        try {
-            Excel::import(new EnglishHospitalsImport, $file);
-            $this->info('Hospitals imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
+        $constituency = $this->constituencies[$gss_code] ?? null;
+
+        if (! $constituency) {
+            $this->warn("Constituency not found: {$gss_code}");
+            return null;
         }
 
-        return 0;
+        return Hospital::create([
+            'constituency_id' => $constituency->id,
+            'name' => $row['Name'],
+            'address' => array_merge(
+                array_map(trim(...), explode(',', $row['Address'])),
+                [$row['Postcode']],
+            ),
+            'latitude' => $row['Mapped: latitude'],
+            'longitude' => $row['Mapped: longitude'],
+        ]);
     }
 }

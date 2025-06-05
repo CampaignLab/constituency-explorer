@@ -4,46 +4,44 @@ namespace App\Console\Commands;
 
 use App\Models\Constituency;
 use App\Models\Town;
-use Illuminate\Console\Command;
-use Spatie\SimpleExcel\SimpleExcelReader;
 
-class ImportConstituencyTownMappingsCommand extends Command
+class ImportConstituencyTownMappingsCommand extends BaseImportCommand
 {
     protected $signature = 'import:constituency-town-mappings';
+    protected $description = 'Import town to constituency mappings.';
+    protected $filename = 'fixtures/towns-map.csv';
 
-    protected $description = 'Map towns -> constituencies mappings.';
+    private $constituencies;
+    private $towns;
 
-    public function handle()
+    public function initialise()
     {
-        $file = database_path('fixtures/towns-map.csv');
+        $this->constituencies = Constituency::all()->keyBy('name');
+        $this->towns = Town::all()->keyBy('name');
+    }
 
-        if (!file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
+    public function importRow($row)
+    {
+        if (! $row['town_name']) {
+            return null;
         }
 
-        $reader = SimpleExcelReader::create($file);
+        $town = $this->towns[$row['town_name']] ?? null;
 
-        $reader->getRows()->each(function (array $row) {
-            if (! $row['town_name']) {
-                return;
-            }
+        if (! $town) {
+            $this->warn('Town not found: ' . $row['town_name']);
+            return null;
+        }
 
-            $town = Town::where('name', $row['town_name'])->first();
+        $constituency = $this->constituencies[$row['new_constituency_name']] ?? null;
 
-            if (! $town) {
-                $this->warn('Town not found: ' . $row['town_name']);
-                return;
-            }
+        if (! $constituency) {
+            $this->warn('Constituency not found: ' . $row['new_constituency_name']);
+            return null;
+        }
 
-            $constituency = Constituency::where('name', $row['new_constituency_name'])->first();
+        $town->constituencies()->syncWithoutDetaching($constituency);
 
-            if (! $constituency) {
-                $this->warn('Constituency not found: ' . $row['new_constituency_name']);
-                return;
-            }
-
-            $town->constituencies()->syncWithoutDetaching($constituency);
-        });
+        return $town;
     }
 }

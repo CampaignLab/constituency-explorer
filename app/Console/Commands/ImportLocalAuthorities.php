@@ -2,33 +2,19 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\LocalAuthoritiesImport;
+use App\Models\LocalAuthority;
 
-class ImportLocalAuthorities extends Command
+class ImportLocalAuthorities extends BaseImportCommand
 {
     protected $signature = 'import:local-authorities';
+    protected $description = 'Import local authorities.';
+    protected $filename = 'fixtures/local_authority_districts.csv';
 
-    protected $description = 'Import local authorities from a CSV file';
-
-    public function handle()
+    public function importRow($row)
     {
-        $file = database_path('fixtures/local_authority_districts.csv');
-
-        if (! file_exists($file)) {
-            $this->error("File not found: {$file}");
-            return 1;
-        }
-
-        try {
-            Excel::import(new LocalAuthoritiesImport, $file);
-            $this->info('Local authorities imported successfully.');
-        } catch (\Exception $e) {
-            $this->error('An error occurred while importing the file: ' . $e->getMessage());
-            return 1;
-        }
-
-        return 0;
+        return LocalAuthority::create([
+            'gss_code' => $row['LAD23CD'],
+            'name' => $row['LAD23NM'],
+        ]);
     }
 }
