@@ -542,7 +542,7 @@ uk.org.mysociety.cons.ukparl.2025.lnw,UKPARL.2025.LNW,Leeds North West,,E1400132
 uk.org.mysociety.cons.ukparl.2025.lso,UKPARL.2025.LSO,Leeds South,,E14001323,LSO,England,Yorkshire and the Humber,borough,74726,38.42210238,1944.87015,53.77568512,-1.528117677
 uk.org.mysociety.cons.ukparl.2025.clw,UKPARL.2025.CLW,Cities of London and Westminster,,E14001172,CLW,England,London,borough,73140,19.41067091,3768.030499,51.51162213,-0.141248395
 uk.org.mysociety.cons.ukparl.2025.hah,UKPARL.2025.HAH,Hampstead and Highgate,,E14001265,HAH,England,London,borough,74222,15.26789075,4861.313276,51.55903216,-0.169745256
-uk.org.mysociety.cons.ukparl.2025.brs,UKPARL.2025.BRS,"Berwickshire, Roxburgh and Selkirk",,S14000008,BRS,Scotland,Scotland,county,74687,3841.929858,19.43996969,55.56492081,-2.671114148
+uk.org.mysociety.cons.ukparl.2025.brs,UKPARL.2025.BRS,"Berwickshire, Roxburgh and Selkirk",,S14000108,BRS,Scotland,Scotland,county,74687,3841.929858,19.43996969,55.56492081,-2.671114148
 uk.org.mysociety.cons.ukparl.2025.abf,UKPARL.2025.ABF,Arbroath and Broughty Ferry,,S14000066,ABF,Scotland,Scotland,county,76810,421.6982208,182.1444725,56.57377757,-2.725381864
 uk.org.mysociety.cons.ukparl.2025.dfr,UKPARL.2025.DFR,Dunfermline and Dollar,,S14000076,DFR,Scotland,Scotland,county,70725,279.1573952,253.3516977,56.10053627,-3.565666251
 uk.org.mysociety.cons.ukparl.2025.aas,UKPARL.2025.AAS,Airdrie and Shotts,,S14000063,AAS,Scotland,Scotland,county,70420,238.2629757,295.5557815,55.84895088,-3.873659422
@@ -554,7 +554,7 @@ uk.org.mysociety.cons.ukparl.2025.esw,UKPARL.2025.ESW,Edinburgh South West,,S140
 uk.org.mysociety.cons.ukparl.2025.aag,UKPARL.2025.AAG,Alloa and Grangemouth,,S14000064,AAG,Scotland,Scotland,county,72265,184.796718,391.0513173,56.10307836,-3.778521156
 uk.org.mysociety.cons.ukparl.2025.gsw,UKPARL.2025.GSW,Glasgow South West,,S14000088,GSW,Scotland,Scotland,borough,70431,29.99080435,2348.419841,55.83512135,-4.32975222
 uk.org.mysociety.cons.ukparl.2025.irw,UKPARL.2025.IRW,Inverclyde and Renfrewshire West,,S14000093,IRW,Scotland,Scotland,county,70418,207.8086454,338.8598192,55.89843497,-4.714745317
-uk.org.mysociety.cons.ukparl.2025.kal,UKPARL.2025.KAL,Kilmarnock and Loudoun,,S14000040,KAL,Scotland,Scotland,county,74801,701.826288,106.5805047,55.58258167,-4.303571582
+uk.org.mysociety.cons.ukparl.2025.kal,UKPARL.2025.KAL,Kilmarnock and Loudoun,,S14000110,KAL,Scotland,Scotland,county,74801,701.826288,106.5805047,55.58258167,-4.303571582
 uk.org.mysociety.cons.ukparl.2025.lvg,UKPARL.2025.LVG,Livingston,,S14000095,LVG,Scotland,Scotland,county,75454,243.9734161,309.2714002,55.85542141,-3.534781674
 uk.org.mysociety.cons.ukparl.2025.mid,UKPARL.2025.MID,Midlothian,,S14000045,MID,Scotland,Scotland,county,71210,355.2720335,200.4379554,55.83222605,-3.110419178
 uk.org.mysociety.cons.ukparl.2025.mwc,UKPARL.2025.MWC,"Motherwell, Wishaw and Carluke",,S14000099,MWC,Scotland,Scotland,county,72318,214.5967232,336.9948941,55.75515963,-3.76942765
@@ -564,14 +564,14 @@ uk.org.mysociety.cons.ukparl.2025.stg,UKPARL.2025.STG,Stirling and Strathallan,,
 uk.org.mysociety.cons.ukparl.2025.wdb,UKPARL.2025.WDB,West Dunbartonshire,,S14000106,WDB,Scotland,Scotland,county,70286,183.4114298,383.2149396,55.98456557,-4.517110446
 uk.org.mysociety.cons.ukparl.2025.mns,UKPARL.2025.MNS,"Moray West, Nairn and Strathspey",,S14000098,MNS,Scotland,Scotland,county,76237,4748.197805,16.05598653,57.28873401,-3.711902869
 uk.org.mysociety.cons.ukparl.2025.abl,UKPARL.2025.ABL,"Argyll, Bute and South Lochaber",,S14000067,ABL,Scotland,Scotland,county,71707,9303.987459,7.707125608,56.25406824,-5.485367544
-uk.org.mysociety.cons.ukparl.2025.wak,UKPARL.2025.WAK,West Aberdeenshire and Kincardine,,S14000058,WAK,Scotland,Scotland,county,73634,3271.901009,22.50495959,57.04152316,-2.859140646
+uk.org.mysociety.cons.ukparl.2025.wak,UKPARL.2025.WAK,West Aberdeenshire and Kincardine,,S14000111,WAK,Scotland,Scotland,county,73634,3271.901009,22.50495959,57.04152316,-2.859140646
 uk.org.mysociety.cons.ukparl.2025.gdb,UKPARL.2025.GDB,Gordon and Buchan,,S14000091,GDB,Scotland,Scotland,county,70238,2083.317417,33.71449757,57.38879657,-2.456616632
 uk.org.mysociety.cons.ukparl.2025.cky,UKPARL.2025.CKY,Cowdenbeath and Kirkcaldy,,S14000071,CKY,Scotland,Scotland,county,70329,153.6768589,457.6420972,56.08953019,-3.278501692
 uk.org.mysociety.cons.ukparl.2025.abs,UKPARL.2025.ABS,Aberdeen South,,S14000061,ABS,Scotland,Scotland,borough,76560,102.0155705,750.4736739,57.12365351,-2.171649568
 uk.org.mysociety.cons.ukparl.2025.ewe,UKPARL.2025.EWE,Edinburgh West,,S14000082,EWE,Scotland,Scotland,borough,76723,107.100434,716.3649777,55.95277973,-3.349578446
 uk.org.mysociety.cons.ukparl.2025.loe,UKPARL.2025.LOE,Lothian East,,S14000096,LOE,Scotland,Scotland,county,71287,689.7754204,103.3481303,55.94195934,-2.715868512
-uk.org.mysociety.cons.ukparl.2025.acc,UKPARL.2025.ACC,"Ayr, Carrick and Cumnock",,S14000006,ACC,Scotland,Scotland,county,72057,1635.975097,44.04529148,55.2753977,-4.578744914
-uk.org.mysociety.cons.ukparl.2025.cay,UKPARL.2025.CAY,Central Ayrshire,,S14000010,CAY,Scotland,Scotland,county,69779,237.3789277,293.9561682,55.55618945,-4.567642342
+uk.org.mysociety.cons.ukparl.2025.acc,UKPARL.2025.ACC,"Ayr, Carrick and Cumnock",,S14000107,ACC,Scotland,Scotland,county,72057,1635.975097,44.04529148,55.2753977,-4.578744914
+uk.org.mysociety.cons.ukparl.2025.cay,UKPARL.2025.CAY,Central Ayrshire,,S14000109,CAY,Scotland,Scotland,county,69779,237.3789277,293.9561682,55.55618945,-4.567642342
 uk.org.mysociety.cons.ukparl.2025.oas,UKPARL.2025.OAS,Orkney and Shetland,,S14000051,OAS,Scotland,Scotland,county,34824,2743.861062,12.69160472,59.85701458,-1.977086187
 uk.org.mysociety.cons.ukparl.2025.nhi,UKPARL.2025.NHI,Na h-Eileanan an Iar,,S14000027,NHI,Scotland,Scotland,county,21177,3270.220544,6.475710037,57.90740137,-6.874900324
 uk.org.mysociety.cons.ukparl.2025.naa,UKPARL.2025.NAA,North Ayrshire and Arran,,S14000048,NAA,Scotland,Scotland,county,73588,833.6969041,88.2670904,55.65259306,-5.009962909

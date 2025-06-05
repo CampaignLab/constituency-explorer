@@ -37,6 +37,11 @@ Data can be mapped to the new constituencies via a few different methods:
 | Green spaces | [GitHub](https://github.com/CampaignLab/constituency-explorer/blob/refs/heads/main/database/fixtures/green-spaces.csv) ([raw](https://raw.githubusercontent.com/CampaignLab/constituency-explorer/refs/heads/main/database/fixtures/green-spaces.csv)) | - | Name, Opening hours, Postcode, Latitude, Longitude, Constituency ID | `import:green-spaces` |
 | Local media | [GitHub](https://github.com/CampaignLab/constituency-explorer/blob/refs/heads/main/database/fixtures/local-media.csv) ([raw](https://raw.githubusercontent.com/CampaignLab/constituency-explorer/refs/heads/main/database/fixtures/local-media.csv)) | - | Name, Address, Twitter, Type of owner, Frequency, Cost, Media Type, Website, Local Authority ID, Constituency ID | `import:local-media` |
 
+> [!IMPORTANT]
+> Shortly before the boundary change in July 2024, the GSS codes for five constituencies were changed (for more details, see: [issue #35](https://github.com/CampaignLab/constituency-explorer/issues/35)).
+>
+> This site launched using the previous codes for these five constituencies, but the underlying datasets have since been updated to reflect the change.
+
 ## Installation
 
 1. Clone repository.
