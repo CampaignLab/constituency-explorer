@@ -14,8 +14,8 @@ Data can be mapped to the new constituencies via a few different methods:
 
 ## Datasets
 
-| Dataset | Fixture file | Source | Required attributes | Command signature |
-|---------|--------------|--------|---------------------|-------------------|
+| Dataset | Fixture file | Source | Fields | Command signature |
+|---------|--------------|--------|--------|-------------------|
 | New (post-July 2024) constituencies | [GitHub](https://github.com/CampaignLab/constituency-explorer/blob/refs/heads/main/database/fixtures/parliament_con_2025.csv) ([raw](https://raw.githubusercontent.com/CampaignLab/constituency-explorer/refs/heads/main/database/fixtures/parliament_con_2025.csv)) | [Source](https://geoportal.statistics.gov.uk/datasets/9a876e4777bc47e392e670a7b8bc3f5c_0/explore) |  | `import:constituencies` |
 | Constituency populations | [GitHub](https://github.com/CampaignLab/constituency-explorer/blob/refs/heads/main/database/fixtures/constituencies_population.csv) ([raw](https://raw.githubusercontent.com/CampaignLab/constituency-explorer/refs/heads/main/database/fixtures/constituencies_population.csv)) | [Source](https://check.justregister.org.uk/) |  | `import:constituencies-population` |
 | Constituency shapefiles | [GitHub](https://github.com/CampaignLab/constituency-explorer/blob/refs/heads/main/database/fixtures/pcon24.geojson) ([raw](https://raw.githubusercontent.com/CampaignLab/constituency-explorer/refs/heads/main/database/fixtures/pcon24.geojson)) | - |  | `import:constituency-geojson` |
