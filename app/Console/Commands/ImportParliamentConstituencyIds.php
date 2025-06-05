@@ -3,78 +3,93 @@
 namespace App\Console\Commands;
 
 use App\Models\Constituency;
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
-class ImportParliamentConstituencyIds extends Command
+class ImportParliamentConstituencyIds extends BaseImportCommand
 {
     protected $signature = 'import:parliament-constituency-ids';
-
     protected $description = 'Import Parliament constituency IDs from the Parliament API.';
+    protected $filename = 'fixtures/parliament_constituency_ids.csv';
+    protected $pageSize = 20;
+
+    public function fetchApiPage($skip, $take)
+    {
+        $response = Http::get("https://members-api.parliament.uk/api/Location/Constituency/Search", [
+            'skip' => $skip,
+            'take' => $take,
+        ]);
+
+        if (! $response->successful()) {
+            throw new \Exception("Failed to fetch data from Parliament API: " . $response->status());
+        }
+
+        return $response->json();
+    }
+
+    public function importRow($row)
+    {
+        $parliamentId = $row['value']['id'] ?? null;
+        $name = $row['value']['name'] ?? null;
+
+        if (!$parliamentId || !$name) {
+            return null;
+        }
+
+        // Try to find a matching constituency by name
+        $constituency = Constituency::where('name', $name)->first();
+
+        if (! $constituency) {
+            $this->warn("Constituency not found: {$name}");
+            return null;
+        }
+
+        $constituency->update([
+            'parliament_constituency_id' => $parliamentId,
+        ]);
+
+        return $constituency;
+    }
 
     public function handle()
     {
-        $this->info('Starting Parliament constituency ID import...');
-        
+        $this->outputTitle();
+
         $skip = 0;
-        $take = 20;
-        $totalProcessed = 0;
-        $totalUpdated = 0;
-        
+
         do {
-            $response = Http::get("https://members-api.parliament.uk/api/Location/Constituency/Search", [
-                'skip' => $skip,
-                'take' => $take,
-            ]);
-            
-            if (!$response->successful()) {
-                $this->error("Failed to fetch data from Parliament API: " . $response->status());
+            try {
+                $data = $this->fetchApiPage($skip, $this->pageSize);
+            } catch (\Exception $e) {
+                $this->error("Error fetching API page: " . $e->getMessage());
                 return 1;
             }
-            
-            $data = $response->json();
-            $items = $data['items'] ?? [];
-            
-            if (empty($items)) {
+
+            if ($skip === 0) {
+                $totalResults = $data['totalResults'] ?? 0;
+                $this->output->progressStart($totalResults);
+            }
+
+            $rows = $data['items'] ?? [];
+
+            if (empty($rows)) {
                 break;
             }
-            
-            foreach ($items as $item) {
-                $totalProcessed++;
-                
-                $parliamentId = $item['value']['id'] ?? null;
-                $name = $item['value']['name'] ?? null;
-                
-                if (!$parliamentId || !$name) {
-                    continue;
-                }
-                
-                // Try to find a matching constituency by name
-                $constituency = Constituency::where('name', $name)->first();
-                
-                if ($constituency) {
-                    $constituency->update([
-                        'parliament_constituency_id' => $parliamentId,
-                    ]);
-                    $totalUpdated++;
-                    $this->info("Updated {$name} with Parliament ID {$parliamentId}");
-                } else {
-                    $this->warn("No match found for constituency: {$name}");
-                }
+
+            foreach ($rows as $row) {
+                $this->importRow($row);
+                $this->output->progressAdvance();
             }
-            
-            $skip += $take;
-            
+
+            $skip += $this->pageSize;
+
             // Check if we've processed all items
             if ($skip >= ($data['totalResults'] ?? 0)) {
                 break;
             }
-            
         } while (true);
-        
-        $this->info("Import completed. Processed {$totalProcessed} constituencies, updated {$totalUpdated}.");
-        
+
+        $this->output->progressFinish();
+        $this->outputPostscript();
         return 0;
     }
-} 
+}
