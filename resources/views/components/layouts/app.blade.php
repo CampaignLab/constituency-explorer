@@ -15,6 +15,8 @@
         <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script> --}}
 
         <x-bunny-fonts />
+        <script defer data-domain="campaign-lab-constituency-explorer.c6digital.dev" src="https://plausible.io/js/script.js"></script>
+
         @livewireStyles()
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
