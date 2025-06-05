@@ -3,39 +3,53 @@
 namespace App\Console\Commands;
 
 use App\Models\Constituency;
-use Illuminate\Console\Command;
+use \JsonMachine\Items;
 
-class ImportConstituencyGeojsonCommand extends Command
+class ImportConstituencyGeojsonCommand extends BaseImportCommand
 {
     protected $signature = 'import:constituency-geojson';
-
     protected $description = 'Import GeoJSON data for constituencies.';
+    protected $filename = 'fixtures/pcon24.geojson';
+
+    public function importRow($row)
+    {
+        $constituency = Constituency::where('gss_code', $row['properties']['PCON24CD'])->first();
+
+        if (! $constituency) {
+            $this->warn("Constituency not found: {$row['properties']['PCON24NM']} ({$row['properties']['PCON24CD']})");
+            return null;
+        }
+
+        $constituency->update([
+            'geojson' => $row,
+        ]);
+
+        return $constituency;
+    }
 
     public function handle()
     {
-        $file = database_path('fixtures/pcon24.geojson');
+        $this->outputTitle();
 
-        if (!file_exists($file)) {
-            $this->error('GeoJSON file not found.');
-            return;
+        $file = $this->getFile();
+        if (! $file) {
+            return 1;
         }
 
-        $json = json_decode(file_get_contents($file), true);
+        $features = Items::fromFile($file, ['pointer' => '/features']);
 
-        foreach ($json['features'] as $geojson) {
-            $constituency = Constituency::where('gss_code', $geojson['properties']['PCON24CD'])->first();
+        $this->output->progressStart(iterator_count(Items::fromFile($file, ['pointer' => '/features'])));
 
-            if (! $constituency) {
-                $this->warn('Constituency not found: ' . $geojson['properties']['PCON24CD']);
-                continue;
-            }
-
-            $this->info('Updating constituency: ' . $constituency->name);
-
-            // Convert all coordinates to WGS84.
-            $constituency->update([
-                'geojson' => $geojson,
-            ]);
+        foreach ($features as $featureObj) {
+            $this->output->progressAdvance();
+            $feature = json_decode(json_encode($featureObj), true);
+            $this->importRow($feature);
         }
+
+        $this->output->progressFinish();
+
+        $this->outputPostscript();
+
+        return 0;
     }
 }
