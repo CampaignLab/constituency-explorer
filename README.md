@@ -72,7 +72,7 @@ php artisan import:data
 
 > [!NOTE]
 >
-> All datasets are expected to use the UTF-8 character encoding, **except** [schools-england.csv](https://github.com/CampaignLab/constituency-explorer/blob/main/database/fixtures/schools-england.csv), which is is parsed using the ISO-8859-1 encoding.
+> All datasets are expected to use the UTF-8 character encoding, **except** [schools-england.csv](https://github.com/CampaignLab/constituency-explorer/blob/main/database/fixtures/schools-england.csv), which is parsed using the ISO-8859-1 encoding.
 
 > [!TIP]
 > Places can be mapped to the new constituencies via a few different methods:
