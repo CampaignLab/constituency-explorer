@@ -2,11 +2,14 @@
 
 # Constituency Explorer
 
-An app for people to explore the new UK constituency boundaries and see what falls within the boundaries (Schools, Hospitals, Places of Worship, etc.).
+A Laravel app for people to explore the new UK constituency boundaries and see what falls within the boundaries (Schools, Hospitals, Places of Worship, etc.).
 
 Commissioned by Campaign Lab and built by C6 Digital.
 
 ## Installation
+
+> [!TIP]
+> To get setup easily with Laravel, we suggest using [Herd](https://herd.laravel.com/) and [DBngin](https://dbngin.com/)
 
 1. Clone repository.
 2. Install dependencies.
@@ -82,6 +85,9 @@ php artisan import:data
 > - [MySociety postcodes](https://pages.mysociety.org/2025-constituencies/datasets/uk_parliament_2025_postcode_lookup/latest)
 > - [ONS postcodes](https://geoportal.statistics.gov.uk/datasets/a8a2d8d31db84ceea45b261bb7756771/about)
 > - [ONS Postcode to Westminster Parliamentary Constituencies](https://geoportal.statistics.gov.uk/search?q=postcode%20to%20constituency)
+
+> [!TIP]
+> To get the Schema for datasets, see the linked "Import command" and check what `$row` fields it's using
 
 | Dataset | Source | Fixture file | Import command |
 |---------|--------|--------------|----------------|
