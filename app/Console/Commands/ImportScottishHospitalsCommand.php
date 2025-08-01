@@ -35,6 +35,7 @@ class ImportScottishHospitalsCommand extends BaseImportCommand
         $existing = Hospital::where('name', $row['Location Name'])->where('constituency_id', $constituency->id)->first();
         if ($existing) {
             $this->warn("Hospital already exists: {$row['Location Name']} ({$constituency->name})");
+            return null;
         }
 
         return Hospital::create([
