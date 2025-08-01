@@ -31,6 +31,11 @@ class ImportAdditionalHospitalsCommand extends BaseImportCommand
             return null;
         }
 
+        $existing = Hospital::where('name', $row['name'])->where('constituency_id', $constituency->id)->first();
+        if ($existing) {
+            $this->warn("Hospital already exists: {$row['name']} ({$constituency->name})");
+        }
+
         return Hospital::create([
             'constituency_id' => $constituency->id,
             'name' => $row['name'],
