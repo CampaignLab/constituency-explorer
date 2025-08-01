@@ -36,7 +36,7 @@ class ImportEnglishHospitalsCommand extends BaseImportCommand
             'name' => $row['Name'],
             'address' => array_merge(
                 array_map(trim(...), explode(',', $row['Address'])),
-                [$row['Postcode']],
+                [trim($row['Postcode'])],
             ),
             'latitude' => $row['Mapped: latitude'],
             'longitude' => $row['Mapped: longitude'],
