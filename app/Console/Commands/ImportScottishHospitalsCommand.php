@@ -35,10 +35,7 @@ class ImportScottishHospitalsCommand extends BaseImportCommand
         return Hospital::create([
             'constituency_id' => $constituency->id,
             'name' => $row['Location Name'],
-            'address' => array_merge(
-                array_map('trim', explode(',', $row['Address'])),
-                [trim($row['postcode'])],
-            ),
+            'address' => array_map('trim', explode(',', $row['Address'])),
             'latitude' => $row['Mapped: latitude'],
             'longitude' => $row['Mapped: longitude'],
         ]);
