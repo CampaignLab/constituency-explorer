@@ -7,7 +7,7 @@ use App\Models\GreenSpace;
 
 class ImportGreenSpaces extends BaseImportCommand
 {
-    protected $signature = 'import:green-spaces';
+    protected $signature = 'import:green-spaces {filename?}';
     protected $description = 'Import green spaces.';
     protected $filename = 'fixtures/green-spaces.csv';
     private $constituencies;

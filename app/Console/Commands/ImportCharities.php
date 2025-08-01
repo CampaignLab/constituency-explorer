@@ -7,7 +7,7 @@ use App\Models\Charity;
 
 class ImportCharities extends BaseImportCommand
 {
-    protected $signature = 'import:charities';
+    protected $signature = 'import:charities {filename?}';
     protected $description = 'Import charities.';
     protected $filename = 'fixtures/CharityBase_6a177e34883233ee698fa2b9a69a34d4.csv';
 

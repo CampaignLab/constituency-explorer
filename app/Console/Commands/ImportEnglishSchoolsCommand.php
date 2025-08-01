@@ -12,7 +12,7 @@ use proj4php\Proj4php;
 
 class ImportEnglishSchoolsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:english-schools';
+    protected $signature = 'import:english-schools {filename?}';
     protected $description = 'Import English schools.';
     protected $filename = 'fixtures/schools-england.csv';
 

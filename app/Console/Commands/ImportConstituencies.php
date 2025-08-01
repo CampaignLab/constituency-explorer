@@ -6,7 +6,7 @@ use App\Models\Constituency;
 
 class ImportConstituencies extends BaseImportCommand
 {
-    protected $signature = 'import:constituencies';
+    protected $signature = 'import:constituencies {filename?}';
     protected $description = 'Import constituencies.';
     protected $filename = 'fixtures/parliament_con_2025.csv';
 

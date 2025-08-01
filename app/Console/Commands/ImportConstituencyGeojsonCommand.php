@@ -7,7 +7,7 @@ use \JsonMachine\Items;
 
 class ImportConstituencyGeojsonCommand extends BaseImportCommand
 {
-    protected $signature = 'import:constituency-geojson';
+    protected $signature = 'import:constituency-geojson {filename?}';
     protected $description = 'Import GeoJSON data for constituencies.';
     protected $filename = 'fixtures/pcon24.geojson';
 

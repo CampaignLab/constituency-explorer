@@ -8,7 +8,7 @@ use App\Enums\PhaseOfEducation;
 
 class ImportScottishSchoolsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:scottish-schools';
+    protected $signature = 'import:scottish-schools {filename?}';
     protected $description = 'Import Scottish schools.';
     protected $filename = 'fixtures/schools-scotland.xlsx';
 

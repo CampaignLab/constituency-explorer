@@ -6,7 +6,7 @@ use App\Models\Town;
 
 class ImportTownsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:towns';
+    protected $signature = 'import:towns {filename?}';
     protected $description = 'Import towns.';
     protected $filename = 'fixtures/uktowns.csv';
 

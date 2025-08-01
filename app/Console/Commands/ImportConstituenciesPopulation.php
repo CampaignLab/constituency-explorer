@@ -6,7 +6,7 @@ use App\Models\Constituency;
 
 class ImportConstituenciesPopulation extends BaseImportCommand
 {
-    protected $signature = 'import:constituencies-population';
+    protected $signature = 'import:constituencies-population {filename?}';
     protected $description = 'Import constituency population data.';
     protected $filename = 'fixtures/constituencies_population.csv';
 

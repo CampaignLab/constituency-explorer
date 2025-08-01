@@ -6,7 +6,7 @@ use App\Models\LocalAuthority;
 
 class ImportLocalAuthorities extends BaseImportCommand
 {
-    protected $signature = 'import:local-authorities';
+    protected $signature = 'import:local-authorities {filename?}';
     protected $description = 'Import local authorities.';
     protected $filename = 'fixtures/local_authority_districts.csv';
 

@@ -7,7 +7,7 @@ use App\Models\LocalAuthority;
 
 class ImportConstituencyLocalAuthorityPivotData extends BaseImportCommand
 {
-    protected $signature = 'import:constituency-local-authority-pivot-data';
+    protected $signature = 'import:constituency-local-authority-pivot-data {filename?}';
     protected $description = 'Import Constituency -> Local Authority pivot data.';
     protected $filename = 'fixtures/overlap_local_authorities_cons_2025.csv';
 

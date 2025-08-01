@@ -7,7 +7,7 @@ use App\Models\LocalMedia;
 
 class ImportLocalMedia extends BaseImportCommand
 {
-    protected $signature = 'import:local-media';
+    protected $signature = 'import:local-media {filename?}';
     protected $description = 'Import local media data from CSV.';
     protected $filename = 'fixtures/local-media.csv';
 

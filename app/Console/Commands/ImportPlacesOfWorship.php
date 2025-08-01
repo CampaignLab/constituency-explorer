@@ -7,7 +7,7 @@ use App\Models\PlaceOfWorship;
 
 class ImportPlacesOfWorship extends BaseImportCommand
 {
-    protected $signature = 'import:places-of-worship';
+    protected $signature = 'import:places-of-worship {filename?}';
     protected $description = 'Import places of worship from CSV file.';
     protected $filename = 'fixtures/places-of-worship.csv';
 

@@ -6,7 +6,7 @@ use App\Models\OldConstituency;
 
 class ImportOldConstituenciesCommand extends BaseImportCommand
 {
-    protected $signature = 'import:old-constituencies';
+    protected $signature = 'import:old-constituencies {filename?}';
     protected $description = 'Import old constituencies (PCON23).';
     protected $filename = 'fixtures/Westminster_Parliamentary_Constituencies_(December_2023)_Names_and_Codes_in_the_UK.csv';
 

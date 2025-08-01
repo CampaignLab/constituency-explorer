@@ -32,7 +32,7 @@ abstract class BaseImportCommand extends Command
      */
     public function getFile()
     {
-        $file = database_path($this->filename);
+        $file = $this->argument('filename') ?: database_path($this->filename);
         if (! file_exists($file)) {
             $this->error("File not found: {$file}");
             return;

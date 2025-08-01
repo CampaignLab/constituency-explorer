@@ -7,7 +7,7 @@ use App\Models\Constituency;
 
 class ImportScottishHospitalsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:scottish-hospitals';
+    protected $signature = 'import:scottish-hospitals {filename?}';
     protected $description = 'Import Scottish hospitals.';
     protected $filename = 'fixtures/hospitals-scotland.csv';
 

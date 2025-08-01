@@ -7,7 +7,7 @@ use App\Models\Dentist;
 
 class ImportDentistsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:dentists';
+    protected $signature = 'import:dentists {filename?}';
     protected $description = 'Import dentists.';
     protected $filename = 'fixtures/dentists-england.csv';
     private $constituencies;

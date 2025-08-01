@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class ImportParliamentConstituencyIds extends BaseImportCommand
 {
-    protected $signature = 'import:parliament-constituency-ids';
+    protected $signature = 'import:parliament-constituency-ids {filename?}';
     protected $description = 'Import Parliament constituency IDs from the Parliament API.';
     protected $filename = 'fixtures/parliament_constituency_ids.csv';
     protected $pageSize = 20;

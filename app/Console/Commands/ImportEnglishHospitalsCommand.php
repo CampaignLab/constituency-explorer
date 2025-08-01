@@ -7,7 +7,7 @@ use App\Models\Hospital;
 
 class ImportEnglishHospitalsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:english-hospitals';
+    protected $signature = 'import:english-hospitals {filename?}';
     protected $description = 'Import English hospitals.';
     protected $filename = 'fixtures/hospitals-england.csv';
     private $constituencies;

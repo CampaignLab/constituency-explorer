@@ -7,7 +7,7 @@ use App\Models\Town;
 
 class ImportConstituencyTownMappingsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:constituency-town-mappings';
+    protected $signature = 'import:constituency-town-mappings {filename?}';
     protected $description = 'Import town to constituency mappings.';
     protected $filename = 'fixtures/towns-map.csv';
 

@@ -7,7 +7,7 @@ use App\Models\Constituency;
 
 class ImportCommunityCentres extends BaseImportCommand
 {
-    protected $signature = 'import:community-centres';
+    protected $signature = 'import:community-centres {filename?}';
     protected $description = 'Import community centres.';
     protected $filename = 'fixtures/community-centres.csv';
     private $constituencies;

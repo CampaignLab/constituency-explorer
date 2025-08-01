@@ -7,7 +7,7 @@ use App\Models\OldConstituency;
 
 class ImportOldConstituencyOverlapsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:old-constituency-overlaps';
+    protected $signature = 'import:old-constituency-overlaps {filename?}';
     protected $description = 'Import old constituency overlaps (PCON23 -> PCON25).';
     protected $filename = 'fixtures/PARL10_PARL25_combo_overlap.csv';
 
