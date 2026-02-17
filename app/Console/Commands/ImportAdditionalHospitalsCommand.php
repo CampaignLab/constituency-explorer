@@ -5,11 +5,11 @@ namespace App\Console\Commands;
 use App\Models\Constituency;
 use App\Models\Hospital;
 
-class ImportEnglishHospitalsCommand extends BaseImportCommand
+class ImportAdditionalHospitalsCommand extends BaseImportCommand
 {
-    protected $signature = 'import:english-hospitals {filename?}';
-    protected $description = 'Import English hospitals.';
-    protected $filename = 'fixtures/hospitals-england.csv';
+    protected $signature = 'import:additional-hospitals {filename?}';
+    protected $description = 'Import additional hospitals.';
+    protected $filename = 'fixtures/additional_hospitals_20250618.csv';
     private $constituencies;
 
     public function initialise()
@@ -19,7 +19,7 @@ class ImportEnglishHospitalsCommand extends BaseImportCommand
 
     public function importRow($row)
     {
-        $gss_code = $row['Mapped: codes.parliamentary_constituency_2025'];
+        $gss_code = $row['Mapped: codes.parliamentary_constituency'];
         if (empty($gss_code)) {
             return null;
         }
@@ -31,19 +31,16 @@ class ImportEnglishHospitalsCommand extends BaseImportCommand
             return null;
         }
 
-        $existing = Hospital::where('name', $row['Name'])->where('constituency_id', $constituency->id)->first();
+        $existing = Hospital::where('name', $row['name'])->where('constituency_id', $constituency->id)->first();
         if ($existing) {
-            $this->warn("Hospital already exists: {$row['Name']} ({$constituency->name})");
+            $this->warn("Hospital already exists: {$row['name']} ({$constituency->name})");
             return null;
         }
 
         return Hospital::create([
             'constituency_id' => $constituency->id,
-            'name' => $row['Name'],
-            'address' => array_merge(
-                array_map(trim(...), explode(',', $row['Address'])),
-                [trim($row['Postcode'])],
-            ),
+            'name' => $row['name'],
+            'address' => [trim($row['postcode'])],
             'latitude' => $row['Mapped: latitude'],
             'longitude' => $row['Mapped: longitude'],
         ]);
